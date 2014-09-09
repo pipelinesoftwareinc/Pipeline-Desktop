@@ -1,0 +1,14 @@
+﻿CREATE TABLE `opportunity` (
+  `OpportunityID` int(11) NOT NULL AUTO_INCREMENT,
+  `OrganizationID` int(11) DEFAULT NULL,
+  `ID` int(11) DEFAULT NULL,
+  `Title` varchar(45) DEFAULT NULL,
+  `Snippet` varchar(45) DEFAULT NULL,
+  `DatePosted` datetime DEFAULT NULL,
+  `City` varchar(45) DEFAULT NULL,
+  `State` varchar(2) DEFAULT NULL,
+  `Url` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`OpportunityID`),
+  UNIQUE KEY `OpportunityID_UNIQUE` (`OpportunityID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+SELECT * FROM pipeline.lead;

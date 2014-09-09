@@ -1,0 +1,15 @@
+E:\Dropbox\Private\Code\LeadHarvest\LeadHarvest\bin\Debug\LeadHarvest.exe.config
+E:\Dropbox\Private\Code\LeadHarvest\LeadHarvest\obj\Debug\LeadHarvest.exe
+E:\Dropbox\Private\Code\LeadHarvest\LeadHarvest\obj\Debug\Pipeline.csproj.App.config
+E:\Dropbox\Private\Code\LeadHarvest\LeadHarvest\obj\Debug\Pipeline.csprojResolveAssemblyReference.cache
+E:\Dropbox\Private\Code\LeadHarvest\LeadHarvest\bin\Debug\LeadHarvest.exe
+E:\Dropbox\Private\Code\LeadHarvest\LeadHarvest\bin\Debug\LeadHarvest.pdb
+E:\Dropbox\Private\Code\LeadHarvest\LeadHarvest\bin\Debug\Microsoft.Threading.Tasks.dll
+E:\Dropbox\Private\Code\LeadHarvest\LeadHarvest\bin\Debug\Microsoft.Threading.Tasks.Extensions.dll
+E:\Dropbox\Private\Code\LeadHarvest\LeadHarvest\bin\Debug\System.Net.Http.Extensions.dll
+E:\Dropbox\Private\Code\LeadHarvest\LeadHarvest\bin\Debug\System.Net.Http.Primitives.dll
+E:\Dropbox\Private\Code\LeadHarvest\LeadHarvest\bin\Debug\Microsoft.Threading.Tasks.xml
+E:\Dropbox\Private\Code\LeadHarvest\LeadHarvest\bin\Debug\Microsoft.Threading.Tasks.Extensions.xml
+E:\Dropbox\Private\Code\LeadHarvest\LeadHarvest\bin\Debug\System.Net.Http.Extensions.xml
+E:\Dropbox\Private\Code\LeadHarvest\LeadHarvest\bin\Debug\System.Net.Http.Primitives.xml
+E:\Dropbox\Private\Code\LeadHarvest\LeadHarvest\obj\Debug\LeadHarvest.pdb

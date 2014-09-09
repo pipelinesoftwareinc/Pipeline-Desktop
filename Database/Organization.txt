@@ -1,0 +1,8 @@
+﻿CREATE TABLE `organization` (
+  `OrganizationID` int(11) NOT NULL AUTO_INCREMENT,
+  `OrganizationName` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`OrganizationID`),
+  UNIQUE KEY `OrganizationID_UNIQUE` (`OrganizationID`),
+  UNIQUE KEY `OrganizationName_UNIQUE` (`OrganizationName`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+SELECT * FROM pipeline.opportunity;
