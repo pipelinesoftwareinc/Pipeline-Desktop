@@ -1,0 +1,9 @@
+E:\Dropbox\Code\PipeLineDesktop\PipeLineDesktop\bin\Debug\PipeLineDesktop.exe.config
+E:\Dropbox\Code\PipeLineDesktop\PipeLineDesktop\bin\Debug\PipeLineDesktop.exe
+E:\Dropbox\Code\PipeLineDesktop\PipeLineDesktop\bin\Debug\PipeLineDesktop.pdb
+E:\Dropbox\Code\PipeLineDesktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.csprojResolveAssemblyReference.cache
+E:\Dropbox\Code\PipeLineDesktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.main.resources
+E:\Dropbox\Code\PipeLineDesktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.Properties.Resources.resources
+E:\Dropbox\Code\PipeLineDesktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.csproj.GenerateResource.Cache
+E:\Dropbox\Code\PipeLineDesktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.exe
+E:\Dropbox\Code\PipeLineDesktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.pdb
