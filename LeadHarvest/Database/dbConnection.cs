@@ -19,8 +19,8 @@ namespace LeadHarvest.Database
                 // NEED TO MOVE THESE TO ENV VARS
                 var server = "localhost";
                 var database = "pipeline";
-                var uid = "pipeline";
-                var password = "P@ssw0rd1";
+                var uid = "root";
+                var password = "9414";
                 
                 _connection.ConnectionString = String.Format("SERVER={0};DATABASE={1};UID={2};PASSWORD={3}",
                     server, database, uid, password);

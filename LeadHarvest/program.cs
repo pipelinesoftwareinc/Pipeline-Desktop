@@ -29,7 +29,17 @@ namespace LeadHarvest
             
             // FETCH SOURCES
             List<Source> lSource = new dbSource().FetchSources(_dbConnection);
-    
+
+            Search sch=new Search();
+            sch.ID=1;
+            sch.Term="C# developer";
+
+            Source src=new Source();
+            src.ID=1;
+            src.Name="indeed";
+
+            lSearch.Add(sch);
+            lSource.Add(src);
             //PROCESS SOURCES
             foreach (Search search in lSearch)
             {
@@ -57,8 +67,6 @@ namespace LeadHarvest
 
             Console.WriteLine("#### DONE ####");
             Console.ReadLine();
-
-
         }
     }
 }
