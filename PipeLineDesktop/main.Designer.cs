@@ -107,6 +107,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -147,7 +148,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
             this.splitContainer1.Panel2.Controls.Add(this.statusStrip1);
-            this.splitContainer1.Size = new System.Drawing.Size(1296, 673);
+            this.splitContainer1.Size = new System.Drawing.Size(1028, 673);
             this.splitContainer1.SplitterDistance = 574;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -168,8 +169,8 @@
             this.splitContainer2.Panel2.Controls.Add(this.textBox1);
             this.splitContainer2.Panel2.Controls.Add(this.menuStrip2);
             this.splitContainer2.Panel2.Controls.Add(this.webBrowser1);
-            this.splitContainer2.Size = new System.Drawing.Size(1296, 550);
-            this.splitContainer2.SplitterDistance = 542;
+            this.splitContainer2.Size = new System.Drawing.Size(1028, 550);
+            this.splitContainer2.SplitterDistance = 429;
             this.splitContainer2.TabIndex = 4;
             // 
             // dataGridOpp
@@ -211,7 +212,7 @@
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
             this.dataGridOpp.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridOpp.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridOpp.Size = new System.Drawing.Size(542, 550);
+            this.dataGridOpp.Size = new System.Drawing.Size(429, 550);
             this.dataGridOpp.TabIndex = 2;
             this.dataGridOpp.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             this.dataGridOpp.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dataGridOpp_KeyUp);
@@ -232,7 +233,7 @@
             this.fowardToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(750, 24);
+            this.menuStrip2.Size = new System.Drawing.Size(595, 24);
             this.menuStrip2.TabIndex = 8;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -268,7 +269,7 @@
             this.webBrowser1.Location = new System.Drawing.Point(0, 0);
             this.webBrowser1.Margin = new System.Windows.Forms.Padding(3, 40, 3, 3);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(750, 550);
+            this.webBrowser1.Size = new System.Drawing.Size(595, 550);
             this.webBrowser1.TabIndex = 7;
             // 
             // contextMenuStrip1
@@ -295,13 +296,13 @@
             // googleToolStripMenuItem1
             // 
             this.googleToolStripMenuItem1.Name = "googleToolStripMenuItem1";
-            this.googleToolStripMenuItem1.Size = new System.Drawing.Size(119, 22);
+            this.googleToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.googleToolStripMenuItem1.Text = "Google";
             // 
             // linkedInToolStripMenuItem1
             // 
             this.linkedInToolStripMenuItem1.Name = "linkedInToolStripMenuItem1";
-            this.linkedInToolStripMenuItem1.Size = new System.Drawing.Size(119, 22);
+            this.linkedInToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.linkedInToolStripMenuItem1.Text = "LinkedIn";
             // 
             // socialToolStripMenuItem
@@ -318,25 +319,25 @@
             // linkedInToolStripMenuItem
             // 
             this.linkedInToolStripMenuItem.Name = "linkedInToolStripMenuItem";
-            this.linkedInToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.linkedInToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.linkedInToolStripMenuItem.Text = "LinkedIn";
             // 
             // facebookToolStripMenuItem
             // 
             this.facebookToolStripMenuItem.Name = "facebookToolStripMenuItem";
-            this.facebookToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.facebookToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.facebookToolStripMenuItem.Text = "Facebook";
             // 
             // twitterToolStripMenuItem
             // 
             this.twitterToolStripMenuItem.Name = "twitterToolStripMenuItem";
-            this.twitterToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.twitterToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.twitterToolStripMenuItem.Text = "Twitter";
             // 
             // googleToolStripMenuItem
             // 
             this.googleToolStripMenuItem.Name = "googleToolStripMenuItem";
-            this.googleToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.googleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.googleToolStripMenuItem.Text = "Google+";
             // 
             // setValueToolStripMenuItem
@@ -358,43 +359,43 @@
             this.emailToolStripMenuItem,
             this.phoneToolStripMenuItem1});
             this.opportunityToolStripMenuItem.Name = "opportunityToolStripMenuItem";
-            this.opportunityToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.opportunityToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.opportunityToolStripMenuItem.Text = "Opportunity";
             // 
             // titleToolStripMenuItem
             // 
             this.titleToolStripMenuItem.Name = "titleToolStripMenuItem";
-            this.titleToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.titleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.titleToolStripMenuItem.Text = "Title";
             // 
             // descriptionToolStripMenuItem
             // 
             this.descriptionToolStripMenuItem.Name = "descriptionToolStripMenuItem";
-            this.descriptionToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.descriptionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.descriptionToolStripMenuItem.Text = "Description";
             // 
             // cityToolStripMenuItem
             // 
             this.cityToolStripMenuItem.Name = "cityToolStripMenuItem";
-            this.cityToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.cityToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.cityToolStripMenuItem.Text = "City";
             // 
             // stateToolStripMenuItem1
             // 
             this.stateToolStripMenuItem1.Name = "stateToolStripMenuItem1";
-            this.stateToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
+            this.stateToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.stateToolStripMenuItem1.Text = "State";
             // 
             // emailToolStripMenuItem
             // 
             this.emailToolStripMenuItem.Name = "emailToolStripMenuItem";
-            this.emailToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.emailToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.emailToolStripMenuItem.Text = "Email";
             // 
             // phoneToolStripMenuItem1
             // 
             this.phoneToolStripMenuItem1.Name = "phoneToolStripMenuItem1";
-            this.phoneToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
+            this.phoneToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.phoneToolStripMenuItem1.Text = "Phone";
             // 
             // organizationToolStripMenuItem
@@ -410,61 +411,61 @@
             this.phoneToolStripMenuItem,
             this.uRLToolStripMenuItem});
             this.organizationToolStripMenuItem.Name = "organizationToolStripMenuItem";
-            this.organizationToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.organizationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.organizationToolStripMenuItem.Text = "Organization";
             // 
             // nameToolStripMenuItem
             // 
             this.nameToolStripMenuItem.Name = "nameToolStripMenuItem";
-            this.nameToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.nameToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.nameToolStripMenuItem.Text = "Name";
             // 
             // descriptionToolStripMenuItem1
             // 
             this.descriptionToolStripMenuItem1.Name = "descriptionToolStripMenuItem1";
-            this.descriptionToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
+            this.descriptionToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.descriptionToolStripMenuItem1.Text = "Description";
             // 
             // address1ToolStripMenuItem
             // 
             this.address1ToolStripMenuItem.Name = "address1ToolStripMenuItem";
-            this.address1ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.address1ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.address1ToolStripMenuItem.Text = "Address 1";
             // 
             // address2ToolStripMenuItem
             // 
             this.address2ToolStripMenuItem.Name = "address2ToolStripMenuItem";
-            this.address2ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.address2ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.address2ToolStripMenuItem.Text = "Address 2";
             // 
             // ciToolStripMenuItem
             // 
             this.ciToolStripMenuItem.Name = "ciToolStripMenuItem";
-            this.ciToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.ciToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.ciToolStripMenuItem.Text = "City";
             // 
             // stateToolStripMenuItem
             // 
             this.stateToolStripMenuItem.Name = "stateToolStripMenuItem";
-            this.stateToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.stateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.stateToolStripMenuItem.Text = "State";
             // 
             // emailToolStripMenuItem1
             // 
             this.emailToolStripMenuItem1.Name = "emailToolStripMenuItem1";
-            this.emailToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
+            this.emailToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.emailToolStripMenuItem1.Text = "Email";
             // 
             // phoneToolStripMenuItem
             // 
             this.phoneToolStripMenuItem.Name = "phoneToolStripMenuItem";
-            this.phoneToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.phoneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.phoneToolStripMenuItem.Text = "Phone";
             // 
             // uRLToolStripMenuItem
             // 
             this.uRLToolStripMenuItem.Name = "uRLToolStripMenuItem";
-            this.uRLToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.uRLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.uRLToolStripMenuItem.Text = "URL";
             // 
             // viewSourceToolStripMenuItem
@@ -478,10 +479,11 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.helpToolStripMenuItem,
+            this.updateToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1296, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1028, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -500,7 +502,7 @@
             this.excelToolStripMenuItem,
             this.cSVToolStripMenuItem});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exportToolStripMenuItem.Text = "Export";
             // 
             // excelToolStripMenuItem
@@ -518,7 +520,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -534,13 +536,14 @@
             // sourcesToolStripMenuItem
             // 
             this.sourcesToolStripMenuItem.Name = "sourcesToolStripMenuItem";
-            this.sourcesToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.sourcesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.sourcesToolStripMenuItem.Text = "Sources";
+            this.sourcesToolStripMenuItem.Click += new System.EventHandler(this.sourcesToolStripMenuItem_Click);
             // 
             // searchesToolStripMenuItem
             // 
             this.searchesToolStripMenuItem.Name = "searchesToolStripMenuItem";
-            this.searchesToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.searchesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.searchesToolStripMenuItem.Text = "Searches";
             // 
             // helpToolStripMenuItem
@@ -554,7 +557,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -568,7 +571,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1296, 73);
+            this.tabControl1.Size = new System.Drawing.Size(1028, 73);
             this.tabControl1.TabIndex = 3;
             // 
             // tabOpp
@@ -577,7 +580,7 @@
             this.tabOpp.Location = new System.Drawing.Point(4, 22);
             this.tabOpp.Name = "tabOpp";
             this.tabOpp.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOpp.Size = new System.Drawing.Size(1288, 47);
+            this.tabOpp.Size = new System.Drawing.Size(1020, 47);
             this.tabOpp.TabIndex = 0;
             this.tabOpp.Text = "Opportunities";
             this.tabOpp.UseVisualStyleBackColor = true;
@@ -614,7 +617,7 @@
             dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridDetail.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            this.dataGridDetail.Size = new System.Drawing.Size(1282, 41);
+            this.dataGridDetail.Size = new System.Drawing.Size(1014, 41);
             this.dataGridDetail.TabIndex = 3;
             // 
             // tabOrg
@@ -623,7 +626,7 @@
             this.tabOrg.Location = new System.Drawing.Point(4, 22);
             this.tabOrg.Name = "tabOrg";
             this.tabOrg.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOrg.Size = new System.Drawing.Size(1288, 47);
+            this.tabOrg.Size = new System.Drawing.Size(1020, 47);
             this.tabOrg.TabIndex = 1;
             this.tabOrg.Text = "Organizations";
             this.tabOrg.UseVisualStyleBackColor = true;
@@ -660,7 +663,7 @@
             dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridOrg.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
-            this.dataGridOrg.Size = new System.Drawing.Size(1282, 41);
+            this.dataGridOrg.Size = new System.Drawing.Size(1014, 41);
             this.dataGridOrg.TabIndex = 0;
             // 
             // tabNetwork
@@ -668,7 +671,7 @@
             this.tabNetwork.Controls.Add(this.dataGridNet);
             this.tabNetwork.Location = new System.Drawing.Point(4, 22);
             this.tabNetwork.Name = "tabNetwork";
-            this.tabNetwork.Size = new System.Drawing.Size(1288, 47);
+            this.tabNetwork.Size = new System.Drawing.Size(1020, 47);
             this.tabNetwork.TabIndex = 2;
             this.tabNetwork.Text = "Network";
             this.tabNetwork.UseVisualStyleBackColor = true;
@@ -703,7 +706,7 @@
             dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridNet.RowHeadersDefaultCellStyle = dataGridViewCellStyle13;
-            this.dataGridNet.Size = new System.Drawing.Size(1288, 47);
+            this.dataGridNet.Size = new System.Drawing.Size(1020, 47);
             this.dataGridNet.TabIndex = 1;
             // 
             // tabContact
@@ -711,7 +714,7 @@
             this.tabContact.Controls.Add(this.dataGridCon);
             this.tabContact.Location = new System.Drawing.Point(4, 22);
             this.tabContact.Name = "tabContact";
-            this.tabContact.Size = new System.Drawing.Size(1288, 47);
+            this.tabContact.Size = new System.Drawing.Size(1020, 47);
             this.tabContact.TabIndex = 3;
             this.tabContact.Text = "Contact";
             this.tabContact.UseVisualStyleBackColor = true;
@@ -746,7 +749,7 @@
             dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridCon.RowHeadersDefaultCellStyle = dataGridViewCellStyle16;
-            this.dataGridCon.Size = new System.Drawing.Size(1288, 47);
+            this.dataGridCon.Size = new System.Drawing.Size(1020, 47);
             this.dataGridCon.TabIndex = 1;
             // 
             // statusStrip1
@@ -756,7 +759,7 @@
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 73);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1296, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1028, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -772,11 +775,18 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
+            // updateToolStripMenuItem
+            // 
+            this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.updateToolStripMenuItem.Text = "Update";
+            this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1296, 673);
+            this.ClientSize = new System.Drawing.Size(1028, 673);
             this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -784,6 +794,7 @@
             this.Name = "main";
             this.Text = "Pipeline Desktop Beta";
             this.Load += new System.EventHandler(this.main_Load);
+            this.Shown += new System.EventHandler(this.main_Shown);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -879,6 +890,7 @@
         private System.Windows.Forms.DataGridView dataGridNet;
         private System.Windows.Forms.TabPage tabContact;
         private System.Windows.Forms.DataGridView dataGridCon;
+        private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
 
     }
 }

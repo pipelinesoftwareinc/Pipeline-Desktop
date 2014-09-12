@@ -5,15 +5,18 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using mshtml;
+using LeadHarvest;
+using LeadHarvest.Database;
+using LeadHarvest.Entities;
+using LeadHarvest.Providers;
 
 namespace PipeLineDesktop
 {
-
-
     public partial class main : Form
     {
         private List<string> _lSocial = new List<string>(new string[] { 
@@ -47,18 +50,15 @@ namespace PipeLineDesktop
         {
 
             WindowState = FormWindowState.Maximized;
-
             webBrowser1.ScriptErrorsSuppressed = true;
             webBrowser1.ContextMenuStrip = this.contextMenuStrip1;
 
             var server = "localhost";
             var database = "pipeline";
-            var uid = "pipeline";
-            var password = "P@ssw0rd1";
+            var uid = "root";
+            var password = "9414";
 
-            _connection.ConnectionString = String.Format("SERVER={0};DATABASE={1};UID={2};PASSWORD={3}",
-                server, database, uid, password);
-
+            _connection.ConnectionString = String.Format("SERVER={0};DATABASE={1};UID={2};PASSWORD={3}",server, database, uid, password);           
             _connection.Open();
 
             string query = String.Format("SELECT * FROM leads;");
@@ -66,21 +66,25 @@ namespace PipeLineDesktop
             DataSet ds = new DataSet();
             dbAdapter.Fill(ds);
             dataGridOpp.DataSource = ds.Tables[0];
+            try
+            {
+                // Set field indexes
+                _referneceURL=this.dataGridOpp.Columns["ResponseUri"].Index;
+                _oppid=this.dataGridOpp.Columns["oppid"].Index;
 
-            // Set field indexes
-            _referneceURL = this.dataGridOpp.Columns["ResponseUri"].Index;
-            _oppid = this.dataGridOpp.Columns["oppid"].Index;
+                _selectedID=dataGridOpp.SelectedCells[_oppid].Value.ToString();
 
-            _selectedID = dataGridOpp.SelectedCells[_oppid].Value.ToString();
-
-            this.dataGridOpp.Columns["searchid"].Visible = false;
-            this.dataGridOpp.Columns["oppid"].Visible = false;
-            this.dataGridOpp.Columns["orgid"].Visible = false;
+                this.dataGridOpp.Columns["searchid"].Visible=false;
+                this.dataGridOpp.Columns["oppid"].Visible=false;
+                this.dataGridOpp.Columns["orgid"].Visible=false;
+            }
+            catch
+            {
+                // No Data Error Catch
+            }
 
             toolStripStatusLabel2.Text = String.Format("Total={0}", this.dataGridOpp.Rows.Count.ToString());
-
             skipSelectionChagned = false;
-
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -104,17 +108,14 @@ namespace PipeLineDesktop
                 catch (Exception ex) { }
             }
         }
-
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("(c) " + DateTime.Today.ToString("yyyy") + " All rights researved. \n Pipeline is a trademark of\n Sevenbrook Consulting Inc.", "Sevenbrook Consulting Inc.");
         }
-
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
 
         }
-
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
 
@@ -252,6 +253,52 @@ namespace PipeLineDesktop
                 dbAdapter.Fill(ds);
                 dataGridOpp.DataSource = ds.Tables[0];
                 dataGridOpp.Refresh();
+            }
+        }
+
+        private void sourcesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void updateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(MessageBox.Show("Are you sure... you want to start update","Confirm",MessageBoxButtons.OKCancel,MessageBoxIcon.Question) == DialogResult.OK)
+            new Thread(new ThreadStart(Update)).Start();
+        }
+        bool Updating=false;
+        public void Update()
+        {
+            bool Update=false;
+            base.Invoke(new Action(() =>
+            {
+                Update=Updating;
+                if(!Updating) Updating=true;
+            }));
+
+            if(Update) { MessageBox.Show("Update already running.. will show you new jobs once we complete updating"); return; }
+
+            DateTime dtStart=DateTime.Now;
+            LeadHarvesterExternal lhe=new LeadHarvesterExternal();
+            lhe.HarvestLead();
+            
+            base.Invoke(new Action(() =>
+            {
+                string query=String.Format("SELECT * FROM leads where created between '"+dtStart+"' and '"+DateTime.Now+"';");
+                MySqlDataAdapter dbAdapter=new MySqlDataAdapter(query, _connection);
+                DataSet ds=new DataSet();
+                dbAdapter.Fill(ds);
+                Updating=false;
+                new New_Jobs(ds.Tables[0]).Show();
+            }));
+        }
+        private void main_Shown(object sender, EventArgs e)
+        {
+            if(MessageBox.Show("Application Require to update Data... Please click Yes to start Update..", "Update", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)==DialogResult.Yes)
+                new Thread(new ThreadStart(Update)).Start();
+            else
+            {
+                MessageBox.Show("You can update application by clicking update menu on the top.", "info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

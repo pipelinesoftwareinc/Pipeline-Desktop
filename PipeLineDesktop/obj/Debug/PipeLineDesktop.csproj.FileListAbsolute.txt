@@ -7,3 +7,14 @@ E:\Dropbox\Code\PipeLineDesktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.Proper
 E:\Dropbox\Code\PipeLineDesktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.csproj.GenerateResource.Cache
 E:\Dropbox\Code\PipeLineDesktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.exe
 E:\Dropbox\Code\PipeLineDesktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.pdb
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\PipeLineDesktop.exe.config
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.exe
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.pdb
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\PipeLineDesktop.exe
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\PipeLineDesktop.pdb
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.main.resources
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.Properties.Resources.resources
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.csproj.GenerateResource.Cache
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\LeadHarvest.dll
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\LeadHarvest.pdb
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.AskUpdate.resources
