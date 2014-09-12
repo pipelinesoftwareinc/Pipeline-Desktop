@@ -42,9 +42,9 @@ namespace LeadHarvest.Providers
             for (int i = 0; i <= pages; i += 10)
                 {
 
-                Console.WriteLine("######################################################");
-                Console.WriteLine("Processing page:" + i + " of " + pages + " total pages");
-                Console.WriteLine("######################################################");
+                //Console.WriteLine("######################################################");
+                //Console.WriteLine("Processing page:" + i + " of " + pages + " total pages");
+                //Console.WriteLine("######################################################");
 
                 // FETCH PAGE
                 url = "http://api.indeed.com/ads/apisearch?publisher=7755817834685213&q=" + Search.Term + "&v=2&start=" + i;
@@ -65,7 +65,7 @@ namespace LeadHarvest.Providers
                         org.Name = result.Element("company").Value.Replace("'", "");
                         org.ID = dbOrg.Create(_dbConnection, org.Name);
 
-                        Console.WriteLine(org.ID + "|" + org.Name);
+                     //   Console.WriteLine(org.ID + "|" + org.Name);
 
                         Opportunity opp = new Opportunity();
                         opp.SourceID = Source.ID;
@@ -85,7 +85,7 @@ namespace LeadHarvest.Providers
                         // CREATE OPPORTUNITY
                         opp.ID = dbOpp.Create(_dbConnection, opp);
 
-                        Console.WriteLine("  >>" + opp.ID + "|" + opp.Title+ "|" + opp.City+ "|" + opp.State);
+                      //  Console.WriteLine("  >>" + opp.ID + "|" + opp.Title+ "|" + opp.City+ "|" + opp.State);
 
                         // ####################
                         // PROCESS RESULTS HTML

@@ -34,10 +34,6 @@ E:\Dropbox\Code\LeadHarvest\LeadHarvest\bin\Debug\Microsoft.Threading.Tasks.xml
 E:\Dropbox\Code\LeadHarvest\LeadHarvest\bin\Debug\Microsoft.Threading.Tasks.Extensions.xml
 E:\Dropbox\Code\LeadHarvest\LeadHarvest\bin\Debug\System.Net.Http.Extensions.xml
 E:\Dropbox\Code\LeadHarvest\LeadHarvest\bin\Debug\System.Net.Http.Primitives.xml
-F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\bin\Debug\LeadHarvest.exe.config
-F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\obj\Debug\LeadHarvest.exe
-F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\obj\Debug\LeadHarvest.pdb
-F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\bin\Debug\LeadHarvest.exe
 F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\bin\Debug\LeadHarvest.pdb
 F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\bin\Debug\Microsoft.Threading.Tasks.dll
 F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\bin\Debug\Microsoft.Threading.Tasks.Extensions.dll
@@ -48,4 +44,10 @@ F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\bin\Debug\Microsoft.
 F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\bin\Debug\System.Net.Http.Extensions.xml
 F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\bin\Debug\System.Net.Http.Primitives.xml
 F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\obj\Debug\LeadHarvest.csproj.App.config
+F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\obj\Debug\LeadHarvest.pdb
+F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\bin\Debug\LeadHarvest.dll.config
+F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\bin\Debug\LeadHarvest.dll
+F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\obj\Debug\LeadHarvest.dll
+F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\obj\Debug\LeadHarvest.New_Jobs.resources
+F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\obj\Debug\LeadHarvest.csproj.GenerateResource.Cache
 F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\obj\Debug\LeadHarvest.csprojResolveAssemblyReference.cache
