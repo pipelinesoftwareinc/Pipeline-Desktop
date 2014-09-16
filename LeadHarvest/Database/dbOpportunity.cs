@@ -13,7 +13,7 @@ namespace LeadHarvest.Database
         public int Create(MySqlConnection dbConnection, Opportunity oppertunity)
         {
             try 
-            { 
+            {  
                 string query = String.Format("INSERT IGNORE INTO opportunity" +
                     "(ID, OrganizationID, SourceID, SearchID, Title, Snippet, DatePosted, City, State, ResponseUri, SourceKey, Created, Modified)" +
                     "VALUES({0},{1},{2},'{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}');" +
@@ -21,7 +21,7 @@ namespace LeadHarvest.Database
                     oppertunity.ID,
                     oppertunity.OrganizationID,
                     oppertunity.SourceID,
-                    oppertunity.SearchID,
+                    oppertunity.SearchID,                    
                     MySqlHelper.EscapeString(oppertunity.Title),
                     MySqlHelper.EscapeString(oppertunity.Snippet), 
                     oppertunity.DatePosted.ToString("yyyy-MM-dd HH:mm:ss"),
@@ -45,7 +45,7 @@ namespace LeadHarvest.Database
             try
             {
                 string query = String.Format("SELECT SourceKey FROM opportunity WHERE SourceID={0};", SourceID);
-                MySqlCommand cmd = new MySqlCommand(query, dbConnection);
+                MySqlCommand cmd=new MySqlCommand(query, dbConnection);
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())

@@ -9,21 +9,21 @@ using MySql.Data.MySqlClient;
 namespace LeadHarvest.Database
 {
     class dbConnection
-    {
-        static MySqlConnection _connection = new MySqlConnection();
+    {       
+        static MySqlConnection _connection=new MySqlConnection();
 
         public MySqlConnection Open()
         {
             try
             {
                 // NEED TO MOVE THESE TO ENV VARS
-                var server = "localhost";
-                var database = "pipeline";
-                var uid = "root";
-                var password = "9414";
-                
-                _connection.ConnectionString = String.Format("SERVER={0};DATABASE={1};UID={2};PASSWORD={3}",
-                    server, database, uid, password);
+                var server="localhost";
+                var database="pipeline";
+                var uid="root";
+                var password="9414";
+
+                _connection.ConnectionString=String.Format("SERVER={0};DATABASE={1};UID={2};PASSWORD={3}",
+                 server, database, uid, password);
 
                 _connection.Open();
                 return _connection;
@@ -32,7 +32,7 @@ namespace LeadHarvest.Database
             {
                 return null;
             }
-        }
+        }    
 
         public bool Close()
         {

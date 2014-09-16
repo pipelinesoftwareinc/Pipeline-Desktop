@@ -12,8 +12,8 @@ namespace LeadHarvest.Database
     {
         public List<LeadHarvest.Entities.Source> FetchSources(MySqlConnection dbConnection)
         {
-            string query = "SELECT * FROM pipeline.source;";
-            MySqlCommand cmd = new MySqlCommand(query, dbConnection);
+            string query = "SELECT * FROM source;";
+            MySqlCommand cmd=new MySqlCommand(query, dbConnection);
             MySqlDataReader reader = cmd.ExecuteReader();
             
             List<Source> Sources = new List<Source>();

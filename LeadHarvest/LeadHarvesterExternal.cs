@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LeadHarvest.Database;
+using LeadHarvest.SqliteDal;
 using LeadHarvest.Entities;
 using LeadHarvest.Providers;
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.Data.SQLite;
 
 namespace LeadHarvest
 {
     public class LeadHarvesterExternal
     {
-        static MySqlConnection _dbConnection=new Database.dbConnection().Open();
-        public void HarvestLead()
-        {            
+        //static MySqlConnection _dbConnection=new Database.dbConnection().Open();
+        static SQLiteConnection _dbConnection=new SQLiteConnection();
+        public void HarvestLead(string DatabaseLocation)
+        {
+            _dbConnection=new dbConnection().Open(DatabaseLocation);
             // FETCH TermS
             List<Search> lSearch=new dbSearch().FetchTerms(_dbConnection);
 

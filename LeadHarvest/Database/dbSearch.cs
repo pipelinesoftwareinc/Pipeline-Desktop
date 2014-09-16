@@ -13,7 +13,7 @@ namespace LeadHarvest.Database
         public List<Search> FetchTerms(MySqlConnection dbConnection)
         {
             string query = "SELECT * FROM Search WHERE UserID =1;";
-            MySqlCommand cmd = new MySqlCommand(query, dbConnection);
+            MySqlCommand cmd=new MySqlCommand(query, dbConnection);
             MySqlDataReader reader = cmd.ExecuteReader();
 
             List<Search> Searches = new List<Search>();

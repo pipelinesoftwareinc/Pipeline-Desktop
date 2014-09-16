@@ -10,9 +10,11 @@ using System.Xml.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using LeadHarvest;
-using LeadHarvest.Database;
+//using LeadHarvest.Database;
+using LeadHarvest.SqliteDal;
 using LeadHarvest.Entities;
 using LeadHarvest.Crawlers;
+using System.Data.SQLite;
 
 namespace LeadHarvest.Providers
 {
@@ -22,7 +24,7 @@ namespace LeadHarvest.Providers
         public Search Search;
 
         private web web = new web();
-        public void fetch(MySqlConnection _dbConnection)
+        public void fetch(SQLiteConnection _dbConnection)
         {
 
             dbOpportunity dbOpp = new dbOpportunity();

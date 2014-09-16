@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
 using LeadHarvest.Entities;
+using MySql.Data.MySqlClient;
 
 namespace LeadHarvest.Database
 {
@@ -46,8 +46,8 @@ namespace LeadHarvest.Database
             try
             {
                 string query = String.Format("SELECT * FROM organization WHERE Name='{0}';", Name);
-                MySqlCommand cmd = new MySqlCommand(query, dbConnection);
-                MySqlDataReader reader = cmd.ExecuteReader();
+                MySqlCommand cmd=new MySqlCommand(query, dbConnection);
+                MySqlDataReader reader=cmd.ExecuteReader();
 
                 if (reader.Depth == 0)
                 { return null; }
@@ -70,7 +70,7 @@ namespace LeadHarvest.Database
             try
             {
                 string query = String.Format(@"INSERT IGNORE INTO organization(Name)VALUES('{0}');SELECT ID FROM organization WHERE Name='{0}';", name);
-                MySqlCommand cmd = new MySqlCommand(query, dbConnection);
+                MySqlCommand cmd=new MySqlCommand(query, dbConnection);
                 return Convert.ToInt32(cmd.ExecuteScalar());
             }
             catch (Exception ex) { return 0; }
@@ -83,7 +83,7 @@ namespace LeadHarvest.Database
                 Name='{0}',EmailDomain='{1}',Description='{2}',LinkedIn='{3}',Facebook='{4}',Twitter='{5}',GooglePlus='{6}'
                 WHERE ID={7};",
                 org.Name, org.EmailDomain, MySqlHelper.EscapeString(org.Description), org.LinkedIn, org.Facebook, org.Twitter, org.GooglePlus, org.ID);
-            MySqlCommand cmd = new MySqlCommand(query, dbConnection);
+            MySqlCommand cmd=new MySqlCommand(query, dbConnection);
             cmd.ExecuteNonQuery();
             }
             catch (Exception ex) { }
@@ -95,7 +95,7 @@ namespace LeadHarvest.Database
             {
                 string query = String.Format("UPDATE organization SET EmailDomain = '{0}' WHERE ID = {1};",
                     org.EmailDomain, org.ID);
-                MySqlCommand cmd = new MySqlCommand(query, dbConnection);
+                MySqlCommand cmd=new MySqlCommand(query, dbConnection);
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex) { }
@@ -109,7 +109,7 @@ namespace LeadHarvest.Database
                 LinkedIn='{0}',Facebook='{1}',Twitter='{2}',GooglePlus='{3}' 
                 WHERE ID={4};",
                     org.LinkedIn, org.Facebook, org.Twitter, org.GooglePlus, org.ID);
-                MySqlCommand cmd = new MySqlCommand(query, dbConnection);
+                MySqlCommand cmd=new MySqlCommand(query, dbConnection);
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex) { }

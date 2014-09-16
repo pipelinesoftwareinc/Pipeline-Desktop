@@ -45,9 +45,13 @@ F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\bin\Debug\System.Net
 F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\bin\Debug\System.Net.Http.Primitives.xml
 F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\obj\Debug\LeadHarvest.csproj.App.config
 F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\obj\Debug\LeadHarvest.pdb
+F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\obj\Debug\LeadHarvest.New_Jobs.resources
+F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\obj\Debug\LeadHarvest.csproj.GenerateResource.Cache
+F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\bin\Debug\System.Data.SQLite.dll
+F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\bin\Debug\System.Data.SQLite.EF6.dll
+F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\bin\Debug\System.Data.SQLite.Linq.dll
+F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\bin\Debug\System.Data.SQLite.xml
 F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\bin\Debug\LeadHarvest.dll.config
 F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\bin\Debug\LeadHarvest.dll
 F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\obj\Debug\LeadHarvest.dll
-F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\obj\Debug\LeadHarvest.New_Jobs.resources
-F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\obj\Debug\LeadHarvest.csproj.GenerateResource.Cache
 F:\windows project\LeadHarvester\Lead-Harvester\LeadHarvest\obj\Debug\LeadHarvest.csprojResolveAssemblyReference.cache
