@@ -10,8 +10,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using mshtml;
+using System.Data.SQLite;
 using LeadHarvest;
-using LeadHarvest.Database;
+using LeadHarvest.SqliteDal;
 using LeadHarvest.Entities;
 using LeadHarvest.Providers;
 
@@ -29,7 +30,7 @@ namespace PipeLineDesktop
 
         private HtmlElement _html;
         bool skipSelectionChagned = true;
-        MySqlConnection _connection = new MySqlConnection();
+        SQLiteConnection _connection=new SQLiteConnection();
 
         public main()
         {
@@ -53,16 +54,18 @@ namespace PipeLineDesktop
             webBrowser1.ScriptErrorsSuppressed = true;
             webBrowser1.ContextMenuStrip = this.contextMenuStrip1;
 
-            var server = "localhost";
-            var database = "pipeline";
-            var uid = "root";
-            var password = "9414";
+            //var server = "localhost";
+            //var database = "pipeline";
+            //var uid = "root";
+            //var password = "9414";
 
-            _connection.ConnectionString = String.Format("SERVER={0};DATABASE={1};UID={2};PASSWORD={3}",server, database, uid, password);           
+            //_connection.ConnectionString = String.Format("SERVER={0};DATABASE={1};UID={2};PASSWORD={3}",server, database, uid, password);           
+            _connection.ConnectionString=_connection.ConnectionString=String.Format("Data Source={0};version=3;Compress=True;", "pipeLine.db");
             _connection.Open();
 
             string query = String.Format("SELECT * FROM leads;");
-            MySqlDataAdapter dbAdapter = new MySqlDataAdapter(query, _connection);
+            //MySqlDataAdapter dbAdapter = new MySqlDataAdapter(query, _connection);
+            SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
             DataSet ds = new DataSet();
             dbAdapter.Fill(ds);
             dataGridOpp.DataSource = ds.Tables[0];
@@ -99,7 +102,8 @@ namespace PipeLineDesktop
                     _selectedID = dataGridOpp.SelectedCells[_oppid].Value.ToString();
 
                     string query = string.Format("SELECT Title, City, State, DatePosted, Created, Snippet, ResponseUri FROM opportunity WHERE id={0};", _selectedID);
-                    MySqlDataAdapter dbAdapter = new MySqlDataAdapter(query, _connection);
+                    //MySqlDataAdapter dbAdapter = new MySqlDataAdapter(query, _connection);
+                    SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
                     DataSet ds = new DataSet();
                     dbAdapter.Fill(ds);
                     dataGridDetail.DataSource = ds.Tables[0];
@@ -221,7 +225,8 @@ namespace PipeLineDesktop
         private void tabControl1_Click(object sender, EventArgs e)
         {
             string query = "SELECT ID, Name, Description, Linkedin, Facebook, Twitter, GooglePlus FROM organization;";
-            MySqlDataAdapter dbAdapter = new MySqlDataAdapter(query, _connection);
+            //MySqlDataAdapter dbAdapter = new MySqlDataAdapter(query, _connection);
+            SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
             DataSet ds = new DataSet();
             dbAdapter.Fill(ds);
             dataGridOrg.DataSource = ds.Tables[0];
@@ -244,11 +249,13 @@ namespace PipeLineDesktop
             {
                 // delete
                 string query = string.Format("DELETE FROM opportunity WHERE id={0};",_selectedID);
-                MySqlDataAdapter dbAdapter = new MySqlDataAdapter(query, _connection);
+                //MySqlDataAdapter dbAdapter = new MySqlDataAdapter(query, _connection);
+                SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
 
                 //refreash
                 query = String.Format("SELECT * FROM leads;");
-                dbAdapter = new MySqlDataAdapter(query, _connection);
+                //dbAdapter = new MySqlDataAdapter(query, _connection);
+                dbAdapter=new SQLiteDataAdapter(query, _connection);
                 DataSet ds = new DataSet();
                 dbAdapter.Fill(ds);
                 dataGridOpp.DataSource = ds.Tables[0];
@@ -280,12 +287,13 @@ namespace PipeLineDesktop
 
             DateTime dtStart=DateTime.Now;
             LeadHarvesterExternal lhe=new LeadHarvesterExternal();
-            lhe.HarvestLead();
+            lhe.HarvestLead("pipeLine.db");
             
             base.Invoke(new Action(() =>
             {
                 string query=String.Format("SELECT * FROM leads where created between '"+dtStart+"' and '"+DateTime.Now+"';");
-                MySqlDataAdapter dbAdapter=new MySqlDataAdapter(query, _connection);
+                //MySqlDataAdapter dbAdapter=new MySqlDataAdapter(query, _connection);
+                SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
                 DataSet ds=new DataSet();
                 dbAdapter.Fill(ds);
                 Updating=false;

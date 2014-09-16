@@ -18,3 +18,12 @@ F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.cs
 F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\LeadHarvest.dll
 F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\LeadHarvest.pdb
 F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.AskUpdate.resources
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.csprojResolveAssemblyReference.cache
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\EntityFramework.dll
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\EntityFramework.SqlServer.dll
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\System.Data.SQLite.dll
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\System.Data.SQLite.EF6.dll
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\System.Data.SQLite.Linq.dll
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\EntityFramework.xml
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\EntityFramework.SqlServer.xml
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\System.Data.SQLite.xml
