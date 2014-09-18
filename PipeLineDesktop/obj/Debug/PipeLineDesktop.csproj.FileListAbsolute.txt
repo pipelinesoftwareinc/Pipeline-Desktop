@@ -15,7 +15,6 @@ F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\PipeLineDesktop.pd
 F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.main.resources
 F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.Properties.Resources.resources
 F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.csproj.GenerateResource.Cache
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\LeadHarvest.dll
 F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\LeadHarvest.pdb
 F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.AskUpdate.resources
 F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.csprojResolveAssemblyReference.cache
