@@ -16,9 +16,9 @@ namespace LeadHarvest.SqliteDal
             try 
             { 
                 string query = String.Format("INSERT OR IGNORE INTO opportunity" +
-                    "(ID, OrganizationID, SourceID, SearchID, Title, Snippet, DatePosted, City, State, ResponseUri, SourceKey, Created, Modified)" +
-                    "VALUES({0},{1},{2},'{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}');" +
-                    "SELECT ID FROM opportunity WHERE SourceKey='{9}';",
+                    "(OrganizationID, SourceID, SearchID, Title, Snippet, DatePosted, City, State, ResponseUri, SourceKey, Created, Modified)" +
+                    "VALUES({1},{2},'{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}');" +
+                    "SELECT ID FROM opportunity WHERE SourceKey='{10}';",
                     oppertunity.ID,
                     oppertunity.OrganizationID,
                     oppertunity.SourceID,

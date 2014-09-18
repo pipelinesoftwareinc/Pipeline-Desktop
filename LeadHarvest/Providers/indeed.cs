@@ -87,7 +87,7 @@ namespace LeadHarvest.Providers
                         // CREATE OPPORTUNITY
                         opp.ID = dbOpp.Create(_dbConnection, opp);
 
-                      //  Console.WriteLine("  >>" + opp.ID + "|" + opp.Title+ "|" + opp.City+ "|" + opp.State);
+                         Console.WriteLine("  >>" + opp.ID + "|" + opp.Title+ "|" + opp.City+ "|" + opp.State);
 
                         // ####################
                         // PROCESS RESULTS HTML

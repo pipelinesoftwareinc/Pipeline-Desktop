@@ -16,7 +16,7 @@ namespace LeadHarvest.SqliteDal
 
         public SQLiteConnection Open()
         {
-            return Open("pipeline.db");
+            return Open("pipeLine.db");
         }
         public SQLiteConnection Open(string Database)
         {
