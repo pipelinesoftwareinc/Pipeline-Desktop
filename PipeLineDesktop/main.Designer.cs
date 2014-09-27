@@ -95,6 +95,7 @@
             this.searchesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabOpp = new System.Windows.Forms.TabPage();
             this.dataGridDetail = new System.Windows.Forms.DataGridView();
@@ -107,7 +108,6 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -214,6 +214,7 @@
             this.dataGridOpp.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridOpp.Size = new System.Drawing.Size(429, 550);
             this.dataGridOpp.TabIndex = 2;
+         //   this.dataGridOpp.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridOpp_CellContentClick);
             this.dataGridOpp.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             this.dataGridOpp.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dataGridOpp_KeyUp);
             // 
@@ -221,7 +222,7 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(207, 3);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(491, 20);
+            this.textBox1.Size = new System.Drawing.Size(376, 20);
             this.textBox1.TabIndex = 11;
             // 
             // menuStrip2
@@ -280,7 +281,7 @@
             this.setValueToolStripMenuItem,
             this.viewSourceToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(139, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 114);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             this.contextMenuStrip1.Opened += new System.EventHandler(this.contextMenuStrip1_Opened);
             // 
@@ -290,19 +291,19 @@
             this.googleToolStripMenuItem1,
             this.linkedInToolStripMenuItem1});
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.searchToolStripMenuItem.Text = "Search";
             // 
             // googleToolStripMenuItem1
             // 
             this.googleToolStripMenuItem1.Name = "googleToolStripMenuItem1";
-            this.googleToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.googleToolStripMenuItem1.Size = new System.Drawing.Size(119, 22);
             this.googleToolStripMenuItem1.Text = "Google";
             // 
             // linkedInToolStripMenuItem1
             // 
             this.linkedInToolStripMenuItem1.Name = "linkedInToolStripMenuItem1";
-            this.linkedInToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.linkedInToolStripMenuItem1.Size = new System.Drawing.Size(119, 22);
             this.linkedInToolStripMenuItem1.Text = "LinkedIn";
             // 
             // socialToolStripMenuItem
@@ -313,31 +314,31 @@
             this.twitterToolStripMenuItem,
             this.googleToolStripMenuItem});
             this.socialToolStripMenuItem.Name = "socialToolStripMenuItem";
-            this.socialToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.socialToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.socialToolStripMenuItem.Text = "Set Social";
             // 
             // linkedInToolStripMenuItem
             // 
             this.linkedInToolStripMenuItem.Name = "linkedInToolStripMenuItem";
-            this.linkedInToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.linkedInToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.linkedInToolStripMenuItem.Text = "LinkedIn";
             // 
             // facebookToolStripMenuItem
             // 
             this.facebookToolStripMenuItem.Name = "facebookToolStripMenuItem";
-            this.facebookToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.facebookToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.facebookToolStripMenuItem.Text = "Facebook";
             // 
             // twitterToolStripMenuItem
             // 
             this.twitterToolStripMenuItem.Name = "twitterToolStripMenuItem";
-            this.twitterToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.twitterToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.twitterToolStripMenuItem.Text = "Twitter";
             // 
             // googleToolStripMenuItem
             // 
             this.googleToolStripMenuItem.Name = "googleToolStripMenuItem";
-            this.googleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.googleToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.googleToolStripMenuItem.Text = "Google+";
             // 
             // setValueToolStripMenuItem
@@ -346,7 +347,7 @@
             this.opportunityToolStripMenuItem,
             this.organizationToolStripMenuItem});
             this.setValueToolStripMenuItem.Name = "setValueToolStripMenuItem";
-            this.setValueToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.setValueToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.setValueToolStripMenuItem.Text = "Set Value";
             // 
             // opportunityToolStripMenuItem
@@ -367,36 +368,42 @@
             this.titleToolStripMenuItem.Name = "titleToolStripMenuItem";
             this.titleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.titleToolStripMenuItem.Text = "Title";
+            this.titleToolStripMenuItem.Click += new System.EventHandler(this.titleToolStripMenuItem_Click);
             // 
             // descriptionToolStripMenuItem
             // 
             this.descriptionToolStripMenuItem.Name = "descriptionToolStripMenuItem";
             this.descriptionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.descriptionToolStripMenuItem.Text = "Description";
+            this.descriptionToolStripMenuItem.Click += new System.EventHandler(this.descriptionToolStripMenuItem_Click);
             // 
             // cityToolStripMenuItem
             // 
             this.cityToolStripMenuItem.Name = "cityToolStripMenuItem";
             this.cityToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.cityToolStripMenuItem.Text = "City";
+            this.cityToolStripMenuItem.Click += new System.EventHandler(this.titleToolStripMenuItem_Click);
             // 
             // stateToolStripMenuItem1
             // 
             this.stateToolStripMenuItem1.Name = "stateToolStripMenuItem1";
             this.stateToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.stateToolStripMenuItem1.Text = "State";
+            this.stateToolStripMenuItem1.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
             // 
             // emailToolStripMenuItem
             // 
             this.emailToolStripMenuItem.Name = "emailToolStripMenuItem";
             this.emailToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.emailToolStripMenuItem.Text = "Email";
+            this.emailToolStripMenuItem.Click += new System.EventHandler(this.emailToolStripMenuItem_Click);
             // 
             // phoneToolStripMenuItem1
             // 
             this.phoneToolStripMenuItem1.Name = "phoneToolStripMenuItem1";
             this.phoneToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.phoneToolStripMenuItem1.Text = "Phone";
+            this.phoneToolStripMenuItem1.Click += new System.EventHandler(this.phoneToolStripMenuItem1_Click);
             // 
             // organizationToolStripMenuItem
             // 
@@ -471,7 +478,7 @@
             // viewSourceToolStripMenuItem
             // 
             this.viewSourceToolStripMenuItem.Name = "viewSourceToolStripMenuItem";
-            this.viewSourceToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.viewSourceToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.viewSourceToolStripMenuItem.Text = "View Source";
             // 
             // menuStrip1
@@ -557,9 +564,16 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // updateToolStripMenuItem
+            // 
+            this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.updateToolStripMenuItem.Text = "Update";
+            this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
             // 
             // tabControl1
             // 
@@ -774,13 +788,6 @@
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
-            // 
-            // updateToolStripMenuItem
-            // 
-            this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
-            this.updateToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
-            this.updateToolStripMenuItem.Text = "Update";
-            this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
             // 
             // main
             // 

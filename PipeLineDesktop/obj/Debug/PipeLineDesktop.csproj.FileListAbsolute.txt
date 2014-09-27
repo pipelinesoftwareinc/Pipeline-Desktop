@@ -26,3 +26,4 @@ F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\System.Data.SQLite
 F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\EntityFramework.xml
 F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\EntityFramework.SqlServer.xml
 F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\System.Data.SQLite.xml
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\LeadHarvest.dll
