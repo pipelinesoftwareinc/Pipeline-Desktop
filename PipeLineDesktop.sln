@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipeLineDesktop", "PipeLineDesktop\PipeLineDesktop.csproj", "{53AF9DE4-5A54-4865-878C-751E89E5F333}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeadHarvest", "..\LeadHarvester\Lead-Harvester\LeadHarvest\LeadHarvest.csproj", "{296A79E0-68F1-4274-9BCE-0C0B70CB52AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeadHarvest", "LeadHarvester\Lead-Harvester\LeadHarvest\LeadHarvest.csproj", "{296A79E0-68F1-4274-9BCE-0C0B70CB52AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
