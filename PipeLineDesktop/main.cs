@@ -101,47 +101,66 @@ namespace PipeLineDesktop
                     _selectedID=dataGridOpp.SelectedCells[_oppid].Value.ToString();
 
                     string query=string.Format("SELECT Title, City, State, DatePosted, Created, Snippet, ResponseUri FROM opportunity WHERE id={0};", _selectedID);
-                    //MySqlDataAdapter dbAdapter = new MySqlDataAdapter(query, _connection);
+                    
                     SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
                     DataSet ds=new DataSet();
                     dbAdapter.Fill(ds);
                     dataGridDetail.DataSource=ds.Tables[0];
-                    this.dataGridDetail.Refresh();
+                    this.dataGridDetail.Refresh();                 
 
-                    DataSet dataSet1=new DataSet();
-
-                    this.dataGridDetail.DataSource=(object)dataSet1.Tables[0];
-                    this.dataGridDetail.Refresh();
-                    query=string.Format("SELECT Name, LinkedIn, FaceBook, Twitter, GooglePlus, Description FROM organization WHERE id={0};", _selectedID);
+                    query=string.Format("SELECT Name, LinkedIn as LinkedInUrl, FaceBook as FaceBookUrl, Twitter as TwitterUrl, GooglePlus as GooglePlusUrl, Description FROM organization WHERE id={0};", _selectedID);
                     DataSet dataSet2=new DataSet();
+                    dbAdapter=new SQLiteDataAdapter(query, _connection);
+                    dbAdapter.Fill(dataSet2);
 
                     this.dataGridOrg.DataSource=null;
                     this.dataGridOrg.Rows.Clear();
                     this.dataGridOrg.Columns.Clear();
                     this.dataGridOrg.AllowUserToAddRows=false;
 
-                    this.dataGridOrg.DataSource=(object)dataSet2.Tables[0];
-                    this.dataGridOrg.Columns["Facebook"].Visible=false;
-                    this.dataGridOrg.Columns["LinkedIn"].Visible=false;
-                    this.dataGridOrg.Columns["Twitter"].Visible=false;
-                    this.dataGridOrg.Columns["GooglePlus"].Visible=false;
-                    this.AddImageColumn("LinkedIn", "social_icons/linkedin.png", 2);
-                    this.AddImageColumn("Facebook", "social_icons/facebook.png", 3);
-                    this.AddImageColumn("Twitter", "social_icons/twitter.png", 4);
-                    this.AddImageColumn("Google", "social_icons/google_plus.png", 5);
+                    this.dataGridOrg.DataSource=dataSet2.Tables[0];
+
+                    this.dataGridOrg.Columns["FacebookUrl"].Visible=false;
+                    this.dataGridOrg.Columns["LinkedInUrl"].Visible=false;
+                    this.dataGridOrg.Columns["TwitterUrl"].Visible=false;
+                    this.dataGridOrg.Columns["GooglePlusUrl"].Visible=false;
+                    
+                    int count=2;
+                    if(!string.IsNullOrEmpty(dataSet2.Tables[0].Rows[0]["LinkedInUrl"].ToString()))
+                    {
+                        this.AddImageColumn("LinkedIn", "social_icons/linkedin.png", count, dataSet2.Tables[0].Rows[0]["LinkedInUrl"].ToString());
+                        count++;
+                    }
+                    if(!string.IsNullOrEmpty(dataSet2.Tables[0].Rows[0]["FacebookUrl"].ToString()))
+                    {
+                        this.AddImageColumn("Facebook", "social_icons/facebook.png", count, dataSet2.Tables[0].Rows[0]["FacebookUrl"].ToString());
+                        count++;
+                    }
+                    if(!string.IsNullOrEmpty(dataSet2.Tables[0].Rows[0]["TwitterUrl"].ToString()))
+                    {
+                        this.AddImageColumn("Twitter", "social_icons/twitter.png", count, dataSet2.Tables[0].Rows[0]["TwitterUrl"].ToString());
+                        count++;
+                    }
+                    if(!string.IsNullOrEmpty(dataSet2.Tables[0].Rows[0]["GooglePlusUrl"].ToString()))
+                    {
+                        this.AddImageColumn("Google", "social_icons/google_plus.png", count, dataSet2.Tables[0].Rows[0]["GooglePlusUrl"].ToString());
+                       
+                    }
                     this.dataGridOrg.Refresh();
 
                 }
                 catch(Exception ex) { }
             }
         }
-        private void AddImageColumn(string ColumnName, string ImageSource, int Index)
+        private void AddImageColumn(string ColumnName, string ImageSource, int Index,string Url)
         {
             DataGridViewImageColumn gridViewImageColumn=new DataGridViewImageColumn();
             Image image=Image.FromFile(ImageSource);
             gridViewImageColumn.Image=image;
             gridViewImageColumn.HeaderText=ColumnName;
             gridViewImageColumn.Name=ColumnName;
+            gridViewImageColumn.ToolTipText=Url;
+            gridViewImageColumn.Tag=Url;
             this.dataGridOrg.Columns.Insert(Index, gridViewImageColumn);
         }
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -256,12 +275,12 @@ namespace PipeLineDesktop
 
         private void tabControl1_Click(object sender, EventArgs e)
         {
-            string query="SELECT ID, Name, Description, Linkedin, Facebook, Twitter, GooglePlus FROM organization;";
-            //MySqlDataAdapter dbAdapter = new MySqlDataAdapter(query, _connection);
-            SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
-            DataSet ds=new DataSet();
-            dbAdapter.Fill(ds);
-            dataGridOrg.DataSource=ds.Tables[0];
+            //string query="SELECT ID, Name, Description, Linkedin, Facebook, Twitter, GooglePlus FROM organization;";
+            ////MySqlDataAdapter dbAdapter = new MySqlDataAdapter(query, _connection);
+            //SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
+            //DataSet ds=new DataSet();
+            //dbAdapter.Fill(ds);
+            //dataGridOrg.DataSource=ds.Tables[0];
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -415,7 +434,7 @@ namespace PipeLineDesktop
             this.UpdateOppertunity(((ToolStripItem)sender).Text);
         }
 
-          public int CreateEmail(string emailAddress)
+        public int CreateEmail(string emailAddress)
         {
             try
             {
@@ -425,5 +444,47 @@ namespace PipeLineDesktop
             }
             catch(Exception ex) { return 0; }
         }
+
+          private void dataGridOrg_CellContentClick(object sender, DataGridViewCellEventArgs e)
+          {
+              
+              if(e.ColumnIndex > -1 && e.RowIndex > -1)
+              {
+                  //if(dataGridOrg[e.ColumnIndex,e.RowIndex].Tag != null && !string.IsNullOrEmpty(dataGridOrg[e.ColumnIndex,e.RowIndex].Tag.ToString()))
+                  //{
+                  //    try
+                  //    {
+                  //        webBrowser1.Navigate(dataGridOrg[e.ColumnIndex, e.RowIndex].Tag.ToString());
+                  //    }
+                  //    catch
+                  //    {
+                  //        // TODO:  Log error....   Ankur
+                  //    }
+                  //}
+                  string url="";
+                  if(dataGridOrg[e.ColumnIndex,e.RowIndex].OwningColumn.HeaderText == "Facebook")
+                  {
+                      url=this.dataGridOrg["FacebookUrl", e.RowIndex].Value.ToString();                                                                 
+                  }
+                  else if(dataGridOrg[e.ColumnIndex, e.RowIndex].OwningColumn.HeaderText=="LinkedIn")
+                  {
+                      url=this.dataGridOrg["LinkedInUrl", e.RowIndex].Value.ToString();
+                  }
+                  else if(dataGridOrg[e.ColumnIndex, e.RowIndex].OwningColumn.HeaderText=="Twitter")
+                  {
+                      url=this.dataGridOrg["TwitterUrl", e.RowIndex].Value.ToString();                      
+                  }
+                  else if(dataGridOrg[e.ColumnIndex, e.RowIndex].OwningColumn.HeaderText=="GooglePlus")
+                  {
+                      url=this.dataGridOrg["GooglePlusUrl", e.RowIndex].Value.ToString();
+                  }
+
+                  if(!string.IsNullOrEmpty(url))
+                  {
+                      this.webBrowser1.Url=new Uri(url);
+                      this.textBox1.Text=url.ToString();
+                  }
+              }
+          }
     }
 }
