@@ -446,8 +446,7 @@ namespace PipeLineDesktop
         }
 
           private void dataGridOrg_CellContentClick(object sender, DataGridViewCellEventArgs e)
-          {
-              
+          {              
               if(e.ColumnIndex > -1 && e.RowIndex > -1)
               {
                   //if(dataGridOrg[e.ColumnIndex,e.RowIndex].Tag != null && !string.IsNullOrEmpty(dataGridOrg[e.ColumnIndex,e.RowIndex].Tag.ToString()))
