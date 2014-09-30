@@ -112,7 +112,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lead-Harvester\LeadHarvest\LeadHarvest.csproj">
+    <ProjectReference Include="..\LeadHarvester\Lead-Harvester\LeadHarvest\LeadHarvest.csproj">
       <Project>{296a79e0-68f1-4274-9bce-0c0b70cb52ab}</Project>
       <Name>LeadHarvest</Name>
     </ProjectReference>
