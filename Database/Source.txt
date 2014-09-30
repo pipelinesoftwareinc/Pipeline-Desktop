@@ -1,0 +1,5 @@
+﻿CREATE TABLE `source` (
+  `SourceID` int(11) NOT NULL AUTO_INCREMENT,
+  `SourceName` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`SourceID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
