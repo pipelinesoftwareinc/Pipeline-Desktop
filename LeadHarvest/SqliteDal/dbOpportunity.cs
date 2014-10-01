@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
 using LeadHarvest.Entities;
 using System.Data.SQLite;
+using System.Text.RegularExpressions;
 
 namespace LeadHarvest.SqliteDal
 {
@@ -22,11 +22,11 @@ namespace LeadHarvest.SqliteDal
                     oppertunity.ID,
                     oppertunity.OrganizationID,
                     oppertunity.SourceID,
-                    oppertunity.SearchID,                    
-                    MySqlHelper.EscapeString(oppertunity.Title),
-                    MySqlHelper.EscapeString(oppertunity.Snippet), 
+                    oppertunity.SearchID,
+                     Regex.Escape(oppertunity.Title),
+                     Regex.Escape(oppertunity.Snippet), 
                     oppertunity.DatePosted.ToString("yyyy-MM-dd HH:mm:ss"),
-                    MySqlHelper.EscapeString(oppertunity.City), 
+                     Regex.Escape(oppertunity.City), 
                     oppertunity.State, 
                     oppertunity.ResponseUri,
                     oppertunity.SourceKey,

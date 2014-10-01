@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LeadHarvest.Entities;
-using MySql.Data.MySqlClient;
 using System.Data.SQLite;
 
 namespace LeadHarvest.SqliteDal

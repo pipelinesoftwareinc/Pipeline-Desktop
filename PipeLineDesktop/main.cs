@@ -47,27 +47,19 @@ namespace PipeLineDesktop
         {
             Application.Exit();
         }
-
         private void main_Load(object sender, EventArgs e)
         {
 
             WindowState=FormWindowState.Maximized;
             webBrowser1.ScriptErrorsSuppressed=true;
-            webBrowser1.ContextMenuStrip=this.contextMenuStrip1;
-
-            //var server = "localhost";
-            //var database = "pipeline";
-            //var uid = "root";
-            //var password = "9414";
-
-            //_connection.ConnectionString = String.Format("SERVER={0};DATABASE={1};UID={2};PASSWORD={3}",server, database, uid, password);           
+            webBrowser1.ContextMenuStrip=this.contextMenuStrip1;            
+      
             _connection.ConnectionString=_connection.ConnectionString=String.Format("Data Source={0};version=3;Compress=True;", "pipeLine.db");
             _connection.Open();
             FillDG();
             toolStripStatusLabel2.Text=String.Format("Total={0}", this.dataGridOpp.Rows.Count.ToString());
             skipSelectionChagned=false;
         }
-
         private void FillDG()
         {
             SQLiteDataAdapter sqLiteDataAdapter=new SQLiteDataAdapter(string.Format("SELECT * FROM leads;", new object[0]), this._connection);
@@ -82,14 +74,38 @@ namespace PipeLineDesktop
                 this.dataGridOpp.Columns["searchid"].Visible=false;
                 this.dataGridOpp.Columns["oppid"].Visible=false;
                 this.dataGridOpp.Columns["orgid"].Visible=false;
+                InitializeDataGridView(dataGridOpp);
             }
             catch
             {
             }
         }
 
+
+
+        #region InitializeDataGridView()
+        private void InitializeDataGridView(DataGridView dg)
+        {
+            dg.AllowUserToResizeColumns=true;
+            dg.AutoSizeColumnsMode=DataGridViewAutoSizeColumnsMode.DisplayedCells;
+
+            int MaxWidth=150;
+            foreach(DataGridViewColumn c in dg.Columns)
+            {
+                if(c.Width>MaxWidth)
+                {
+                    //c.AutoSizeMode=DataGridViewAutoSizeColumnMode.None;
+                    c.Width=MaxWidth;
+                }
+                c.AutoSizeMode=DataGridViewAutoSizeColumnMode.None;
+            }
+
+        }
+        #endregion
+
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
+            
             if(!this.skipSelectionChagned)
             {
                 try
@@ -100,62 +116,72 @@ namespace PipeLineDesktop
 
                     _selectedID=dataGridOpp.SelectedCells[_oppid].Value.ToString();
 
-                    string query=string.Format("SELECT Title, City, State, DatePosted, Created, Snippet, ResponseUri FROM opportunity WHERE id={0};", _selectedID);
-                    
-                    SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
-                    DataSet ds=new DataSet();
-                    dbAdapter.Fill(ds);
-                    dataGridDetail.DataSource=ds.Tables[0];
-                    this.dataGridDetail.Refresh();                 
-
-                    query=string.Format("SELECT Name, LinkedIn as LinkedInUrl, FaceBook as FaceBookUrl, Twitter as TwitterUrl, GooglePlus as GooglePlusUrl, Description FROM organization WHERE id={0};", _selectedID);
-                    DataSet dataSet2=new DataSet();
-                    dbAdapter=new SQLiteDataAdapter(query, _connection);
-                    dbAdapter.Fill(dataSet2);
-
-                    this.dataGridOrg.DataSource=null;
-                    this.dataGridOrg.Rows.Clear();
-                    this.dataGridOrg.Columns.Clear();
-                    this.dataGridOrg.AllowUserToAddRows=false;
-
-                    this.dataGridOrg.DataSource=dataSet2.Tables[0];
-
-                    this.dataGridOrg.Columns["FacebookUrl"].Visible=false;
-                    this.dataGridOrg.Columns["LinkedInUrl"].Visible=false;
-                    this.dataGridOrg.Columns["TwitterUrl"].Visible=false;
-                    this.dataGridOrg.Columns["GooglePlusUrl"].Visible=false;
-                    
-                    int count=2;
-                    if(!string.IsNullOrEmpty(dataSet2.Tables[0].Rows[0]["LinkedInUrl"].ToString()))
-                    {
-                        this.AddImageColumn("LinkedIn", "social_icons/linkedin.png", count, dataSet2.Tables[0].Rows[0]["LinkedInUrl"].ToString());
-                        count++;
-                    }
-                    if(!string.IsNullOrEmpty(dataSet2.Tables[0].Rows[0]["FacebookUrl"].ToString()))
-                    {
-                        this.AddImageColumn("Facebook", "social_icons/facebook.png", count, dataSet2.Tables[0].Rows[0]["FacebookUrl"].ToString());
-                        count++;
-                    }
-                    if(!string.IsNullOrEmpty(dataSet2.Tables[0].Rows[0]["TwitterUrl"].ToString()))
-                    {
-                        this.AddImageColumn("Twitter", "social_icons/twitter.png", count, dataSet2.Tables[0].Rows[0]["TwitterUrl"].ToString());
-                        count++;
-                    }
-                    if(!string.IsNullOrEmpty(dataSet2.Tables[0].Rows[0]["GooglePlusUrl"].ToString()))
-                    {
-                        this.AddImageColumn("Google", "social_icons/google_plus.png", count, dataSet2.Tables[0].Rows[0]["GooglePlusUrl"].ToString());
-                       
-                    }
-                    this.dataGridOrg.Refresh();
-
+                    FillOppertunity();
+                    FillOrganization();
                 }
                 catch(Exception ex) { }
             }
+        }
+
+        private void FillOppertunity()
+        {
+            string query=string.Format("SELECT Title, City, State, DatePosted, Created, Snippet, ResponseUri FROM opportunity WHERE id={0};", _selectedID);
+
+            SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
+            DataSet ds=new DataSet();
+            dbAdapter.Fill(ds);
+            dataGridDetail.DataSource=ds.Tables[0];
+            this.dataGridDetail.Refresh();
+            InitializeDataGridView(dataGridDetail);
+        }
+        private void FillOrganization()
+        {
+            string query=string.Format("SELECT Name, LinkedIn as LinkedInUrl, FaceBook as FaceBookUrl, Twitter as TwitterUrl, GooglePlus as GooglePlusUrl, Description FROM organization WHERE id={0};", _selectedID);
+            DataSet dataSet2=new DataSet();
+            SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
+            dbAdapter.Fill(dataSet2);
+
+            this.dataGridOrg.DataSource=null;
+            this.dataGridOrg.Rows.Clear();
+            this.dataGridOrg.Columns.Clear();
+            this.dataGridOrg.AllowUserToAddRows=false;
+
+            this.dataGridOrg.DataSource=dataSet2.Tables[0];
+
+            this.dataGridOrg.Columns["FacebookUrl"].Visible=false;
+            this.dataGridOrg.Columns["LinkedInUrl"].Visible=false;
+            this.dataGridOrg.Columns["TwitterUrl"].Visible=false;
+            this.dataGridOrg.Columns["GooglePlusUrl"].Visible=false;
+
+            int count=2;
+            if(!string.IsNullOrEmpty(dataSet2.Tables[0].Rows[0]["LinkedInUrl"].ToString()))
+            {
+                this.AddImageColumn("LinkedIn", "social_icons/linkedin.png", count, dataSet2.Tables[0].Rows[0]["LinkedInUrl"].ToString());
+                count++;
+            }
+            if(!string.IsNullOrEmpty(dataSet2.Tables[0].Rows[0]["FacebookUrl"].ToString()))
+            {
+                this.AddImageColumn("Facebook", "social_icons/facebook.png", count, dataSet2.Tables[0].Rows[0]["FacebookUrl"].ToString());
+                count++;
+            }
+            if(!string.IsNullOrEmpty(dataSet2.Tables[0].Rows[0]["TwitterUrl"].ToString()))
+            {
+                this.AddImageColumn("Twitter", "social_icons/twitter.png", count, dataSet2.Tables[0].Rows[0]["TwitterUrl"].ToString());
+                count++;
+            }
+            if(!string.IsNullOrEmpty(dataSet2.Tables[0].Rows[0]["GooglePlusUrl"].ToString()))
+            {
+                this.AddImageColumn("Google", "social_icons/google_plus.png", count, dataSet2.Tables[0].Rows[0]["GooglePlusUrl"].ToString());
+
+            }
+            this.dataGridOrg.Refresh();
+            InitializeDataGridView(dataGridOrg);
         }
         private void AddImageColumn(string ColumnName, string ImageSource, int Index,string Url)
         {
             DataGridViewImageColumn gridViewImageColumn=new DataGridViewImageColumn();
             Image image=Image.FromFile(ImageSource);
+            image=new Bitmap(image, 30, 30);
             gridViewImageColumn.Image=image;
             gridViewImageColumn.HeaderText=ColumnName;
             gridViewImageColumn.Name=ColumnName;
@@ -302,8 +328,7 @@ namespace PipeLineDesktop
                 if(e.KeyValue!=46)
                     return;
 
-                string query=string.Format("UPDATE opportunity SET ActiveStatus = 1 WHERE ID={0};;", _selectedID);
-                //MySqlDataAdapter dbAdapter = new MySqlDataAdapter(query, _connection);
+                string query=string.Format("UPDATE opportunity SET ActiveStatus = 1 WHERE ID={0};;", _selectedID);                
                 SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
 
                 //refreash
@@ -314,6 +339,7 @@ namespace PipeLineDesktop
                 dbAdapter.Fill(ds);
                 dataGridOpp.DataSource=ds.Tables[0];
                 dataGridOpp.Refresh();
+                InitializeDataGridView(dataGridOpp);
             }
         }
 
@@ -322,6 +348,7 @@ namespace PipeLineDesktop
 
         }
 
+        #region Update
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if(MessageBox.Show("Are you sure... you want to start update", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.OK)
@@ -339,21 +366,30 @@ namespace PipeLineDesktop
 
             if(Update) { MessageBox.Show("Update already running.. will show you new jobs once we complete updating"); return; }
 
-            DateTime dtStart=DateTime.Now;
-            LeadHarvesterExternal lhe=new LeadHarvesterExternal();
-            lhe.HarvestLead("pipeLine.db");
-
-            base.Invoke(new Action(() =>
+            try
             {
-                string query=String.Format("SELECT * FROM leads where created between '"+dtStart+"' and '"+DateTime.Now+"';");
-                //MySqlDataAdapter dbAdapter=new MySqlDataAdapter(query, _connection);
-                SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
-                DataSet ds=new DataSet();
-                dbAdapter.Fill(ds);
-                Updating=false;
-                new New_Jobs(ds.Tables[0]).Show();
-            }));
+
+                DateTime dtStart=DateTime.Now;
+                LeadHarvesterExternal lhe=new LeadHarvesterExternal();
+                lhe.HarvestLead("pipeLine.db");
+
+                base.Invoke(new Action(() =>
+                {
+                    string query=String.Format("SELECT * FROM leads where created > datetime('"+dtStart.ToString("yyyy-MM-dd HH:mm:ss")+"');");                                        
+                    SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
+                    DataSet ds=new DataSet();
+                    dbAdapter.Fill(ds);
+                    Updating=false;
+                    new New_Jobs(ds.Tables[0]).Show();
+                }));
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
+        #endregion
+
         private void main_Shown(object sender, EventArgs e)
         {
             if(MessageBox.Show("Application Require to update Data... Please click Yes to start Update..", "Update", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)==DialogResult.Yes)
@@ -363,7 +399,6 @@ namespace PipeLineDesktop
                 MessageBox.Show("You can update application by clicking update menu on the top.", "info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
         private void UpdateOppertunity(string Field)
         {
             mshtml.IHTMLDocument2 htmlDocument2=this.webBrowser1.Document.DomDocument as mshtml.IHTMLDocument2;
@@ -375,8 +410,9 @@ namespace PipeLineDesktop
             {
                 if(MessageBox.Show("Are you sure... Update: Old Value: "+this.dataGridOpp.SelectedRows[0].Cells[Field].Value+" New Value: "+htmlTxtRange.text, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.OK)
                 {
-                    SQLiteCommand cmd=new SQLiteCommand(string.Format("UPDATE opportunity SET {2} = {1} WHERE ID={0};", this._selectedID, htmlTxtRange.text));
-                    cmd.ExecuteNonQuery();
+                    SQLiteCommand cmd=new SQLiteCommand(string.Format("UPDATE opportunity SET {2} = '{1}' WHERE ID={0};", this._selectedID, htmlTxtRange.text,Field));
+                    cmd.Connection=_connection;
+                    cmd.ExecuteNonQuery();                    
                 }
                 else
                 {
@@ -384,7 +420,6 @@ namespace PipeLineDesktop
                 }
             }
         }
-
         private string getSelectedText()
         {
             mshtml.IHTMLDocument2 htmlDocument2=this.webBrowser1.Document.DomDocument as mshtml.IHTMLDocument2;
@@ -396,33 +431,64 @@ namespace PipeLineDesktop
         }
         private void descriptionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string selectedText=this.getSelectedText();
+            string selectedText=this.getSelectedText();            
             if(MessageBox.Show("Are you sure... Update: Old Value: "+this.dataGridOpp.SelectedRows[0].Cells["snippet"].Value+" New Value: "+selectedText, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.OK)
             {
                 SQLiteCommand cmd=new SQLiteCommand(string.Format("UPDATE opportunity SET snippet = {1} WHERE ID={0};", this._selectedID, selectedText));
+                cmd.Connection=_connection;
                 cmd.ExecuteNonQuery();
             }
             else
             {
-                int num=(int)MessageBox.Show("Please select some text on webbrowser, then try to update..");
+                //
             }
         }
         private void phoneToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            string selectedText=this.getSelectedText();
+            if(!string.IsNullOrEmpty(selectedText))
+            {
+                if(MessageBox.Show("Are you sure... set Phone No. to: "+selectedText, "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)!=DialogResult.OK)
+                    return;
 
+                int ii=this.CreatePhone(selectedText);
+                if(ii==0) MessageBox.Show("some exception occur");
+                SQLiteCommand cmd=new SQLiteCommand(string.Format("select exists(select 1 from phone_opportunity where PhoneId = {0});", ii), _connection);
+                if(Convert.ToInt32(cmd.ExecuteScalar())==1)
+                {
+                    cmd=new SQLiteCommand(string.Format("update phone_opportunity set OpportunityID = {0} where PhoneId = {1} ;", _selectedID, ii), _connection);
+                }
+                else
+                {
+                    string query=String.Format("INSERT OR IGNORE INTO phone_opportunity(PhoneId,OpportunityID)VALUES({0},{1});", ii, _selectedID);
+                    cmd=new SQLiteCommand(query, _connection);
+                }
+            }
+            else
+            {
+                int num=(int)MessageBox.Show("Please select some text on web-browser, then try to update..");
+            }
         }
-
         private void emailToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string selectedText=this.getSelectedText();
             if(!string.IsNullOrEmpty(selectedText))
             {
-                if(MessageBox.Show("Are you sure... set email to "+selectedText, "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)!=DialogResult.OK)
+                if(MessageBox.Show("Are you sure... set email to: "+selectedText, "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)!=DialogResult.OK)
                     return;
 
                 int ii = this.CreateEmail(selectedText);
                 if(ii==0) MessageBox.Show("some exception occur");
-                SQLiteCommand cmd = new SQLiteCommand(string.Format("select exists(select 1 from email_opportunity where emailId = {0});", ii));
+                SQLiteCommand cmd = new SQLiteCommand(string.Format("select exists(select 1 from email_opportunity where emailId = {0});", ii),_connection);
+                if( Convert.ToInt32(cmd.ExecuteScalar()) == 1)
+                {
+                    cmd=new SQLiteCommand(string.Format("update email_opportunity set OpportunityID = {0} where emailid = {1} ;",_selectedID,ii ), _connection);
+                }
+                else
+                {
+                    string query=String.Format("INSERT OR IGNORE INTO email_opportunity(EmailID,OpportunityID)VALUES({0},{1});", ii, _selectedID);
+                     cmd=new SQLiteCommand(query, _connection);
+                }
             }
             else
             {
@@ -432,8 +498,8 @@ namespace PipeLineDesktop
         private void titleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.UpdateOppertunity(((ToolStripItem)sender).Text);
+            FillOppertunity();
         }
-
         public int CreateEmail(string emailAddress)
         {
             try
@@ -444,8 +510,15 @@ namespace PipeLineDesktop
             }
             catch(Exception ex) { return 0; }
         }
+        public int CreatePhone(string phoneNumber)
+        {
+            string query=String.Format("INSERT OR IGNORE INTO phone(PhoneNUmber)VALUES('{0}');SELECT PhoneID FROM phone WHERE PhoneAddress='{0}';", phoneNumber);
+            SQLiteCommand cmd=new SQLiteCommand(query, _connection);
+            return Convert.ToInt32(cmd.ExecuteScalar());
+        }
 
-          private void dataGridOrg_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        #region DataGridOrg_CellContentClick
+        private void dataGridOrg_CellContentClick(object sender, DataGridViewCellEventArgs e)
           {
               
               if(e.ColumnIndex > -1 && e.RowIndex > -1)
@@ -474,7 +547,7 @@ namespace PipeLineDesktop
                   {
                       url=this.dataGridOrg["TwitterUrl", e.RowIndex].Value.ToString();                      
                   }
-                  else if(dataGridOrg[e.ColumnIndex, e.RowIndex].OwningColumn.HeaderText=="GooglePlus")
+                  else if(dataGridOrg[e.ColumnIndex, e.RowIndex].OwningColumn.HeaderText=="Google")
                   {
                       url=this.dataGridOrg["GooglePlusUrl", e.RowIndex].Value.ToString();
                   }
@@ -486,5 +559,64 @@ namespace PipeLineDesktop
                   }
               }
           }
+        #endregion
+
+        private void nameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.UpdateOrganization(((ToolStripItem)sender).Text);
+            FillOrganization();
+        }
+
+        private void UpdateOrganization(string Field)
+        {
+            mshtml.IHTMLDocument2 htmlDocument2=this.webBrowser1.Document.DomDocument as mshtml.IHTMLDocument2;
+            IHTMLSelectionObject selection=htmlDocument2.selection;
+            if(selection==null)
+                return;
+            IHTMLTxtRange htmlTxtRange=selection.createRange() as IHTMLTxtRange;
+            if(htmlTxtRange!=null)
+            {
+                if(MessageBox.Show("Are you sure... Update: Old Value: "+this.dataGridOrg[Field,0].Value+" New Value: "+htmlTxtRange.text, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.OK)
+                {
+                    SQLiteCommand cmd=new SQLiteCommand(string.Format("UPDATE organization SET {2} = '{1}' WHERE ID={0};", this._selectedID, htmlTxtRange.text, Field));
+                    cmd.Connection=_connection;
+                    cmd.ExecuteNonQuery();
+                }
+                else
+                {
+                    int num=(int)MessageBox.Show("Please select some text on webbrowser, then try to update..");
+                }
+            }
+        }
+
+        private void linkedInToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.UpdateSocial(((ToolStripItem)sender).Text);
+            FillOrganization();
+        }
+
+        private void UpdateSocial(string Field)
+        {
+            if(Field=="Google+") Field="GooglePlus";
+
+            mshtml.IHTMLDocument2 htmlDocument2=this.webBrowser1.Document.DomDocument as mshtml.IHTMLDocument2;
+            IHTMLSelectionObject selection=htmlDocument2.selection;
+            if(selection==null)
+                return;
+            IHTMLTxtRange htmlTxtRange=selection.createRange() as IHTMLTxtRange;
+            if(htmlTxtRange!=null)
+            {
+                if(MessageBox.Show("Are you sure... Update: Old Value: "+this.dataGridOrg[Field+"Url", 0].Value+" New Value: "+htmlTxtRange.text, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.OK)
+                {
+                    SQLiteCommand cmd=new SQLiteCommand(string.Format("UPDATE organization SET {2} = '{1}' WHERE ID={0};", this._selectedID, htmlTxtRange.text, Field));
+                    cmd.Connection=_connection;
+                    cmd.ExecuteNonQuery();
+                }
+                else
+                {
+                    int num=(int)MessageBox.Show("Please select some text on webbrowser, then try to update..");
+                }
+            }            
+        }
     }
 }

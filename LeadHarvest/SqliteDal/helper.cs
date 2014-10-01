@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
-using MySql.Data.MySqlClient;
 
 
 namespace LeadHarvest.SqliteDal
@@ -21,7 +20,7 @@ namespace LeadHarvest.SqliteDal
                     sb.Append(c);
                 }
             }
-            return MySqlHelper.EscapeString(sb.ToString());
+            return Regex.Escape(sb.ToString());
         }
     }
 }
