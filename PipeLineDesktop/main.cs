@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 using mshtml;
 using System.Data.SQLite;
 using LeadHarvest;
@@ -65,6 +64,11 @@ namespace PipeLineDesktop
             SQLiteDataAdapter sqLiteDataAdapter=new SQLiteDataAdapter(string.Format("SELECT * FROM leads;", new object[0]), this._connection);
             DataSet dataSet=new DataSet();
             sqLiteDataAdapter.Fill(dataSet);
+
+            this.dataGridOpp.DataSource=null;
+            this.dataGridOpp.Rows.Clear();
+            this.dataGridOpp.Columns.Clear();
+
             this.dataGridOpp.DataSource=(object)dataSet.Tables[0];
             try
             {
@@ -81,8 +85,6 @@ namespace PipeLineDesktop
             }
         }
 
-
-
         #region InitializeDataGridView()
         private void InitializeDataGridView(DataGridView dg)
         {
@@ -97,6 +99,8 @@ namespace PipeLineDesktop
                     //c.AutoSizeMode=DataGridViewAutoSizeColumnMode.None;
                     c.Width=MaxWidth;
                 }
+                if(c.Name=="RecentUpdated")
+                    c.Width=50;
                 c.AutoSizeMode=DataGridViewAutoSizeColumnMode.None;
             }
 
@@ -209,7 +213,7 @@ namespace PipeLineDesktop
             // ADD THESE MENU ITEMS EVERY TIME
             searchToolStripMenuItem.Visible=true;
             viewSourceToolStripMenuItem.Visible=true;
-
+            socialToolStripMenuItem.Visible=true;
             //there are a number of things the user could have been on when they right clicked
             // a social icon/link >> find the social URL and update the database without displaying a context
             // they could have selected text >> here we have to display the menu and ask them what value to set >> or they may want to search google with the value
@@ -273,13 +277,11 @@ namespace PipeLineDesktop
 
             }
         }
-
         private void backToolStripMenuItem_Click(object sender, EventArgs e)
         {
             webBrowser1.GoBack();
             this.textBox1.Text=webBrowser1.Url.ToString();
         }
-
         private void homeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Uri url=new Uri(dataGridOpp.SelectedCells[_referneceURL].Value.ToString());
@@ -287,18 +289,15 @@ namespace PipeLineDesktop
             this.textBox1.Text=url.ToString();
             this.textBox1.Text=webBrowser1.Url.ToString();
         }
-
         private void fowardToolStripMenuItem_Click(object sender, EventArgs e)
         {
             webBrowser1.GoForward();
             this.textBox1.Text=webBrowser1.Url.ToString();
         }
-
         private void contextMenuStrip1_Opened(object sender, EventArgs e)
         {
             _html=this.webBrowser1.Document.Body;
         }
-
         private void tabControl1_Click(object sender, EventArgs e)
         {
             //string query="SELECT ID, Name, Description, Linkedin, Facebook, Twitter, GooglePlus FROM organization;";
@@ -308,18 +307,15 @@ namespace PipeLineDesktop
             //dbAdapter.Fill(ds);
             //dataGridOrg.DataSource=ds.Tables[0];
         }
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
-
         private void goToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Uri url=new Uri(this.textBox1.Text);
             this.webBrowser1.Url=url;
         }
-
         private void dataGridOpp_KeyUp(object sender, KeyEventArgs e)
         {
             if(e.KeyValue==(char)Keys.Delete)
@@ -327,19 +323,33 @@ namespace PipeLineDesktop
                 // delete
                 if(e.KeyValue!=46)
                     return;
+                try
+                {
+                    if(dataGridOpp["RecentUpdated", dataGridOpp.SelectedRows[0].Index].Value=="*")
+                    {
+                        if(MessageBox.Show("You updated data for this opportunity, If you delete now.. your data will lost", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.Cancel)
+                            return;
+                    }
+                }catch
+                {
+                    //
+                }
 
-                string query=string.Format("UPDATE opportunity SET ActiveStatus = 1 WHERE ID={0};;", _selectedID);                
-                SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
+                //string query=string.Format("UPDATE opportunity SET ActiveStatus = 1 WHERE ID={0};;", _selectedID);                
+                //SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
 
-                //refreash
-                query+=String.Format("SELECT * FROM leads;");
-                //dbAdapter = new MySqlDataAdapter(query, _connection);
-                dbAdapter=new SQLiteDataAdapter(query, _connection);
-                DataSet ds=new DataSet();
-                dbAdapter.Fill(ds);
-                dataGridOpp.DataSource=ds.Tables[0];
+                ////refreash
+                //query+=String.Format("SELECT * FROM leads;");
+                ////dbAdapter = new MySqlDataAdapter(query, _connection);
+                //dbAdapter=new SQLiteDataAdapter(query, _connection);
+                //DataSet ds=new DataSet();
+                //dbAdapter.Fill(ds);
+                //dataGridOpp.DataSource=ds.Tables[0];
+                //dataGridOpp.Refresh();
+                //InitializeDataGridView(dataGridOpp);
+                dataGridOpp.Rows.RemoveAt(dataGridOpp.SelectedRows[0].Index);
                 dataGridOpp.Refresh();
-                InitializeDataGridView(dataGridOpp);
+                //FillDG();
             }
         }
 
@@ -499,6 +509,7 @@ namespace PipeLineDesktop
         {
             this.UpdateOppertunity(((ToolStripItem)sender).Text);
             FillOppertunity();
+            AddUpdateColumn();
         }
         public int CreateEmail(string emailAddress)
         {
@@ -565,6 +576,7 @@ namespace PipeLineDesktop
         {
             this.UpdateOrganization(((ToolStripItem)sender).Text);
             FillOrganization();
+            AddUpdateColumn();
         }
 
         private void UpdateOrganization(string Field)
@@ -593,6 +605,7 @@ namespace PipeLineDesktop
         {
             this.UpdateSocial(((ToolStripItem)sender).Text);
             FillOrganization();
+            AddUpdateColumn();
         }
 
         private void UpdateSocial(string Field)
@@ -617,6 +630,67 @@ namespace PipeLineDesktop
                     int num=(int)MessageBox.Show("Please select some text on webbrowser, then try to update..");
                 }
             }            
+        }
+
+        private void webBrowser1_NewWindow(object sender, CancelEventArgs e)
+        {
+            e.Cancel=true;            
+        }
+
+        private void viewSourceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string html=webBrowser1.DocumentText;
+        }
+
+        #region Block PopUp
+        private void InjectAlertBlocker()
+        {
+            HtmlElement head=webBrowser1.Document.GetElementsByTagName("head")[0];
+            HtmlElement scriptEl=webBrowser1.Document.CreateElement("script");
+            IHTMLScriptElement element=(IHTMLScriptElement)scriptEl.DomElement;
+            string alertBlocker="window.alert = function () { }";
+            element.text=alertBlocker;
+            head.AppendChild(scriptEl);
+        }
+
+        private void webBrowser1_Navigated(object sender, WebBrowserNavigatedEventArgs e)
+        {
+            InjectAlertBlocker();
+        }
+        #endregion
+
+        private void AddUpdateColumn()
+        {
+            bool added = false;
+            foreach(DataGridViewColumn c in dataGridOpp.Columns)
+            {
+                if(c.HeaderText=="Recent Updated") added=true;
+            }
+            if(!added)
+            {
+                AddColumn();
+            }
+
+            dataGridOpp["RecentUpdated", dataGridOpp.SelectedRows[0].Index].Value="*";
+            this.dataGridOpp.Refresh();
+        }
+
+        private void AddColumn()
+        {
+            DataGridViewTextBoxColumn col1=new DataGridViewTextBoxColumn();
+            col1.HeaderText ="Recent Updated";
+            col1.Name="RecentUpdated";
+            col1.Width=20;
+            this.dataGridOpp.Columns.Insert(0, col1);
+            this.dataGridOpp.Refresh();
+            this.dataGridOpp.Columns["RecentUpdated"].DisplayIndex=0;
+            this.dataGridOpp.Refresh();
+
+            this._referneceURL=this.dataGridOpp.Columns["ResponseUri"].Index;
+            this._oppid=this.dataGridOpp.Columns["oppid"].Index;
+            this._selectedID=this.dataGridOpp.SelectedCells[this._oppid].Value.ToString();
+
+            InitializeDataGridView(dataGridOpp);
         }
     }
 }
