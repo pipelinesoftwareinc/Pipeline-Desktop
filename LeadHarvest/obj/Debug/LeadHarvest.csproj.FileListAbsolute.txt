@@ -75,3 +75,4 @@ F:\windows project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.New_Jobs.r
 F:\windows project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.csproj.GenerateResource.Cache
 F:\windows project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.dll
 F:\windows project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.pdb
+F:\windows project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.csprojResolveAssemblyReference.cache
