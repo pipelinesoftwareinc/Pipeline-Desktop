@@ -197,7 +197,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridOpp.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridOpp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridOpp.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridOpp.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridOpp.Location = new System.Drawing.Point(0, 0);
             this.dataGridOpp.MultiSelect = false;
             this.dataGridOpp.Name = "dataGridOpp";
@@ -321,28 +321,28 @@
             // linkedInToolStripMenuItem
             // 
             this.linkedInToolStripMenuItem.Name = "linkedInToolStripMenuItem";
-            this.linkedInToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.linkedInToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.linkedInToolStripMenuItem.Text = "LinkedIn";
             this.linkedInToolStripMenuItem.Click += new System.EventHandler(this.linkedInToolStripMenuItem_Click);
             // 
             // facebookToolStripMenuItem
             // 
             this.facebookToolStripMenuItem.Name = "facebookToolStripMenuItem";
-            this.facebookToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.facebookToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.facebookToolStripMenuItem.Text = "Facebook";
             this.facebookToolStripMenuItem.Click += new System.EventHandler(this.linkedInToolStripMenuItem_Click);
             // 
             // twitterToolStripMenuItem
             // 
             this.twitterToolStripMenuItem.Name = "twitterToolStripMenuItem";
-            this.twitterToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.twitterToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.twitterToolStripMenuItem.Text = "Twitter";
             this.twitterToolStripMenuItem.Click += new System.EventHandler(this.linkedInToolStripMenuItem_Click);
             // 
             // googleToolStripMenuItem
             // 
             this.googleToolStripMenuItem.Name = "googleToolStripMenuItem";
-            this.googleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.googleToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.googleToolStripMenuItem.Text = "Google+";
             this.googleToolStripMenuItem.Click += new System.EventHandler(this.linkedInToolStripMenuItem_Click);
             // 
@@ -475,6 +475,7 @@
             this.phoneToolStripMenuItem.Name = "phoneToolStripMenuItem";
             this.phoneToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.phoneToolStripMenuItem.Text = "Phone";
+            this.phoneToolStripMenuItem.Click += new System.EventHandler(this.phoneToolStripMenuItem_Click);
             // 
             // uRLToolStripMenuItem
             // 
@@ -560,6 +561,7 @@
             this.searchesToolStripMenuItem.Name = "searchesToolStripMenuItem";
             this.searchesToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.searchesToolStripMenuItem.Text = "Searches";
+            this.searchesToolStripMenuItem.Click += new System.EventHandler(this.searchesToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 

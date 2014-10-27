@@ -78,6 +78,7 @@ namespace PipeLineDesktop
                 this.dataGridOpp.Columns["searchid"].Visible=false;
                 this.dataGridOpp.Columns["oppid"].Visible=false;
                 this.dataGridOpp.Columns["orgid"].Visible=false;
+                AddCheckboxColumn();
                 InitializeDataGridView(dataGridOpp);
             }
             catch
@@ -85,9 +86,28 @@ namespace PipeLineDesktop
             }
         }
 
+        private void AddCheckboxColumn()
+        {
+            DataGridViewCheckBoxColumn col1=new DataGridViewCheckBoxColumn();
+            col1.HeaderText="";
+            col1.Name="Chkbx";
+            col1.Width=20;
+            this.dataGridOpp.Columns.Insert(0, col1);
+            this.dataGridOpp.Refresh();
+            this.dataGridOpp.Columns["Chkbx"].DisplayIndex=0;
+            this.dataGridOpp.Refresh();
+
+            this._referneceURL=this.dataGridOpp.Columns["ResponseUri"].Index;
+            this._oppid=this.dataGridOpp.Columns["oppid"].Index;
+            this._selectedID=this.dataGridOpp.SelectedCells[this._oppid].Value.ToString();
+
+          //  InitializeDataGridView(dataGridOpp);
+        }
+
         #region InitializeDataGridView()
         private void InitializeDataGridView(DataGridView dg)
         {
+            dg.ReadOnly=false;
             dg.AllowUserToResizeColumns=true;
             dg.AutoSizeColumnsMode=DataGridViewAutoSizeColumnsMode.DisplayedCells;
 
@@ -104,6 +124,13 @@ namespace PipeLineDesktop
                 c.AutoSizeMode=DataGridViewAutoSizeColumnMode.None;
             }
 
+            for(int i=0; i<dg.Rows.Count; i++)
+            {
+                for(int j=2; j<dg.Columns.Count; j++)
+                {
+                    dg.Columns[j].ReadOnly=true;
+                }
+            }
         }
         #endregion
 
@@ -138,9 +165,13 @@ namespace PipeLineDesktop
             this.dataGridDetail.Refresh();
             InitializeDataGridView(dataGridDetail);
         }
+
+        #region FillOrganization
         private void FillOrganization()
         {
-            string query=string.Format("SELECT Name, LinkedIn as LinkedInUrl, FaceBook as FaceBookUrl, Twitter as TwitterUrl, GooglePlus as GooglePlusUrl, Description FROM organization WHERE id={0};", _selectedID);
+            //string query=string.Format("SELECT Name, LinkedIn as LinkedInUrl, FaceBook as FaceBookUrl, Twitter as TwitterUrl, GooglePlus as GooglePlusUrl, Description FROM organization WHERE id={0};", _selectedID);
+            string query=string.Format(@"SELECT Name, LinkedIn as LinkedInUrl, FaceBook as FaceBookUrl, Twitter as TwitterUrl, GooglePlus as GooglePlusUrl, Description,phone.Number FROM organization left join phone_organization on phone_organization.OrganizationID = organization.ID
+                                        left join phone on phone.ID = phone_organization.PhoneID WHERE organization.id={0};", _selectedID);
             DataSet dataSet2=new DataSet();
             SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
             dbAdapter.Fill(dataSet2);
@@ -157,7 +188,7 @@ namespace PipeLineDesktop
             this.dataGridOrg.Columns["TwitterUrl"].Visible=false;
             this.dataGridOrg.Columns["GooglePlusUrl"].Visible=false;
 
-            int count=2;
+            int count=3;
             if(!string.IsNullOrEmpty(dataSet2.Tables[0].Rows[0]["LinkedInUrl"].ToString()))
             {
                 this.AddImageColumn("LinkedIn", "social_icons/linkedin.png", count, dataSet2.Tables[0].Rows[0]["LinkedInUrl"].ToString());
@@ -193,6 +224,7 @@ namespace PipeLineDesktop
             gridViewImageColumn.Tag=Url;
             this.dataGridOrg.Columns.Insert(Index, gridViewImageColumn);
         }
+        #endregion
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("(c) "+DateTime.Today.ToString("yyyy")+" All rights researved. \n Pipeline is a trademark of\n Sevenbrook Consulting Inc.", "Sevenbrook Consulting Inc.");
@@ -335,18 +367,48 @@ namespace PipeLineDesktop
                     //
                 }
 
-                //string query=string.Format("UPDATE opportunity SET ActiveStatus = 1 WHERE ID={0};;", _selectedID);                
-                //SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
+                bool cont = true;
+                List<DataGridViewRow> rows=new List<DataGridViewRow>();
+                foreach(DataGridViewRow row in dataGridOpp.Rows)
+                {
+                    if(Convert.ToBoolean(row.Cells["Chkbx"].Value)==true)
+                    {
+                        string query=string.Format("UPDATE opportunity SET ActiveStatus = 1 WHERE ID={0};", row.Cells[_oppid].Value);
+                        SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
+                        SQLiteCommand cmd=new SQLiteCommand(query, _connection);
+                        cmd.ExecuteNonQuery();
+                        cont=false;
+                        rows.Add(row);
+                       // dataGridOpp.Rows.Remove(row);
+                    }
+                }
+
+                if(cont)
+                {
+                    string query1=string.Format("UPDATE opportunity SET ActiveStatus = 1 WHERE ID={0};", _selectedID);
+                    SQLiteDataAdapter dbAdapter1=new SQLiteDataAdapter(query1, _connection);
+                    SQLiteCommand cmd=new SQLiteCommand(query1, _connection);
+                    cmd.ExecuteNonQuery();
+                }
+                else
+                {
+                    foreach(DataGridViewRow r in rows)
+                    {
+                        dataGridOpp.Rows.Remove(r);
+                    }
+                }
 
                 ////refreash
                 //query+=String.Format("SELECT * FROM leads;");
-                ////dbAdapter = new MySqlDataAdapter(query, _connection);
-                //dbAdapter=new SQLiteDataAdapter(query, _connection);
+             //   dbAdapter = new MySqlDataAdapter(query, _connection);
+               // dbAdapter=new SQLiteDataAdapter(query, _connection);
                 //DataSet ds=new DataSet();
                 //dbAdapter.Fill(ds);
                 //dataGridOpp.DataSource=ds.Tables[0];
                 //dataGridOpp.Refresh();
                 //InitializeDataGridView(dataGridOpp);
+                //SQLiteCommand cmd=new SQLiteCommand(query, _connection);
+                //cmd.ExecuteNonQuery();
                 dataGridOpp.Rows.RemoveAt(dataGridOpp.SelectedRows[0].Index);
                 dataGridOpp.Refresh();
                 //FillDG();
@@ -523,7 +585,7 @@ namespace PipeLineDesktop
         }
         public int CreatePhone(string phoneNumber)
         {
-            string query=String.Format("INSERT OR IGNORE INTO phone(PhoneNUmber)VALUES('{0}');SELECT PhoneID FROM phone WHERE PhoneAddress='{0}';", phoneNumber);
+            string query=String.Format("INSERT OR IGNORE INTO phone(Number)VALUES('{0}');SELECT ID FROM phone WHERE Number='{0}';", phoneNumber);
             SQLiteCommand cmd=new SQLiteCommand(query, _connection);
             return Convert.ToInt32(cmd.ExecuteScalar());
         }
@@ -586,7 +648,7 @@ namespace PipeLineDesktop
             if(selection==null)
                 return;
             IHTMLTxtRange htmlTxtRange=selection.createRange() as IHTMLTxtRange;
-            if(htmlTxtRange!=null)
+            if(htmlTxtRange.text!=null)
             {
                 if(MessageBox.Show("Are you sure... Update: Old Value: "+this.dataGridOrg[Field,0].Value+" New Value: "+htmlTxtRange.text, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.OK)
                 {
@@ -617,7 +679,7 @@ namespace PipeLineDesktop
             if(selection==null)
                 return;
             IHTMLTxtRange htmlTxtRange=selection.createRange() as IHTMLTxtRange;
-            if(htmlTxtRange!=null)
+            if(htmlTxtRange.text!=null)
             {
                 if(MessageBox.Show("Are you sure... Update: Old Value: "+this.dataGridOrg[Field+"Url", 0].Value+" New Value: "+htmlTxtRange.text, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.OK)
                 {
@@ -659,6 +721,7 @@ namespace PipeLineDesktop
         }
         #endregion
 
+        #region GridViewUpdateColumn *
         private void AddUpdateColumn()
         {
             bool added = false;
@@ -691,6 +754,50 @@ namespace PipeLineDesktop
             this._selectedID=this.dataGridOpp.SelectedCells[this._oppid].Value.ToString();
 
             InitializeDataGridView(dataGridOpp);
+        }
+
+        #endregion
+        private void searchesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Add_SearchTerms ast=new Add_SearchTerms(_connection);
+            ast.ShowDialog();
+        }
+
+        private void phoneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string selectedText=this.getSelectedText();
+            if(!string.IsNullOrEmpty(selectedText))
+            {
+                if(MessageBox.Show("Are you sure... set Phone No. to: "+selectedText, "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)!=DialogResult.OK)
+                    return;
+
+                int ii=this.CreatePhone(selectedText);
+                if(ii==0) MessageBox.Show("some exception occur");
+                SQLiteCommand cmd=new SQLiteCommand(string.Format("select exists(select 1 from phone_organization where PhoneId = {0});", ii), _connection);
+                if(Convert.ToInt32(cmd.ExecuteScalar())==1)
+                {
+                    cmd=new SQLiteCommand(string.Format("update phone_organization set OrganizationID = {0} where PhoneId = {1} ;", _selectedID, ii), _connection);
+                }
+                else
+                {
+                    string query=String.Format("INSERT OR IGNORE INTO phone_organization(PhoneId,OrganizationID)VALUES({0},{1});", ii, _selectedID);
+                    cmd=new SQLiteCommand(query, _connection);
+                }
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                FillOrganization();
+                AddUpdateColumn();
+            }
+            else
+            {
+                int num=(int)MessageBox.Show("Please select some text on web-browser, then try to update..");
+            }
         }
     }
 }

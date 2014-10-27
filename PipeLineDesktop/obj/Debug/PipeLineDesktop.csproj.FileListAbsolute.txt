@@ -27,3 +27,4 @@ F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\EntityFramework.xm
 F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\EntityFramework.SqlServer.xml
 F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\System.Data.SQLite.xml
 F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\LeadHarvest.dll
+F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.Add_SearchTerms.resources
