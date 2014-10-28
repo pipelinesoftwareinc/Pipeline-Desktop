@@ -16,6 +16,7 @@ namespace PipeLineDesktop
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new Add_SearchTerms());
             Application.Run(new main());
         }
     }

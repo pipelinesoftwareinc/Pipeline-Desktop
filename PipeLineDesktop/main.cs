@@ -32,6 +32,7 @@ namespace PipeLineDesktop
         bool skipSelectionChagned=true;
         SQLiteConnection _connection=new SQLiteConnection();
 
+        #region Initial
         public main()
         {
             InitializeComponent();
@@ -59,6 +60,7 @@ namespace PipeLineDesktop
             toolStripStatusLabel2.Text=String.Format("Total={0}", this.dataGridOpp.Rows.Count.ToString());
             skipSelectionChagned=false;
         }
+        #endregion
         private void FillDG()
         {
             SQLiteDataAdapter sqLiteDataAdapter=new SQLiteDataAdapter(string.Format("SELECT * FROM leads;", new object[0]), this._connection);
@@ -79,6 +81,8 @@ namespace PipeLineDesktop
                 this.dataGridOpp.Columns["oppid"].Visible=false;
                 this.dataGridOpp.Columns["orgid"].Visible=false;
                 AddCheckboxColumn();
+                AddUpdateColumn();
+                //AddColumn();
                 InitializeDataGridView(dataGridOpp);
             }
             catch
@@ -86,6 +90,7 @@ namespace PipeLineDesktop
             }
         }
 
+        #region GridViewUpdateColumn *
         private void AddCheckboxColumn()
         {
             DataGridViewCheckBoxColumn col1=new DataGridViewCheckBoxColumn();
@@ -97,12 +102,54 @@ namespace PipeLineDesktop
             this.dataGridOpp.Columns["Chkbx"].DisplayIndex=0;
             this.dataGridOpp.Refresh();
 
+            //this._referneceURL=this.dataGridOpp.Columns["ResponseUri"].Index;
+            //this._oppid=this.dataGridOpp.Columns["oppid"].Index;
+            //this._selectedID=this.dataGridOpp.SelectedCells[this._oppid].Value.ToString();
+
+          //  InitializeDataGridView(dataGridOpp);
+        }
+        private void AddUpdateColumn()
+        {
+            bool added=false;
+            foreach(DataGridViewColumn c in dataGridOpp.Columns)
+            {
+                if(c.HeaderText=="Updated") added=true;
+            }
+            if(!added)
+            {
+                AddColumn();
+            }
+
+            dataGridOpp["RecentUpdated", dataGridOpp.SelectedRows[0].Index].Value="\u221A";
+            dataGridOpp["RecentUpdated", dataGridOpp.SelectedRows[0].Index].Style.SelectionForeColor=Color.Black;
+            dataGridOpp["RecentUpdated", dataGridOpp.SelectedRows[0].Index].Style.Font=new Font(FontFamily.GenericSansSerif, 10f, FontStyle.Bold);
+            dataGridOpp["Modified", dataGridOpp.SelectedRows[0].Index].Value=DateTime.Now.ToString();
+            this.dataGridOpp.Refresh();
+        }
+
+        private void AddColumn()
+        {
+            DataGridViewTextBoxColumn col1=new DataGridViewTextBoxColumn();
+            col1.HeaderText="Updated";
+            col1.Name="RecentUpdated";
+            col1.Width=20;
+            col1.DefaultCellStyle.ForeColor=Color.Black;
+            col1.DefaultCellStyle.Font= new Font(FontFamily.GenericSansSerif, 50,FontStyle.Bold);
+            col1.DefaultCellStyle.Alignment=DataGridViewContentAlignment.MiddleCenter;
+            //col1.DefaultCellStyle.
+            this.dataGridOpp.Columns.Insert(1, col1);
+            this.dataGridOpp.Refresh();
+            this.dataGridOpp.Columns["RecentUpdated"].DisplayIndex=1;
+            this.dataGridOpp.Refresh();
+
             this._referneceURL=this.dataGridOpp.Columns["ResponseUri"].Index;
             this._oppid=this.dataGridOpp.Columns["oppid"].Index;
             this._selectedID=this.dataGridOpp.SelectedCells[this._oppid].Value.ToString();
 
-          //  InitializeDataGridView(dataGridOpp);
+            InitializeDataGridView(dataGridOpp);
         }
+
+        #endregion
 
         #region InitializeDataGridView()
         private void InitializeDataGridView(DataGridView dg)
@@ -120,13 +167,19 @@ namespace PipeLineDesktop
                     c.Width=MaxWidth;
                 }
                 if(c.Name=="RecentUpdated")
+                {
                     c.Width=50;
+                    c.DefaultCellStyle.ForeColor=Color.Black;
+                    c.DefaultCellStyle.Font=new Font(FontFamily.GenericSansSerif, 50, FontStyle.Bold);
+                    c.DefaultCellStyle.Alignment=DataGridViewContentAlignment.MiddleCenter;
+                    
+                }
                 c.AutoSizeMode=DataGridViewAutoSizeColumnMode.None;
             }
 
             for(int i=0; i<dg.Rows.Count; i++)
             {
-                for(int j=2; j<dg.Columns.Count; j++)
+                for(int j=1; j<dg.Columns.Count; j++)
                 {
                     dg.Columns[j].ReadOnly=true;
                 }
@@ -357,7 +410,7 @@ namespace PipeLineDesktop
                     return;
                 try
                 {
-                    if(dataGridOpp["RecentUpdated", dataGridOpp.SelectedRows[0].Index].Value=="*")
+                    if(dataGridOpp["RecentUpdated", dataGridOpp.SelectedRows[0].Index].Value=="\u221A")
                     {
                         if(MessageBox.Show("You updated data for this opportunity, If you delete now.. your data will lost", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.Cancel)
                             return;
@@ -389,6 +442,7 @@ namespace PipeLineDesktop
                     SQLiteDataAdapter dbAdapter1=new SQLiteDataAdapter(query1, _connection);
                     SQLiteCommand cmd=new SQLiteCommand(query1, _connection);
                     cmd.ExecuteNonQuery();
+                    dataGridOpp.Rows.RemoveAt(dataGridOpp.SelectedRows[0].Index);
                 }
                 else
                 {
@@ -409,7 +463,7 @@ namespace PipeLineDesktop
                 //InitializeDataGridView(dataGridOpp);
                 //SQLiteCommand cmd=new SQLiteCommand(query, _connection);
                 //cmd.ExecuteNonQuery();
-                dataGridOpp.Rows.RemoveAt(dataGridOpp.SelectedRows[0].Index);
+             
                 dataGridOpp.Refresh();
                 //FillDG();
             }
@@ -721,42 +775,7 @@ namespace PipeLineDesktop
         }
         #endregion
 
-        #region GridViewUpdateColumn *
-        private void AddUpdateColumn()
-        {
-            bool added = false;
-            foreach(DataGridViewColumn c in dataGridOpp.Columns)
-            {
-                if(c.HeaderText=="Recent Updated") added=true;
-            }
-            if(!added)
-            {
-                AddColumn();
-            }
-
-            dataGridOpp["RecentUpdated", dataGridOpp.SelectedRows[0].Index].Value="*";
-            this.dataGridOpp.Refresh();
-        }
-
-        private void AddColumn()
-        {
-            DataGridViewTextBoxColumn col1=new DataGridViewTextBoxColumn();
-            col1.HeaderText ="Recent Updated";
-            col1.Name="RecentUpdated";
-            col1.Width=20;
-            this.dataGridOpp.Columns.Insert(0, col1);
-            this.dataGridOpp.Refresh();
-            this.dataGridOpp.Columns["RecentUpdated"].DisplayIndex=0;
-            this.dataGridOpp.Refresh();
-
-            this._referneceURL=this.dataGridOpp.Columns["ResponseUri"].Index;
-            this._oppid=this.dataGridOpp.Columns["oppid"].Index;
-            this._selectedID=this.dataGridOpp.SelectedCells[this._oppid].Value.ToString();
-
-            InitializeDataGridView(dataGridOpp);
-        }
-
-        #endregion
+    
         private void searchesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Add_SearchTerms ast=new Add_SearchTerms(_connection);

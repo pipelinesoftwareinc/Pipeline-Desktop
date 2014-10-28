@@ -15,40 +15,62 @@ namespace PipeLineDesktop
     public partial class Add_SearchTerms : Form
     {
         private SQLiteConnection _connection;
+        private BindingSource bindingSource=null;
+        private SQLiteDataAdapter adapter=null;
         private string _selectedID;
+        private DataTable dataTable=null;
+        private SQLiteCommandBuilder sqlCommandBuilder = null;
+
         public Add_SearchTerms(SQLiteConnection connection)
         {
             InitializeComponent();
-            this._connection=connection;
-           
+            this._connection=connection;           
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(button1.Text=="Add")
+            //if(button1.Text=="Add")
+            //{
+            //    foreach(string s in Regex.Split(textBox1.Text, ","))
+            //    {
+            //        ExecuteQuery(string.Format("insert into search(UserID,Term) values(1,'{0}')", s));
+            //    }
+            //    MessageBox.Show("Value(s) Inserted Successfully");
+            //}
+            //else
+            //{
+            //    ExecuteQuery(string.Format("update search set Term = '{0}' where ID = {1}",textBox1.Text.Replace("'","''"),_selectedID));
+            //    MessageBox.Show("Value Updated Successfully");
+            //}
+            //this.button1.Text="Add";
+            //this.textBox1.Text="";
+            //FillGridView();
+
+            try
             {
-                foreach(string s in Regex.Split(textBox1.Text, ","))
-                {
-                    ExecuteQuery(string.Format("insert into search(UserID,Term) values(1,'{0}')", s));
-                }
-                MessageBox.Show("Value(s) Inserted Successfully");
+                adapter.Update(dataTable);
             }
-            else
+            catch
             {
-                ExecuteQuery(string.Format("update search set Term = '{0}' where ID = {1}",textBox1.Text.Replace("'","''"),_selectedID));
-                MessageBox.Show("Value Updated Successfully");
+
             }
-            this.button1.Text="Add";
-            this.textBox1.Text="";
-            FillGridView();
         }
 
         private void FillGridView()
         {
-            SQLiteDataAdapter sqLiteDataAdapter=new SQLiteDataAdapter(string.Format("SELECT * FROM search;", new object[0]), _connection);
+            adapter=new SQLiteDataAdapter(string.Format("SELECT * FROM search;", new object[0]), _connection);
+
             DataSet dataSet=new DataSet();
-            sqLiteDataAdapter.Fill(dataSet);
-            dataGridOpp.DataSource=dataSet.Tables[0];
+            dataTable=new DataTable();
+
+            sqlCommandBuilder=new SQLiteCommandBuilder(adapter);
+            adapter.Fill(dataTable);
+            //dataGridOpp.DataSource=dataSet.Tables[0];
+
+            bindingSource=new BindingSource();
+            bindingSource.DataSource=dataTable;
+
+            dataGridOpp.DataSource=bindingSource;
 
             this.dataGridOpp.Columns["UserId"].Visible=false;
             this.dataGridOpp.Columns["ID"].Visible=false;            
@@ -56,16 +78,16 @@ namespace PipeLineDesktop
 
         private void dataGridOpp_SelectionChanged(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    _selectedID=dataGridOpp.SelectedCells[0].Value.ToString();
-            //    this.button1.Text="Update";
-            //    this.textBox1.Text=dataGridOpp.SelectedRows[0].Cells[2].Value.ToString();
-            //}
-            //catch
-            //{
-            //    //
-            //}
+            try
+            {
+               // _selectedID=dataGridOpp.SelectedCells[0].Value.ToString();
+               // this.button1.Text="Update";
+                //this.textBox1.Text=dataGridOpp.SelectedRows[0].Cells[2].Value.ToString();
+            }
+            catch
+            {
+                //
+            }
         }
 
         private void Add_SearchTerms_Load(object sender, EventArgs e)
@@ -83,11 +105,20 @@ namespace PipeLineDesktop
             // check for delete key press
             if(e.KeyValue!=46)
                 return;
-           
-            ExecuteQuery(string.Format("delete from search where ID = {0}",_selectedID));
-            dataGridOpp.Rows.RemoveAt(dataGridOpp.SelectedRows[0].Index);
-            dataGridOpp.Refresh();
-            button3_Click(sender, e);
+            try
+            {
+                if(MessageBox.Show("Are you sure? You want to delete search term", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.Cancel)
+                    return;
+                //ExecuteQuery(string.Format("delete from search where ID = {0}",_selectedID));
+                dataGridOpp.Rows.RemoveAt(dataGridOpp.SelectedRows[0].Index);
+                //dataGridOpp.Refresh();
+                //button3_Click(sender, e);
+                adapter.Update(dataTable);
+            }
+            catch
+            {
+                //
+            }
         }
 
         private void ExecuteQuery(string text)
@@ -105,11 +136,12 @@ namespace PipeLineDesktop
 
         private void dataGridOpp_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
             try
             {
                 _selectedID=dataGridOpp.SelectedCells[0].Value.ToString();
-                this.button1.Text="Update";
-                this.textBox1.Text=dataGridOpp.SelectedRows[0].Cells[2].Value.ToString();
+               // this.button1.Text="Update";
+                //this.textBox1.Text=dataGridOpp.SelectedRows[0].Cells[2].Value.ToString();
             }
             catch
             {
