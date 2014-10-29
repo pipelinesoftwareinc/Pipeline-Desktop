@@ -215,6 +215,8 @@
             this.dataGridOpp.Size = new System.Drawing.Size(429, 550);
             this.dataGridOpp.TabIndex = 2;
             this.dataGridOpp.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
+            this.dataGridOpp.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dataGridOpp_SortCompare);
+            this.dataGridOpp.Sorted += new System.EventHandler(this.dataGridOpp_Sorted);
             this.dataGridOpp.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dataGridOpp_KeyUp);
             // 
             // textBox1
@@ -643,6 +645,8 @@
             this.dataGridDetail.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridDetail.Size = new System.Drawing.Size(1014, 41);
             this.dataGridDetail.TabIndex = 3;
+            this.dataGridDetail.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridDetail_CellLeave);
+            this.dataGridDetail.Leave += new System.EventHandler(this.dataGridDetail_Leave);
             // 
             // tabOrg
             // 

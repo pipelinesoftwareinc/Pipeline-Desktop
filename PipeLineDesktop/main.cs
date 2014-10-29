@@ -81,8 +81,9 @@ namespace PipeLineDesktop
                 this.dataGridOpp.Columns["oppid"].Visible=false;
                 this.dataGridOpp.Columns["orgid"].Visible=false;
                 AddCheckboxColumn();
-                AddUpdateColumn();
-                //AddColumn();
+                //AddUpdateColumn();
+                AddColumn();
+                MarkUpdated();
                 InitializeDataGridView(dataGridOpp);
             }
             catch
@@ -124,6 +125,20 @@ namespace PipeLineDesktop
             dataGridOpp["RecentUpdated", dataGridOpp.SelectedRows[0].Index].Style.SelectionForeColor=Color.Black;
             dataGridOpp["RecentUpdated", dataGridOpp.SelectedRows[0].Index].Style.Font=new Font(FontFamily.GenericSansSerif, 10f, FontStyle.Bold);
             dataGridOpp["Modified", dataGridOpp.SelectedRows[0].Index].Value=DateTime.Now.ToString();
+            this.dataGridOpp.Refresh();
+        }
+
+        private void MarkUpdated()
+        {
+            foreach(DataGridViewRow row in dataGridOpp.Rows)
+            {
+                if(!string.IsNullOrEmpty(row.Cells["modified"].Value.ToString()))
+                {
+                    row.Cells["RecentUpdated"].Value="\u221A";
+                    row.Cells["RecentUpdated"].Style.SelectionForeColor=Color.Black;
+                    row.Cells["RecentUpdated"].Style.Font=new Font(FontFamily.GenericSansSerif, 10f, FontStyle.Bold);                    
+                }
+            }
             this.dataGridOpp.Refresh();
         }
 
@@ -185,6 +200,40 @@ namespace PipeLineDesktop
                 }
             }
         }
+
+        private void InitializeDataGridView1(DataGridView dg)
+        {
+            dg.ReadOnly=false;
+            dg.AllowUserToResizeColumns=true;
+            dg.AutoSizeColumnsMode=DataGridViewAutoSizeColumnsMode.DisplayedCells;
+
+            int MaxWidth=150;
+            foreach(DataGridViewColumn c in dg.Columns)
+            {
+                if(c.Width>MaxWidth)
+                {
+                    //c.AutoSizeMode=DataGridViewAutoSizeColumnMode.None;
+                    c.Width=MaxWidth;
+                }
+                if(c.Name=="RecentUpdated")
+                {
+                    c.Width=50;
+                    c.DefaultCellStyle.ForeColor=Color.Black;
+                    c.DefaultCellStyle.Font=new Font(FontFamily.GenericSansSerif, 50, FontStyle.Bold);
+                    c.DefaultCellStyle.Alignment=DataGridViewContentAlignment.MiddleCenter;
+
+                }
+                c.AutoSizeMode=DataGridViewAutoSizeColumnMode.None;
+            }
+
+            for(int i=0; i<dg.Rows.Count; i++)
+            {
+                for(int j=0; j<dg.Columns.Count-1; j++)
+                {
+                    dg.Columns[j].ReadOnly=true;
+                }
+            }
+        }
         #endregion
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -209,14 +258,14 @@ namespace PipeLineDesktop
 
         private void FillOppertunity()
         {
-            string query=string.Format("SELECT Title, City, State, DatePosted, Created, Snippet, ResponseUri FROM opportunity WHERE id={0};", _selectedID);
+            string query=string.Format("SELECT Title, City, State, DatePosted, Created, Snippet, ResponseUri,Compensation FROM opportunity WHERE id={0};", _selectedID);
 
             SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
             DataSet ds=new DataSet();
             dbAdapter.Fill(ds);
             dataGridDetail.DataSource=ds.Tables[0];
             this.dataGridDetail.Refresh();
-            InitializeDataGridView(dataGridDetail);
+            InitializeDataGridView1(dataGridDetail);           
         }
 
         #region FillOrganization
@@ -816,6 +865,36 @@ namespace PipeLineDesktop
             else
             {
                 int num=(int)MessageBox.Show("Please select some text on web-browser, then try to update..");
+            }
+        }
+
+        private void dataGridOpp_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        {
+            //
+        }
+
+        private void dataGridOpp_Sorted(object sender, EventArgs e)
+        {            
+            MarkUpdated();
+        }
+
+        private void dataGridDetail_Leave(object sender, EventArgs e)
+        {
+           // MessageBox.Show("grid out");
+
+        }
+
+        private void dataGridDetail_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.ColumnIndex == 7 && e.RowIndex == 0)
+            {
+                SQLiteCommand cmd=new SQLiteCommand(string.Format("UPDATE opportunity SET Compensation = '{1}' WHERE ID={0};", this._selectedID, dataGridDetail[e.ColumnIndex, e.RowIndex].EditedFormattedValue.ToString()));
+                cmd.Connection=_connection;
+                cmd.ExecuteNonQuery();
+                //FillOppertunity();
+                AddUpdateColumn();
+              //  MessageBox.Show(dataGridDetail[e.ColumnIndex, e.RowIndex].EditedFormattedValue.ToString());
+
             }
         }
     }
