@@ -83,7 +83,7 @@ namespace LeadHarvest.SqliteDal
             string query = String.Format(@"UPDATE organization SET 
                 Name='{0}',EmailDomain='{1}',Description='{2}',LinkedIn='{3}',Facebook='{4}',Twitter='{5}',GooglePlus='{6}'
                 WHERE ID={7};",
-                org.Name, org.EmailDomain, Regex.Escape(org.Description), org.LinkedIn, org.Facebook, org.Twitter, org.GooglePlus, org.ID);
+                org.Name, org.EmailDomain, org.Description.Replace("'","''"), org.LinkedIn, org.Facebook, org.Twitter, org.GooglePlus, org.ID);
             SQLiteCommand cmd=new SQLiteCommand(query, dbConnection);
             cmd.ExecuteNonQuery();
             }

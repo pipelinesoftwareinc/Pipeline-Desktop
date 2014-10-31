@@ -63,7 +63,7 @@ namespace PipeLineDesktop
         #endregion
         private void FillDG()
         {
-            SQLiteDataAdapter sqLiteDataAdapter=new SQLiteDataAdapter(string.Format("SELECT * FROM leads;", new object[0]), this._connection);
+            SQLiteDataAdapter sqLiteDataAdapter = new SQLiteDataAdapter(string.Format("select * from leads order by modified desc;", new object[0]), this._connection);
             DataSet dataSet=new DataSet();
             sqLiteDataAdapter.Fill(dataSet);
 
@@ -259,7 +259,7 @@ namespace PipeLineDesktop
         private void FillOppertunity()
         {
             string query=string.Format("SELECT Title, City, State, DatePosted, Created, Snippet, ResponseUri,Compensation FROM opportunity WHERE id={0};", _selectedID);
-
+            this.dataGridOpp.AllowUserToAddRows = false;
             SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
             DataSet ds=new DataSet();
             dbAdapter.Fill(ds);
@@ -327,6 +327,8 @@ namespace PipeLineDesktop
             this.dataGridOrg.Columns.Insert(Index, gridViewImageColumn);
         }
         #endregion
+
+        #region Browser Code
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("(c) "+DateTime.Today.ToString("yyyy")+" All rights researved. \n Pipeline is a trademark of\n Sevenbrook Consulting Inc.", "Sevenbrook Consulting Inc.");
@@ -348,12 +350,14 @@ namespace PipeLineDesktop
             searchToolStripMenuItem.Visible=true;
             viewSourceToolStripMenuItem.Visible=true;
             socialToolStripMenuItem.Visible=true;
+           // setValueToolStripMenuItem.Visible = true;
             //there are a number of things the user could have been on when they right clicked
             // a social icon/link >> find the social URL and update the database without displaying a context
             // they could have selected text >> here we have to display the menu and ask them what value to set >> or they may want to search google with the value
             // they could just be some randome locaion on the page >> view page content
 
             // What did they click on ?
+           // return;
             Point ScreenCoord=new Point(MousePosition.X, MousePosition.Y);
             Point BrowserCoord=webBrowser1.PointToClient(ScreenCoord);
             HtmlElement elem=webBrowser1.Document.GetElementFromPoint(BrowserCoord);
@@ -361,16 +365,23 @@ namespace PipeLineDesktop
             // Did the user select somthing before right click ?
             IHTMLDocument2 html=webBrowser1.Document.DomDocument as IHTMLDocument2;
             IHTMLSelectionObject currentSelection=html.selection;
-            if(currentSelection!=null)
+            try
             {
-                IHTMLTxtRange range=currentSelection.createRange() as IHTMLTxtRange;
-
-                if(range!=null)
+                if (currentSelection != null)
                 {
-                    setValueToolStripMenuItem.Visible=true;
-                    // RANGE.TEXT should be added to the DB for the context menu item selected
-                    _selectedText=range.text;
+                    IHTMLTxtRange range = currentSelection.createRange() as IHTMLTxtRange;
+
+                    if (range != null)
+                    {
+                        setValueToolStripMenuItem.Visible = true;
+                        // RANGE.TEXT should be added to the DB for the context menu item selected
+                        _selectedText = range.text;
+                    }
                 }
+            }
+            catch
+            {
+                return;
             }
 
             // you have to loop parents to see that they click
@@ -450,6 +461,8 @@ namespace PipeLineDesktop
             Uri url=new Uri(this.textBox1.Text);
             this.webBrowser1.Url=url;
         }
+        #endregion
+
         private void dataGridOpp_KeyUp(object sender, KeyEventArgs e)
         {
             if(e.KeyValue==(char)Keys.Delete)
@@ -499,22 +512,8 @@ namespace PipeLineDesktop
                     {
                         dataGridOpp.Rows.Remove(r);
                     }
-                }
-
-                ////refreash
-                //query+=String.Format("SELECT * FROM leads;");
-             //   dbAdapter = new MySqlDataAdapter(query, _connection);
-               // dbAdapter=new SQLiteDataAdapter(query, _connection);
-                //DataSet ds=new DataSet();
-                //dbAdapter.Fill(ds);
-                //dataGridOpp.DataSource=ds.Tables[0];
-                //dataGridOpp.Refresh();
-                //InitializeDataGridView(dataGridOpp);
-                //SQLiteCommand cmd=new SQLiteCommand(query, _connection);
-                //cmd.ExecuteNonQuery();
-             
-                dataGridOpp.Refresh();
-                //FillDG();
+                }               
+                dataGridOpp.Refresh();                
             }
         }
 
@@ -555,7 +554,10 @@ namespace PipeLineDesktop
                     DataSet ds=new DataSet();
                     dbAdapter.Fill(ds);
                     Updating=false;
-                    new New_Jobs(ds.Tables[0]).Show();
+                    if (ds.Tables[0].Rows.Count > 0)
+                        new New_Jobs(ds.Tables[0]).Show();
+                    else
+                        MessageBox.Show("DataBase Is Up to date. No New Records Found");
                 }));
             }
             catch(Exception ex)
@@ -581,18 +583,23 @@ namespace PipeLineDesktop
             if(selection==null)
                 return;
             IHTMLTxtRange htmlTxtRange=selection.createRange() as IHTMLTxtRange;
-            if(htmlTxtRange!=null)
+            if(!string.IsNullOrEmpty(htmlTxtRange.text))
             {
                 if(MessageBox.Show("Are you sure... Update: Old Value: "+this.dataGridOpp.SelectedRows[0].Cells[Field].Value+" New Value: "+htmlTxtRange.text, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.OK)
                 {
                     SQLiteCommand cmd=new SQLiteCommand(string.Format("UPDATE opportunity SET {2} = '{1}' WHERE ID={0};", this._selectedID, htmlTxtRange.text,Field));
                     cmd.Connection=_connection;
-                    cmd.ExecuteNonQuery();                    
+                    cmd.ExecuteNonQuery();
+                    dataGridOpp[Field, dataGridOpp.SelectedRows[0].Index].Value = htmlTxtRange.text;
                 }
                 else
                 {
-                    int num=(int)MessageBox.Show("Please select some text on webbrowser, then try to update..");
+                    //int num=(int)MessageBox.Show("");
                 }
+            }
+            else
+            {
+                MessageBox.Show("Please select some text and try again.");
             }
         }
         private string getSelectedText()
@@ -606,10 +613,14 @@ namespace PipeLineDesktop
         }
         private void descriptionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string selectedText=this.getSelectedText();            
+            string selectedText=this.getSelectedText();      
+            if(!string.IsNullOrEmpty(selectedText))
+            {
+                MessageBox.Show("Please select some text and try again."); return;
+            }
             if(MessageBox.Show("Are you sure... Update: Old Value: "+this.dataGridOpp.SelectedRows[0].Cells["snippet"].Value+" New Value: "+selectedText, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.OK)
             {
-                SQLiteCommand cmd=new SQLiteCommand(string.Format("UPDATE opportunity SET snippet = {1} WHERE ID={0};", this._selectedID, selectedText));
+                SQLiteCommand cmd=new SQLiteCommand(string.Format("UPDATE opportunity SET snippet = '{1}' WHERE ID={0};", this._selectedID, selectedText));
                 cmd.Connection=_connection;
                 cmd.ExecuteNonQuery();
             }
@@ -753,16 +764,21 @@ namespace PipeLineDesktop
             IHTMLTxtRange htmlTxtRange=selection.createRange() as IHTMLTxtRange;
             if(htmlTxtRange.text!=null)
             {
-                if(MessageBox.Show("Are you sure... Update: Old Value: "+this.dataGridOrg[Field,0].Value+" New Value: "+htmlTxtRange.text, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.OK)
+                if(MessageBox.Show("Are you sure... Update: Old Value: "+this.dataGridOrg[Field,0].Value+"\n New Value: "+htmlTxtRange.text, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.OK)
                 {
                     SQLiteCommand cmd=new SQLiteCommand(string.Format("UPDATE organization SET {2} = '{1}' WHERE ID={0};", this._selectedID, htmlTxtRange.text, Field));
                     cmd.Connection=_connection;
                     cmd.ExecuteNonQuery();
+                    
                 }
                 else
                 {
-                    int num=(int)MessageBox.Show("Please select some text on webbrowser, then try to update..");
+                    //int num=(int)MessageBox.Show("Please select some text on webbrowser, then try to update..");
                 }
+            }
+            else
+            {
+                MessageBox.Show("Please select some text and try again."); return;
             }
         }
 
@@ -792,9 +808,13 @@ namespace PipeLineDesktop
                 }
                 else
                 {
-                    int num=(int)MessageBox.Show("Please select some text on webbrowser, then try to update..");
+                    //int num=(int)MessageBox.Show("Please select some text on webbrowser, then try to update..");
                 }
-            }            
+            }
+            else
+            {
+                MessageBox.Show("Please select some text and try again."); return;
+            }
         }
 
         private void webBrowser1_NewWindow(object sender, CancelEventArgs e)

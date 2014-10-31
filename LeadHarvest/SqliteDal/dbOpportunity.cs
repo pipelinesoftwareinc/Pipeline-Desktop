@@ -16,21 +16,20 @@ namespace LeadHarvest.SqliteDal
             try 
             { 
                 string query = String.Format("INSERT OR IGNORE INTO opportunity" +
-                    "(OrganizationID, SourceID, SearchID, Title, Snippet, DatePosted, City, State, ResponseUri, SourceKey, Created, Modified)" +
-                    "VALUES({1},{2},'{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}');" +
+                    "(OrganizationID, SourceID, SearchID, Title, Snippet, DatePosted, City, State, ResponseUri, SourceKey, Created)" +
+                    "VALUES({1},{2},'{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}');" +
                     "SELECT ID FROM opportunity WHERE SourceKey='{10}';",
                     oppertunity.ID,
                     oppertunity.OrganizationID,
                     oppertunity.SourceID,
                     oppertunity.SearchID,
-                     Regex.Escape(oppertunity.Title),
-                     Regex.Escape(oppertunity.Snippet), 
+                     oppertunity.Title.Replace("'","''"),
+                     oppertunity.Snippet.Replace("'", "''"), 
                     oppertunity.DatePosted.ToString("yyyy-MM-dd HH:mm:ss"),
-                     Regex.Escape(oppertunity.City), 
+                     oppertunity.City.Replace("'", "''"), 
                     oppertunity.State, 
                     oppertunity.ResponseUri,
                     oppertunity.SourceKey,
-                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                     DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                 SQLiteCommand cmd = new SQLiteCommand(query, dbConnection);
                 return Convert.ToInt32(cmd.ExecuteScalar());

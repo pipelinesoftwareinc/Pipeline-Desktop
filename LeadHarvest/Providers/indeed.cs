@@ -37,7 +37,7 @@ namespace LeadHarvest.Providers
             XDocument results = XDocument.Load(url);
             var totalresults = Convert.ToInt32(results.Root.Element("totalresults").Value);
 
-            Console.WriteLine("Total Results:" + totalresults);
+          //  Console.WriteLine("Total Results:" + totalresults);
 
             // THERE ARE LOTS OF RESULTS NEED TO PAGE OUT
             var pages = totalresults / 10;
@@ -87,7 +87,7 @@ namespace LeadHarvest.Providers
                         // CREATE OPPORTUNITY
                         opp.ID = dbOpp.Create(_dbConnection, opp);
 
-                         Console.WriteLine("  >>" + opp.ID + "|" + opp.Title+ "|" + opp.City+ "|" + opp.State);
+                      //   Console.WriteLine("  >>" + opp.ID + "|" + opp.Title+ "|" + opp.City+ "|" + opp.State);
 
                         // ####################
                         // PROCESS RESULTS HTML
@@ -151,19 +151,29 @@ namespace LeadHarvest.Providers
                         }
 
                         // SOCIAL
-                        List<string> social = web.GetSocialUrls();
+                        List<string> social = web.GetSocialUrls();                        
                         if (social.Count > 0)
                         {
                             org.LinkedIn = social.Find(item => item.Contains("linkedin"));
                             org.Facebook = social.Find(item => item.Contains("facebook"));
                             org.Twitter = social.Find(item => item.Contains("twitter"));
                             org.GooglePlus = social.Find(item => item.Contains("plus.google"));
+
+                            if(!string.IsNullOrEmpty(org.LinkedIn))
+                            org.LinkedIn = org.LinkedIn.Replace("\"", "");
+                            if (!string.IsNullOrEmpty(org.Facebook))
+                            org.Facebook = org.Facebook.Replace("\"", "");
+                            if (!string.IsNullOrEmpty(org.Twitter))
+                            org.Twitter = org.Twitter.Replace("\"", "");
+                            if (!string.IsNullOrEmpty(org.GooglePlus))
+                            org.GooglePlus = org.GooglePlus.Replace("\"", "");
+
                             dbOrg.UpdateSocial(_dbConnection, org);
                         }
                     }
                     else
                     {
-                        Console.WriteLine("Skipping " + result.Element("jobkey").Value);
+                       // Console.WriteLine("Skipping " + result.Element("jobkey").Value);
                     }
                 }      
             }
