@@ -22,8 +22,6 @@ namespace LeadHarvest.SqliteDal
                 SQLiteCommand cmd = new SQLiteCommand(query, dbConnection);
                 SQLiteDataReader reader = cmd.ExecuteReader();
 
-
-
                 while (reader.Read())
                 {
                     var org = new Organization();
@@ -87,7 +85,7 @@ namespace LeadHarvest.SqliteDal
             SQLiteCommand cmd=new SQLiteCommand(query, dbConnection);
             cmd.ExecuteNonQuery();
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { throw ex; }
         }        
         
         public void UpdateEmailDomain(SQLiteConnection dbConnection, Organization org)
@@ -99,7 +97,7 @@ namespace LeadHarvest.SqliteDal
                 SQLiteCommand cmd=new SQLiteCommand(query, dbConnection);
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { throw ex; }
         }
 
         public void UpdateSocial(SQLiteConnection dbConnection, Organization org)
@@ -113,7 +111,7 @@ namespace LeadHarvest.SqliteDal
                 SQLiteCommand cmd=new SQLiteCommand(query, dbConnection);
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { throw ex; }
         }      
     }
 }

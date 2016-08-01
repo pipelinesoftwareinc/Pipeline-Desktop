@@ -58,6 +58,7 @@ namespace PipeLineDesktop
             _connection.Open();
             FillDG();
             toolStripStatusLabel2.Text=String.Format("Total={0}", this.dataGridOpp.Rows.Count.ToString());
+            toolStripStatusLabel1.Visible = false;
             skipSelectionChagned=false;
         }
         #endregion
@@ -78,8 +79,9 @@ namespace PipeLineDesktop
                 this._oppid=this.dataGridOpp.Columns["oppid"].Index;
                 this._selectedID=this.dataGridOpp.SelectedCells[this._oppid].Value.ToString();
                 this.dataGridOpp.Columns["searchid"].Visible=false;
-                this.dataGridOpp.Columns["oppid"].Visible=false;
+                this.dataGridOpp.Columns["oppid"].Visible=true;
                 this.dataGridOpp.Columns["orgid"].Visible=false;
+                this.dataGridOpp.Columns["SearchTerm"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 AddCheckboxColumn();
                 //AddUpdateColumn();
                 AddColumn();
@@ -264,8 +266,12 @@ namespace PipeLineDesktop
             DataSet ds=new DataSet();
             dbAdapter.Fill(ds);
             dataGridDetail.DataSource=ds.Tables[0];
+
+            dataGridDetail.AutoResizeColumns();
+            dataGridDetail.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
             this.dataGridDetail.Refresh();
-            InitializeDataGridView1(dataGridDetail);           
+           // InitializeDataGridView1(dataGridDetail);           
         }
 
         #region FillOrganization
@@ -291,22 +297,22 @@ namespace PipeLineDesktop
             this.dataGridOrg.Columns["GooglePlusUrl"].Visible=false;
 
             int count=3;
-            if(!string.IsNullOrEmpty(dataSet2.Tables[0].Rows[0]["LinkedInUrl"].ToString()))
+            if(!string.IsNullOrEmpty(dataSet2.Tables[0].Rows[0]["LinkedInUrl"].ToString()) && dataSet2.Tables[0].Rows[0]["LinkedInUrl"].ToString() != "NULL")
             {
                 this.AddImageColumn("LinkedIn", "social_icons/linkedin.png", count, dataSet2.Tables[0].Rows[0]["LinkedInUrl"].ToString());
                 count++;
             }
-            if(!string.IsNullOrEmpty(dataSet2.Tables[0].Rows[0]["FacebookUrl"].ToString()))
+            if(!string.IsNullOrEmpty(dataSet2.Tables[0].Rows[0]["FacebookUrl"].ToString()) && dataSet2.Tables[0].Rows[0]["FacebookUrl"].ToString() != "NULL")
             {
                 this.AddImageColumn("Facebook", "social_icons/facebook.png", count, dataSet2.Tables[0].Rows[0]["FacebookUrl"].ToString());
                 count++;
             }
-            if(!string.IsNullOrEmpty(dataSet2.Tables[0].Rows[0]["TwitterUrl"].ToString()))
+            if(!string.IsNullOrEmpty(dataSet2.Tables[0].Rows[0]["TwitterUrl"].ToString()) && dataSet2.Tables[0].Rows[0]["TwitterUrl"].ToString() != "NULL")
             {
                 this.AddImageColumn("Twitter", "social_icons/twitter.png", count, dataSet2.Tables[0].Rows[0]["TwitterUrl"].ToString());
                 count++;
             }
-            if(!string.IsNullOrEmpty(dataSet2.Tables[0].Rows[0]["GooglePlusUrl"].ToString()))
+            if(!string.IsNullOrEmpty(dataSet2.Tables[0].Rows[0]["GooglePlusUrl"].ToString()) && dataSet2.Tables[0].Rows[0]["GooglePlusUrl"].ToString() != "NULL")
             {
                 this.AddImageColumn("Google", "social_icons/google_plus.png", count, dataSet2.Tables[0].Rows[0]["GooglePlusUrl"].ToString());
 
@@ -472,7 +478,7 @@ namespace PipeLineDesktop
                     return;
                 try
                 {
-                    if(dataGridOpp["RecentUpdated", dataGridOpp.SelectedRows[0].Index].Value=="\u221A")
+                    if(dataGridOpp["RecentUpdated", dataGridOpp.SelectedRows[0].Index].Value.ToString()=="\u221A")
                     {
                         if(MessageBox.Show("You updated data for this opportunity, If you delete now.. your data will lost", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.Cancel)
                             return;
@@ -555,7 +561,10 @@ namespace PipeLineDesktop
                     dbAdapter.Fill(ds);
                     Updating=false;
                     if (ds.Tables[0].Rows.Count > 0)
-                        new New_Jobs(ds.Tables[0]).Show();
+                    {
+                        new New_Jobs(ds.Tables[0]).ShowDialog();
+                        FillDG();
+                    }
                     else
                         MessageBox.Show("DataBase Is Up to date. No New Records Found");
                 }));
@@ -569,12 +578,8 @@ namespace PipeLineDesktop
 
         private void main_Shown(object sender, EventArgs e)
         {
-            if(MessageBox.Show("Application Require to update Data... Please click Yes to start Update..", "Update", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)==DialogResult.Yes)
-                new Thread(new ThreadStart(Update)).Start();
-            else
-            {
-                MessageBox.Show("You can update application by clicking update menu on the top.", "info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            //if(MessageBox.Show("Application Require to update Data... Please click Yes to start Update..", "Update", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)==DialogResult.Yes)
+            //    new Thread(new ThreadStart(Update)).Start();
         }
         private void UpdateOppertunity(string Field)
         {
@@ -741,8 +746,12 @@ namespace PipeLineDesktop
 
                   if(!string.IsNullOrEmpty(url))
                   {
-                      this.webBrowser1.Url=new Uri(url);
-                      this.textBox1.Text=url.ToString();
+                    try
+                    {
+                        this.webBrowser1.Url = new Uri(url);
+                        this.textBox1.Text = url.ToString();
+                    }
+                    catch { }
                   }
               }
           }
@@ -915,6 +924,33 @@ namespace PipeLineDesktop
                 AddUpdateColumn();
               //  MessageBox.Show(dataGridDetail[e.ColumnIndex, e.RowIndex].EditedFormattedValue.ToString());
 
+            }
+        }
+
+        private void PergeTable(string table)
+        {
+            SQLiteCommand cmd = new SQLiteCommand(string.Format("delete from {0};", table));
+            cmd.Connection = _connection;
+            cmd.ExecuteNonQuery();
+
+            SQLiteCommand cmd2 = new SQLiteCommand(string.Format("UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='{0}';", table));
+            cmd2.Connection = _connection;
+            cmd2.ExecuteNonQuery();
+        }
+
+        private void purgeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to purge all data from the system ?", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                PergeTable("email");
+                PergeTable("email_opportunity");
+                PergeTable("email_organization");
+                PergeTable("opportunity");
+                PergeTable("organization");
+                PergeTable("phone");
+                PergeTable("phone_opportunity");
+                PergeTable("phone_organization");
+                MessageBox.Show("Database data purged. Configurations not affected", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             }
         }
     }

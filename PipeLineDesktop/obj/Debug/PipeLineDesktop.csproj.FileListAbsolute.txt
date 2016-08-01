@@ -7,27 +7,6 @@ E:\Dropbox\Code\PipeLineDesktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.Proper
 E:\Dropbox\Code\PipeLineDesktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.csproj.GenerateResource.Cache
 E:\Dropbox\Code\PipeLineDesktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.exe
 E:\Dropbox\Code\PipeLineDesktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.pdb
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\PipeLineDesktop.exe.config
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.exe
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.pdb
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\PipeLineDesktop.exe
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\PipeLineDesktop.pdb
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.main.resources
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.Properties.Resources.resources
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.csproj.GenerateResource.Cache
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\LeadHarvest.pdb
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.AskUpdate.resources
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.csprojResolveAssemblyReference.cache
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\EntityFramework.dll
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\EntityFramework.SqlServer.dll
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\System.Data.SQLite.dll
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\System.Data.SQLite.EF6.dll
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\System.Data.SQLite.Linq.dll
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\EntityFramework.xml
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\EntityFramework.SqlServer.xml
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\System.Data.SQLite.xml
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\LeadHarvest.dll
-F:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.Add_SearchTerms.resources
 E:\windows project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\PipeLineDesktop.exe.config
 E:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.exe
 E:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.pdb
@@ -50,3 +29,24 @@ E:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.As
 E:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.main.resources
 E:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.Properties.Resources.resources
 E:\windows project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.csproj.GenerateResource.Cache
+F:\Windows Project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\PipeLineDesktop.exe.config
+F:\Windows Project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\PipeLineDesktop.exe
+F:\Windows Project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\PipeLineDesktop.pdb
+F:\Windows Project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\EntityFramework.dll
+F:\Windows Project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\EntityFramework.SqlServer.dll
+F:\Windows Project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\LeadHarvest.dll
+F:\Windows Project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\System.Data.SQLite.dll
+F:\Windows Project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\System.Data.SQLite.EF6.dll
+F:\Windows Project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\System.Data.SQLite.Linq.dll
+F:\Windows Project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\LeadHarvest.pdb
+F:\Windows Project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\EntityFramework.xml
+F:\Windows Project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\EntityFramework.SqlServer.xml
+F:\Windows Project\Pipeline-Desktop\PipeLineDesktop\bin\Debug\System.Data.SQLite.xml
+F:\Windows Project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.csprojResolveAssemblyReference.cache
+F:\Windows Project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.Add_SearchTerms.resources
+F:\Windows Project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.AskUpdate.resources
+F:\Windows Project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.main.resources
+F:\Windows Project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.Properties.Resources.resources
+F:\Windows Project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.csproj.GenerateResource.Cache
+F:\Windows Project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.exe
+F:\Windows Project\Pipeline-Desktop\PipeLineDesktop\obj\Debug\PipeLineDesktop.pdb

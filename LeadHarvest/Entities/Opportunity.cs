@@ -17,9 +17,9 @@ namespace LeadHarvest.Entities
         private string _Title;
         private string _City;
         private string _State;
-        private string _SourceUrl;
         private string _ResponseUri;
         private string _SourceKey;
+        private string _Compensation;
 
         public int OrganizationID
         {
@@ -85,11 +85,11 @@ namespace LeadHarvest.Entities
         {
             get
             {
-                return _SourceID;
+                return _SearchID;
             }
             set
             {
-                _SourceID = value;
+                _SearchID = value;
             }
         }
 
@@ -139,7 +139,7 @@ namespace LeadHarvest.Entities
                 _ResponseUri = value;
             }
         }
-        
+
         public string SourceKey
         {
             get
@@ -150,7 +150,18 @@ namespace LeadHarvest.Entities
             {
                 _SourceKey = value;
             }
-        }        
-    
+        }
+
+        public string Compensation
+        {
+            get
+            {
+                return _Compensation;
+            }
+            set
+            {
+                _Compensation = value;
+            }
+        }
     }
 }

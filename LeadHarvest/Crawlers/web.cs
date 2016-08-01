@@ -18,7 +18,7 @@ namespace LeadHarvest.Crawlers
                 "mailto:", "www.w3.org", "http://ssl", // standards
                 "ajax.microsoft", "ajax.google.com", "schema.", // technology
                 "verisign", "indeed.com", "Addthis.com",  // companys
-                "//platform.", "twitter.com/widgets", "api.twitter.com", "twitter.com/share", "twitter.com/home?","twitter.com/intent/", "=http://twitter.com"
+                "//platform.", "twitter.com/widgets", "api.twitter.com", "twitter.com/share", "twitter.com/home?","twitter.com/intent/", "=http://twitter.com", "logo@2x.png", "2x.png"
             });
         private List<string> _lSocial = new List<string>(new string[] { 
                 "twitter.com", "http://facebook.com/", "youtube.com", "plus.google.com/+", "http://www.linkedin.com/company" });
@@ -71,7 +71,7 @@ namespace LeadHarvest.Crawlers
                 return _HTML;
             }
             catch (Exception ex)
-            { return ex.Message; }
+            { throw ex; }
         }
 
         public List<string> GetSocialUrls()
@@ -92,7 +92,7 @@ namespace LeadHarvest.Crawlers
 
         public List<string> GetEmails()
         {
-            return GetList(@"\b[A-Z0-9._-]+@[A-Z0-9][A-Z0-9.-]{0,61}[A-Z0-9]\.[A-Z.]{2,6}\b");
+            return GetList(@"\b[A-Z0-9._-]+@[A-Z0-9][A-Z0-9.-]{0,61}[A-Z0-9]\.com");
         }
         public List<string> GetPhoneNumbers()
         {

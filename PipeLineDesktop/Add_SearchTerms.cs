@@ -48,7 +48,11 @@ namespace PipeLineDesktop
 
             try
             {
-                adapter.Update(dataTable);
+               int i=  adapter.Update(dataTable);
+
+                MessageBox.Show("Search Term prefrence updated successfully");
+
+                this.Close();
             }
             catch
             {
