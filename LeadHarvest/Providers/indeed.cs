@@ -85,8 +85,14 @@ namespace LeadHarvest.Providers
 
                             // NEEDED TO GET THE RESPONSE URI
                             web.GetHTML("http://www.indeed.com/rc/clk?jk=" + opp.SourceKey);
-                            opp.ResponseUri = web.ResponseUri;
+                           
 
+                            List<string> emails = web.GetEmails();
+                            
+                            List<string> social = web.GetSocialUrls();
+                            opp.ResponseUri = web.ResponseUri;
+                            string testUrl = result.Element("url").Value;
+                            web.GetHTML(result.Element("url").Value);
                             // CREATE OPPORTUNITY
                             opp.ID = dbOpp.Create(_dbConnection, opp);
 
@@ -96,7 +102,7 @@ namespace LeadHarvest.Providers
                             // PROCESS RESULTS HTML
                             // ####################
 
-                            web.GetHTML(result.Element("url").Value);
+                           
                             opp.ResponseUri = web.ResponseUri;
 
                             // EXTRACT ORG DESCRIPTION
@@ -110,9 +116,10 @@ namespace LeadHarvest.Providers
                                 dbOrg.Update(_dbConnection, org);
                             }
 
-                            // PROCESS EMAIL ON HTML PAGE 
-                            List<string> emails = web.GetEmails();
+                            // PROCESS EMAIL ON HTML PAGE   (Moved email from here to close to the url call)
+                          
                             dbEmail dbEmail = new dbEmail();
+                          
                             foreach (var value in emails)
                             {
                                 Email email = new Email();
@@ -133,10 +140,11 @@ namespace LeadHarvest.Providers
                             // PROCESS REDIRECT HTML
                             // ####################
 
-                            web.GetHTML("http://www.indeed.com/rc/clk?jk=" + opp.SourceKey);
+                          
 
                             // PROCESS ALL EMAIL ON HTML PAGE 
-                            emails = web.GetEmails();
+                            
+                            #region Emails
                             foreach (var value in emails)
                             {
                                 Email email = new Email();
@@ -152,9 +160,11 @@ namespace LeadHarvest.Providers
                                 org.EmailDomain = new MailAddress(email.Address).Host;
                                 dbOrg.UpdateEmailDomain(_dbConnection, org);
                             }
+                            #endregion
 
-                            // SOCIAL
-                            List<string> social = web.GetSocialUrls();
+                            // SOCIAL 
+                            #region Social
+                          
                             if (social.Count > 0)
                             {
                                 org.LinkedIn = social.Find(item => item.Contains("linkedin"));
@@ -173,6 +183,7 @@ namespace LeadHarvest.Providers
 
                                 dbOrg.UpdateSocial(_dbConnection, org);
                             }
+                            #endregion
                         }
                         catch (Exception ex)
                         {

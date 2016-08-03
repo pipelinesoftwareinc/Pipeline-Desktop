@@ -75,10 +75,6 @@ E:\windows project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.New_Jobs.r
 E:\windows project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.csproj.GenerateResource.Cache
 E:\windows project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.dll
 E:\windows project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.pdb
-F:\Windows Project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.csproj.App.config
-F:\Windows Project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.csprojResolveAssemblyReference.cache
-F:\Windows Project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.New_Jobs.resources
-F:\Windows Project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.csproj.GenerateResource.Cache
 F:\Windows Project\Pipeline-Desktop\LeadHarvest\bin\Debug\LeadHarvest.dll.config
 F:\Windows Project\Pipeline-Desktop\LeadHarvest\bin\Debug\LeadHarvest.dll
 F:\Windows Project\Pipeline-Desktop\LeadHarvest\bin\Debug\LeadHarvest.pdb
@@ -94,5 +90,9 @@ F:\Windows Project\Pipeline-Desktop\LeadHarvest\bin\Debug\Microsoft.Threading.Ta
 F:\Windows Project\Pipeline-Desktop\LeadHarvest\bin\Debug\System.Data.SQLite.xml
 F:\Windows Project\Pipeline-Desktop\LeadHarvest\bin\Debug\System.Net.Http.Extensions.xml
 F:\Windows Project\Pipeline-Desktop\LeadHarvest\bin\Debug\System.Net.Http.Primitives.xml
+F:\Windows Project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.csproj.App.config
+F:\Windows Project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.New_Jobs.resources
+F:\Windows Project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.csproj.GenerateResource.Cache
 F:\Windows Project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.dll
 F:\Windows Project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.pdb
+F:\Windows Project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.csprojResolveAssemblyReference.cache

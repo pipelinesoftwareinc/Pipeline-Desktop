@@ -16,8 +16,8 @@ namespace LeadHarvest.SqliteDal
             try 
             { 
                 string query = String.Format("INSERT OR IGNORE INTO opportunity" +
-                    "(OrganizationID, SourceID, SearchID, Title, Snippet, DatePosted, City, State, ResponseUri, SourceKey, Created)" +
-                    "VALUES({1},{2},'{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}');" +
+                    "(OrganizationID, SourceID, SearchID, Title, Snippet, DatePosted, City, State, ResponseUri, SourceKey, Created, JobType, Salary, JobLocation, RequiredEducation, RequiredExperience)" +
+                    "VALUES({1},{2},'{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}');" +
                     "SELECT ID FROM opportunity WHERE SourceKey='{10}';",
                     oppertunity.ID,
                     oppertunity.OrganizationID,
@@ -30,7 +30,7 @@ namespace LeadHarvest.SqliteDal
                     oppertunity.State, 
                     oppertunity.ResponseUri,
                     oppertunity.SourceKey,
-                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),oppertunity.JobLocation,oppertunity.Salary,oppertunity.JobLocation,oppertunity.RequiredEducation,oppertunity.RequiredExperience);
                 SQLiteCommand cmd = new SQLiteCommand(query, dbConnection);
                 return Convert.ToInt32(cmd.ExecuteScalar());
             }

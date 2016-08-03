@@ -12,7 +12,7 @@ namespace LeadHarvest.SqliteDal
     {
         public List<Search> FetchTerms(SQLiteConnection dbConnection)
         {
-            string query = "SELECT * FROM Search WHERE UserID =1;";
+            string query = "SELECT * FROM Search WHERE UserID =1 and IsActive=1;";
             SQLiteCommand cmd=new SQLiteCommand(query, dbConnection);
             SQLiteDataReader reader = cmd.ExecuteReader();
 

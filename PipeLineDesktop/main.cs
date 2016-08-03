@@ -81,6 +81,7 @@ namespace PipeLineDesktop
                 this.dataGridOpp.Columns["searchid"].Visible=false;
                 this.dataGridOpp.Columns["oppid"].Visible=true;
                 this.dataGridOpp.Columns["orgid"].Visible=false;
+                this.dataGridOpp.Columns["Name"].HeaderText= "Organization";
                 this.dataGridOpp.Columns["SearchTerm"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 AddCheckboxColumn();
                 //AddUpdateColumn();
@@ -191,6 +192,10 @@ namespace PipeLineDesktop
                     c.DefaultCellStyle.Alignment=DataGridViewContentAlignment.MiddleCenter;
                     
                 }
+                if(c.Name=="OppId" || c.Name == "StateId")
+                {
+                    c.Width = 10;
+                }
                 c.AutoSizeMode=DataGridViewAutoSizeColumnMode.None;
             }
 
@@ -201,6 +206,8 @@ namespace PipeLineDesktop
                     dg.Columns[j].ReadOnly=true;
                 }
             }
+
+            //AutoResizeGridFillAllArea(dg);
         }
 
         private void InitializeDataGridView1(DataGridView dg)
@@ -267,11 +274,29 @@ namespace PipeLineDesktop
             dbAdapter.Fill(ds);
             dataGridDetail.DataSource=ds.Tables[0];
 
-            dataGridDetail.AutoResizeColumns();
-            dataGridDetail.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            AutoResizeGridFillAllArea(dataGridDetail);
+
+          //  dataGridDetail.AutoResizeColumns();
+          //     dataGridDetail.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
             this.dataGridDetail.Refresh();
            // InitializeDataGridView1(dataGridDetail);           
+        }
+
+        private void AutoResizeGridFillAllArea(DataGridView dataGridDetail)
+        {
+            for (int i = 0; i < dataGridDetail.Columns.Count - 1; i++)
+            {
+                dataGridDetail.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
+            dataGridDetail.Columns[dataGridDetail.Columns.Count - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            for (int i = 0; i < dataGridDetail.Columns.Count; i++)
+            {
+                int colw = dataGridDetail.Columns[i].Width;
+                dataGridDetail.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dataGridDetail.Columns[i].Width = colw;
+            }
         }
 
         #region FillOrganization
@@ -590,17 +615,17 @@ namespace PipeLineDesktop
             IHTMLTxtRange htmlTxtRange=selection.createRange() as IHTMLTxtRange;
             if(!string.IsNullOrEmpty(htmlTxtRange.text))
             {
-                if(MessageBox.Show("Are you sure... Update: Old Value: "+this.dataGridOpp.SelectedRows[0].Cells[Field].Value+" New Value: "+htmlTxtRange.text, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.OK)
-                {
+                //if(MessageBox.Show("Are you sure... Update: Old Value: "+this.dataGridOpp.SelectedRows[0].Cells[Field].Value+" New Value: "+htmlTxtRange.text, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.OK)
+                //{
                     SQLiteCommand cmd=new SQLiteCommand(string.Format("UPDATE opportunity SET {2} = '{1}' WHERE ID={0};", this._selectedID, htmlTxtRange.text,Field));
                     cmd.Connection=_connection;
                     cmd.ExecuteNonQuery();
                     dataGridOpp[Field, dataGridOpp.SelectedRows[0].Index].Value = htmlTxtRange.text;
-                }
-                else
-                {
-                    //int num=(int)MessageBox.Show("");
-                }
+                //}
+                //else
+                //{
+                //    //int num=(int)MessageBox.Show("");
+                //}
             }
             else
             {
@@ -619,28 +644,29 @@ namespace PipeLineDesktop
         private void descriptionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string selectedText=this.getSelectedText();      
-            if(!string.IsNullOrEmpty(selectedText))
+            if(string.IsNullOrEmpty(selectedText))
             {
                 MessageBox.Show("Please select some text and try again."); return;
             }
-            if(MessageBox.Show("Are you sure... Update: Old Value: "+this.dataGridOpp.SelectedRows[0].Cells["snippet"].Value+" New Value: "+selectedText, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.OK)
-            {
-                SQLiteCommand cmd=new SQLiteCommand(string.Format("UPDATE opportunity SET snippet = '{1}' WHERE ID={0};", this._selectedID, selectedText));
+         //   if(MessageBox.Show("Are you sure... Update: Old Value: "+this.dataGridOpp.SelectedRows[0].Cells["snippet"].Value+" New Value: "+selectedText, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.OK)
+          //  {
+                SQLiteCommand cmd=new SQLiteCommand(string.Format("UPDATE opportunity SET snippet = '{1}' WHERE ID={0};", this._selectedID, selectedText.Replace("'", "''")));
                 cmd.Connection=_connection;
                 cmd.ExecuteNonQuery();
-            }
-            else
-            {
-                //
-            }
+                RefreshGrid();
+         //   }
+            //else
+            //{
+            //    //
+            //}
         }
         private void phoneToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             string selectedText=this.getSelectedText();
             if(!string.IsNullOrEmpty(selectedText))
             {
-                if(MessageBox.Show("Are you sure... set Phone No. to: "+selectedText, "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)!=DialogResult.OK)
-                    return;
+               // if(MessageBox.Show("Are you sure... set Phone No. to: "+selectedText, "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)!=DialogResult.OK)
+                //    return;
 
                 int ii=this.CreatePhone(selectedText);
                 if(ii==0) MessageBox.Show("some exception occur");
@@ -654,6 +680,7 @@ namespace PipeLineDesktop
                     string query=String.Format("INSERT OR IGNORE INTO phone_opportunity(PhoneId,OpportunityID)VALUES({0},{1});", ii, _selectedID);
                     cmd=new SQLiteCommand(query, _connection);
                 }
+                RefreshGrid();
             }
             else
             {
@@ -665,8 +692,8 @@ namespace PipeLineDesktop
             string selectedText=this.getSelectedText();
             if(!string.IsNullOrEmpty(selectedText))
             {
-                if(MessageBox.Show("Are you sure... set email to: "+selectedText, "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)!=DialogResult.OK)
-                    return;
+               // if(MessageBox.Show("Are you sure... set email to: "+selectedText, "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)!=DialogResult.OK)
+                  //  return;
 
                 int ii = this.CreateEmail(selectedText);
                 if(ii==0) MessageBox.Show("some exception occur");
@@ -680,6 +707,7 @@ namespace PipeLineDesktop
                     string query=String.Format("INSERT OR IGNORE INTO email_opportunity(EmailID,OpportunityID)VALUES({0},{1});", ii, _selectedID);
                      cmd=new SQLiteCommand(query, _connection);
                 }
+                RefreshGrid();
             }
             else
             {
@@ -689,8 +717,7 @@ namespace PipeLineDesktop
         private void titleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.UpdateOppertunity(((ToolStripItem)sender).Text);
-            FillOppertunity();
-            AddUpdateColumn();
+            RefreshGrid();
         }
         public int CreateEmail(string emailAddress)
         {
@@ -952,6 +979,37 @@ namespace PipeLineDesktop
                 PergeTable("phone_organization");
                 MessageBox.Show("Database data purged. Configurations not affected", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             }
+        }
+
+        private void compensationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string selectedText = this.getSelectedText();
+            if (string.IsNullOrEmpty(selectedText))
+            {
+                MessageBox.Show("Please select some text and try again."); return;
+            }
+           // if (MessageBox.Show("Are you sure... Update: Old Value: " + this.dataGridOpp.SelectedRows[0].Cells["snippet"].Value + " New Value: " + selectedText, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+           // {
+                SQLiteCommand cmd = new SQLiteCommand(string.Format("UPDATE opportunity SET Compensation = '{1}' WHERE ID={0};", this._selectedID, selectedText.Replace("'", "''")));
+                cmd.Connection = _connection;
+                cmd.ExecuteNonQuery();
+            RefreshGrid();
+          //  }
+           // else
+            //{
+            //
+           // }
+        }
+
+        private void RefreshGrid()
+        {
+            FillOppertunity();
+            AddUpdateColumn();
+        }
+
+        private void ciToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

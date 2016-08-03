@@ -113,15 +113,13 @@ namespace PipeLineDesktop
             {
                 if(MessageBox.Show("Are you sure? You want to delete search term", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.Cancel)
                     return;
-                //ExecuteQuery(string.Format("delete from search where ID = {0}",_selectedID));
-                dataGridOpp.Rows.RemoveAt(dataGridOpp.SelectedRows[0].Index);
-                //dataGridOpp.Refresh();
-                //button3_Click(sender, e);
+               
+                dataGridOpp.Rows.RemoveAt(dataGridOpp.SelectedRows[0].Index);               
                 adapter.Update(dataTable);
             }
             catch
             {
-                //
+               
             }
         }
 

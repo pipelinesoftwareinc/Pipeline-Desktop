@@ -57,8 +57,7 @@ namespace LeadHarvest
                 }
             }
 
-            //Console.WriteLine("#### DONE ####");
-            //Console.ReadLine();
+            Console.WriteLine("#### DONE ####");            
         }
 
       
