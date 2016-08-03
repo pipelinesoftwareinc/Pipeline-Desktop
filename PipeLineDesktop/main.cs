@@ -89,9 +89,7 @@ namespace PipeLineDesktop
                 MarkUpdated();
                 InitializeDataGridView(dataGridOpp);
             }
-            catch
-            {
-            }
+            catch (Exception ex) { throw ex; }
         }
 
         #region GridViewUpdateColumn *
