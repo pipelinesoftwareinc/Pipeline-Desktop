@@ -18,14 +18,6 @@ namespace LeadHarvest
         static void Main(string[] args)
         {
             
-            // Clear out database
-            //var query = "DELETE FROM `pipeline`.`email`;DELETE FROM `pipeline`.`email_opportunity`;DELETE FROM `pipeline`.`email_organization`;" +
-            //    "DELETE FROM `pipeline`.`opportunity`;DELETE FROM `pipeline`.`organization`;" +
-            //    "ALTER TABLE email AUTO_INCREMENT = 1;ALTER TABLE opportunity AUTO_INCREMENT = 1;ALTER TABLE organization AUTO_INCREMENT = 1";
-            //MySqlCommand cmd = new MySqlCommand(query, _dbConnection);
-            //cmd.ExecuteNonQuery();
-
-
             // FETCH TermS
             List<Search> lSearch = new dbSearch().FetchTerms(_dbConnection);
             

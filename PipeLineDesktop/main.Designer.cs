@@ -136,8 +136,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
             this.splitContainer1.Panel2.Controls.Add(this.statusStrip1);
-            this.splitContainer1.Size = new System.Drawing.Size(617, 437);
-            this.splitContainer1.SplitterDistance = 372;
+            this.splitContainer1.Size = new System.Drawing.Size(2153, 1395);
+            this.splitContainer1.SplitterDistance = 1187;
             this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -159,8 +159,8 @@
             this.splitContainer2.Panel2.Controls.Add(this.textBox1);
             this.splitContainer2.Panel2.Controls.Add(this.menuStrip2);
             this.splitContainer2.Panel2.Controls.Add(this.webBrowser1);
-            this.splitContainer2.Size = new System.Drawing.Size(617, 341);
-            this.splitContainer2.SplitterDistance = 257;
+            this.splitContainer2.Size = new System.Drawing.Size(2153, 1156);
+            this.splitContainer2.SplitterDistance = 896;
             this.splitContainer2.SplitterWidth = 2;
             this.splitContainer2.TabIndex = 4;
             // 
@@ -168,7 +168,7 @@
             // 
             this.dataGridOpp.AllowUserToAddRows = false;
             this.dataGridOpp.AllowUserToDeleteRows = false;
-            this.dataGridOpp.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.dataGridOpp.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridOpp.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridOpp.ColumnHeadersHeight = 25;
             this.dataGridOpp.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -180,7 +180,7 @@
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
             this.dataGridOpp.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridOpp.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridOpp.Size = new System.Drawing.Size(257, 341);
+            this.dataGridOpp.Size = new System.Drawing.Size(896, 1156);
             this.dataGridOpp.TabIndex = 2;
             this.dataGridOpp.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             this.dataGridOpp.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dataGridOpp_SortCompare);
@@ -206,7 +206,7 @@
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStrip2.Size = new System.Drawing.Size(358, 31);
+            this.menuStrip2.Size = new System.Drawing.Size(1255, 31);
             this.menuStrip2.TabIndex = 8;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -242,7 +242,7 @@
             this.webBrowser1.Location = new System.Drawing.Point(0, 0);
             this.webBrowser1.Margin = new System.Windows.Forms.Padding(2, 26, 2, 2);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(358, 341);
+            this.webBrowser1.Size = new System.Drawing.Size(1255, 1156);
             this.webBrowser1.TabIndex = 7;
             this.webBrowser1.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser1_Navigated);
             this.webBrowser1.NewWindow += new System.ComponentModel.CancelEventHandler(this.webBrowser1_NewWindow);
@@ -484,7 +484,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStrip1.Size = new System.Drawing.Size(617, 31);
+            this.menuStrip1.Size = new System.Drawing.Size(2153, 31);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -589,7 +589,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(617, 32);
+            this.tabControl1.Size = new System.Drawing.Size(2153, 175);
             this.tabControl1.TabIndex = 3;
             // 
             // tabOpp
@@ -599,21 +599,21 @@
             this.tabOpp.Margin = new System.Windows.Forms.Padding(2);
             this.tabOpp.Name = "tabOpp";
             this.tabOpp.Padding = new System.Windows.Forms.Padding(2);
-            this.tabOpp.Size = new System.Drawing.Size(609, 0);
+            this.tabOpp.Size = new System.Drawing.Size(2145, 142);
             this.tabOpp.TabIndex = 0;
             this.tabOpp.Text = "Opportunities";
             this.tabOpp.UseVisualStyleBackColor = true;
             // 
             // dataGridDetail
             // 
-            this.dataGridDetail.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridDetail.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridDetail.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridDetail.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridDetail.Location = new System.Drawing.Point(2, 2);
             this.dataGridDetail.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridDetail.Name = "dataGridDetail";
-            this.dataGridDetail.Size = new System.Drawing.Size(605, 0);
+            this.dataGridDetail.Size = new System.Drawing.Size(2141, 138);
             this.dataGridDetail.TabIndex = 3;
             this.dataGridDetail.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridDetail_CellLeave);
             this.dataGridDetail.Leave += new System.EventHandler(this.dataGridDetail_Leave);
@@ -625,21 +625,21 @@
             this.tabOrg.Margin = new System.Windows.Forms.Padding(2);
             this.tabOrg.Name = "tabOrg";
             this.tabOrg.Padding = new System.Windows.Forms.Padding(2);
-            this.tabOrg.Size = new System.Drawing.Size(609, 0);
+            this.tabOrg.Size = new System.Drawing.Size(2145, 142);
             this.tabOrg.TabIndex = 1;
             this.tabOrg.Text = "Organizations";
             this.tabOrg.UseVisualStyleBackColor = true;
             // 
             // dataGridOrg
             // 
-            this.dataGridOrg.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridOrg.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridOrg.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridOrg.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridOrg.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridOrg.Location = new System.Drawing.Point(2, 2);
             this.dataGridOrg.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridOrg.Name = "dataGridOrg";
-            this.dataGridOrg.Size = new System.Drawing.Size(605, 0);
+            this.dataGridOrg.Size = new System.Drawing.Size(2141, 138);
             this.dataGridOrg.TabIndex = 0;
             this.dataGridOrg.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridOrg_CellContentClick);
             // 
@@ -649,19 +649,20 @@
             this.tabNetwork.Location = new System.Drawing.Point(4, 29);
             this.tabNetwork.Margin = new System.Windows.Forms.Padding(2);
             this.tabNetwork.Name = "tabNetwork";
-            this.tabNetwork.Size = new System.Drawing.Size(609, 0);
+            this.tabNetwork.Size = new System.Drawing.Size(2145, 142);
             this.tabNetwork.TabIndex = 2;
             this.tabNetwork.Text = "Network";
             this.tabNetwork.UseVisualStyleBackColor = true;
             // 
             // dataGridNet
             // 
+            this.dataGridNet.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridNet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridNet.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridNet.Location = new System.Drawing.Point(0, 0);
             this.dataGridNet.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridNet.Name = "dataGridNet";
-            this.dataGridNet.Size = new System.Drawing.Size(609, 0);
+            this.dataGridNet.Size = new System.Drawing.Size(2145, 142);
             this.dataGridNet.TabIndex = 1;
             // 
             // tabContact
@@ -670,19 +671,20 @@
             this.tabContact.Location = new System.Drawing.Point(4, 29);
             this.tabContact.Margin = new System.Windows.Forms.Padding(2);
             this.tabContact.Name = "tabContact";
-            this.tabContact.Size = new System.Drawing.Size(609, 0);
+            this.tabContact.Size = new System.Drawing.Size(2145, 142);
             this.tabContact.TabIndex = 3;
             this.tabContact.Text = "Contact";
             this.tabContact.UseVisualStyleBackColor = true;
             // 
             // dataGridCon
             // 
+            this.dataGridCon.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridCon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridCon.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridCon.Location = new System.Drawing.Point(0, 0);
             this.dataGridCon.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridCon.Name = "dataGridCon";
-            this.dataGridCon.Size = new System.Drawing.Size(609, 0);
+            this.dataGridCon.Size = new System.Drawing.Size(2145, 142);
             this.dataGridCon.TabIndex = 1;
             // 
             // statusStrip1
@@ -691,10 +693,10 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 32);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 175);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 8, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(617, 30);
+            this.statusStrip1.Size = new System.Drawing.Size(2153, 30);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -714,13 +716,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(617, 437);
+            this.ClientSize = new System.Drawing.Size(2153, 1395);
             this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "main";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pipeline Desktop Beta";
             this.Load += new System.EventHandler(this.main_Load);
             this.Shown += new System.EventHandler(this.main_Shown);

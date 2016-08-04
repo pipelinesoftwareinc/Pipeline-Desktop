@@ -16,27 +16,29 @@ namespace LeadHarvest.SqliteDal
             try 
             { 
                 string query = String.Format("INSERT OR IGNORE INTO opportunity" +
-                    "(OrganizationID, SourceID, SearchID, Title, Snippet, DatePosted, City, State, ResponseUri, SourceKey, Created, JobType, Salary, JobLocation, RequiredEducation, RequiredExperience)" +
-                    "VALUES({1},{2},'{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}');" +
-                    "SELECT ID FROM opportunity WHERE SourceKey='{10}';",
-                    oppertunity.ID,
+                    "(SourceKey, OrganizationID, SourceID, SearchID, Title, Snippet, DatePosted, City, State, ResponseUri, JobType, Compensation, SourceUri, Created, Modified)" +
+                    "VALUES('{0}',{1},{2},{3},'{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}');" +
+                    "SELECT ID FROM opportunity WHERE SourceKey='{0}';",
+                    oppertunity.SourceKey,
                     oppertunity.OrganizationID,
                     oppertunity.SourceID,
                     oppertunity.SearchID,
-                     oppertunity.Title.Replace("'","''"),
-                     oppertunity.Snippet.Replace("'", "''"), 
+                    oppertunity.Title.Replace("'","''"),
+                    oppertunity.Snippet.Replace("'", "''"), 
                     oppertunity.DatePosted.ToString("yyyy-MM-dd HH:mm:ss"),
-                     oppertunity.City.Replace("'", "''"), 
+                    oppertunity.City.Replace("'", "''"), 
                     oppertunity.State, 
                     oppertunity.ResponseUri,
-                    oppertunity.SourceKey,
-                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),oppertunity.JobLocation,oppertunity.Salary,oppertunity.JobLocation,oppertunity.RequiredEducation,oppertunity.RequiredExperience);
+                    oppertunity.JobType,
+                    oppertunity.Compensation,
+                    oppertunity.SourceUri,
+                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                    );
                 SQLiteCommand cmd = new SQLiteCommand(query, dbConnection);
                 return Convert.ToInt32(cmd.ExecuteScalar());
             }
-            catch (Exception ex) { 
-                return 0; 
-            }
+            catch (Exception ex) { throw ex; }
         }
 
         public List<string> FetchSourceKey(SQLiteConnection dbConnection, int SourceID)
@@ -56,10 +58,7 @@ namespace LeadHarvest.SqliteDal
 
                 return results;
             }
-            catch (Exception ex)
-            {
-                return null;
-            }
+            catch (Exception ex) { throw ex; }
         }    
     }
 }

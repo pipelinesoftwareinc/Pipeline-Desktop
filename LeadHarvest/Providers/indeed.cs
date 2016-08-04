@@ -60,15 +60,13 @@ namespace LeadHarvest.Providers
                         try {
 
                             // ####################
-                            // PROCESS RESULTS XML
+                            // PROCESS INDEED PAGE
                             // ####################
 
                             Organization org = new Organization();
                             dbOrganization dbOrg = new dbOrganization();
                             org.Name = result.Element("company").Value.Replace("'", "");
-                            org.EmailDomain = "";
                             org.ID = dbOrg.Create(_dbConnection, org.Name);
-
                             Console.WriteLine(org.ID + "|" + org.Name);
 
                             Opportunity opp = new Opportunity();
@@ -81,29 +79,25 @@ namespace LeadHarvest.Providers
                             opp.City = result.Element("city").Value;
                             opp.State = result.Element("state").Value;
                             opp.SourceKey = result.Element("jobkey").Value;
+                            opp.SourceUri = "http://www.indeed.com/rc/clk?jk=" + opp.SourceKey; // Indeed page
                             opp.Compensation = "$110/hr";
 
                             // NEEDED TO GET THE RESPONSE URI
-                            web.GetHTML("http://www.indeed.com/rc/clk?jk=" + opp.SourceKey);
-                           
-
-                            List<string> emails = web.GetEmails();
-                            
-                            List<string> social = web.GetSocialUrls();
+                            web.GetHTML(opp.SourceUri); // company page
                             opp.ResponseUri = web.ResponseUri;
-                            string testUrl = result.Element("url").Value;
-                            web.GetHTML(result.Element("url").Value);
+
                             // CREATE OPPORTUNITY
                             opp.ID = dbOpp.Create(_dbConnection, opp);
-
                             Console.WriteLine("  >>" + opp.ID + "|" + opp.Title + "|" + opp.City + "|" + opp.State);
 
+                            // CAPTURE EMAIL AND SOCIAL
+                            List<string> emails = web.GetEmails();
+                            List<string> social = web.GetSocialUrls();
+                            
                             // ####################
-                            // PROCESS RESULTS HTML
+                            // PROCESS EXTERNAL PAGE
                             // ####################
-
-                           
-                            opp.ResponseUri = web.ResponseUri;
+                            web.GetHTML(result.Element("url").Value);
 
                             // EXTRACT ORG DESCRIPTION
                             List<string> descrip = new List<string>();

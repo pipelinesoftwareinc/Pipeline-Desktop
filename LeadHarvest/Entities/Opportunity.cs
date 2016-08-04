@@ -18,14 +18,10 @@ namespace LeadHarvest.Entities
         private string _City;
         private string _State;
         private string _ResponseUri;
+        private string _SourceUri;
         private string _SourceKey;
         private string _Compensation;
-
         private string _JobType;
-        private string _Salary;
-        private string _JobLocation;
-        private string _RequiredEducation;
-        private string _RequiredExperience;
 
         public int OrganizationID
         {
@@ -146,6 +142,18 @@ namespace LeadHarvest.Entities
             }
         }
 
+        public string SourceUri
+        {
+            get
+            {
+                return _SourceUri;
+            }
+            set
+            {
+                _SourceUri = value;
+            }
+        }
+
         public string SourceKey
         {
             get
@@ -181,51 +189,6 @@ namespace LeadHarvest.Entities
                 _JobType = value;
             }
         }
-        public string Salary
-        {
-            get
-            {
-                return _Salary;
-            }
-            set
-            {
-                _Salary = value;
-            }
-        }
-
-        public string JobLocation
-        {
-            get
-            {
-                return _JobLocation;
-            }
-            set
-            {
-                _JobLocation = value;
-            }
-        }
-        public string RequiredEducation
-        {
-            get
-            {
-                return _RequiredEducation;
-            }
-            set
-            {
-                _RequiredEducation = value;
-            }
-        }
-        public string RequiredExperience
-        {
-            get
-            {
-                return _RequiredExperience;
-            }
-            set
-            {
-                _RequiredExperience = value;
-            }
-        }
-       
+      
     }
 }

@@ -69,7 +69,7 @@ namespace LeadHarvest.Database
         {
             try
             {
-                string query = String.Format(@"INSERT IGNORE INTO organization(Name)VALUES('{0}');SELECT ID FROM organization WHERE Name='{0}';", name);
+                string query = String.Format(@"INSERT IGNORE INTO organization(Name,Modified)VALUES('{0}','{1}');SELECT ID FROM organization WHERE Name='{0}';", name, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                 MySqlCommand cmd=new MySqlCommand(query, dbConnection);
                 return Convert.ToInt32(cmd.ExecuteScalar());
             }
@@ -80,9 +80,9 @@ namespace LeadHarvest.Database
         {
             try            {
             string query = String.Format(@"UPDATE organization SET 
-                Name='{0}',EmailDomain='{1}',Description='{2}',LinkedIn='{3}',Facebook='{4}',Twitter='{5}',GooglePlus='{6}'
+                Name='{0}',EmailDomain='{1}',Description='{2}',LinkedIn='{3}',Facebook='{4}',Twitter='{5}',GooglePlus='{6},Modified='{7}'
                 WHERE ID={7};",
-                org.Name, org.EmailDomain, MySqlHelper.EscapeString(org.Description), org.LinkedIn, org.Facebook, org.Twitter, org.GooglePlus, org.ID);
+                org.Name, org.EmailDomain, MySqlHelper.EscapeString(org.Description), org.LinkedIn, org.Facebook, org.Twitter, org.GooglePlus, org.ID, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             MySqlCommand cmd=new MySqlCommand(query, dbConnection);
             cmd.ExecuteNonQuery();
             }
@@ -93,8 +93,8 @@ namespace LeadHarvest.Database
         {
             try
             {
-                string query = String.Format("UPDATE organization SET EmailDomain = '{0}' WHERE ID = {1};",
-                    org.EmailDomain, org.ID);
+                string query = String.Format("UPDATE organization SET EmailDomain = '{0}', Modified = '{2}' WHERE ID = {1};",
+                    org.EmailDomain, org.ID, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                 MySqlCommand cmd=new MySqlCommand(query, dbConnection);
                 cmd.ExecuteNonQuery();
             }
@@ -106,9 +106,8 @@ namespace LeadHarvest.Database
             try
             {
                 string query = String.Format(@"UPDATE organization SET 
-                LinkedIn='{0}',Facebook='{1}',Twitter='{2}',GooglePlus='{3}' 
-                WHERE ID={4};",
-                    org.LinkedIn, org.Facebook, org.Twitter, org.GooglePlus, org.ID);
+                LinkedIn='{0}',Facebook='{1}',Twitter='{2}',GooglePlus='{3}' , Modified = '{5}' WHERE ID={4};",
+                    org.LinkedIn, org.Facebook, org.Twitter, org.GooglePlus, org.ID, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                 MySqlCommand cmd=new MySqlCommand(query, dbConnection);
                 cmd.ExecuteNonQuery();
             }

@@ -86,7 +86,6 @@
     <Compile Include="Database\dbSearch.cs" />
     <Compile Include="Database\dbPhone.cs" />
     <Compile Include="Database\dbOpportunity.cs" />
-    <Compile Include="Database\dbIncludeTerm.cs" />
     <Compile Include="Database\dbOrganization.cs" />
     <Compile Include="Database\dbSource.cs" />
     <Compile Include="Database\helper.cs" />

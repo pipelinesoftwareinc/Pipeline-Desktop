@@ -96,3 +96,24 @@ F:\Windows Project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.csproj.Gen
 F:\Windows Project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.dll
 F:\Windows Project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.pdb
 F:\Windows Project\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.csprojResolveAssemblyReference.cache
+C:\Users\Steve-PC\Dropbox\Repos\Pipeline-Desktop\LeadHarvest\bin\Debug\LeadHarvest.dll.config
+C:\Users\Steve-PC\Dropbox\Repos\Pipeline-Desktop\LeadHarvest\bin\Debug\LeadHarvest.dll
+C:\Users\Steve-PC\Dropbox\Repos\Pipeline-Desktop\LeadHarvest\bin\Debug\LeadHarvest.pdb
+C:\Users\Steve-PC\Dropbox\Repos\Pipeline-Desktop\LeadHarvest\bin\Debug\Microsoft.Threading.Tasks.dll
+C:\Users\Steve-PC\Dropbox\Repos\Pipeline-Desktop\LeadHarvest\bin\Debug\Microsoft.Threading.Tasks.Extensions.dll
+C:\Users\Steve-PC\Dropbox\Repos\Pipeline-Desktop\LeadHarvest\bin\Debug\System.Data.SQLite.dll
+C:\Users\Steve-PC\Dropbox\Repos\Pipeline-Desktop\LeadHarvest\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\Steve-PC\Dropbox\Repos\Pipeline-Desktop\LeadHarvest\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\Steve-PC\Dropbox\Repos\Pipeline-Desktop\LeadHarvest\bin\Debug\System.Net.Http.Extensions.dll
+C:\Users\Steve-PC\Dropbox\Repos\Pipeline-Desktop\LeadHarvest\bin\Debug\System.Net.Http.Primitives.dll
+C:\Users\Steve-PC\Dropbox\Repos\Pipeline-Desktop\LeadHarvest\bin\Debug\Microsoft.Threading.Tasks.xml
+C:\Users\Steve-PC\Dropbox\Repos\Pipeline-Desktop\LeadHarvest\bin\Debug\Microsoft.Threading.Tasks.Extensions.xml
+C:\Users\Steve-PC\Dropbox\Repos\Pipeline-Desktop\LeadHarvest\bin\Debug\System.Data.SQLite.xml
+C:\Users\Steve-PC\Dropbox\Repos\Pipeline-Desktop\LeadHarvest\bin\Debug\System.Net.Http.Extensions.xml
+C:\Users\Steve-PC\Dropbox\Repos\Pipeline-Desktop\LeadHarvest\bin\Debug\System.Net.Http.Primitives.xml
+C:\Users\Steve-PC\Dropbox\Repos\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.csproj.App.config
+C:\Users\Steve-PC\Dropbox\Repos\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.csprojResolveAssemblyReference.cache
+C:\Users\Steve-PC\Dropbox\Repos\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.New_Jobs.resources
+C:\Users\Steve-PC\Dropbox\Repos\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.csproj.GenerateResource.Cache
+C:\Users\Steve-PC\Dropbox\Repos\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.dll
+C:\Users\Steve-PC\Dropbox\Repos\Pipeline-Desktop\LeadHarvest\obj\Debug\LeadHarvest.pdb
