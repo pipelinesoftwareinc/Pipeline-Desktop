@@ -113,6 +113,7 @@ namespace PipeLineDesktop
         }
         private void AddUpdateColumn()
         {
+            return;
             bool added=false;
             foreach(DataGridViewColumn c in dataGridOpp.Columns)
             {
@@ -146,20 +147,20 @@ namespace PipeLineDesktop
 
         private void AddColumn()
         {
-            DataGridViewTextBoxColumn col1=new DataGridViewTextBoxColumn();
-            col1.HeaderText="Updated";
-            col1.Name="RecentUpdated";
-            col1.Width=20;
-            col1.DefaultCellStyle.ForeColor=Color.Black;
-            col1.DefaultCellStyle.Font= new Font(FontFamily.GenericSansSerif, 50,FontStyle.Bold);
-            col1.DefaultCellStyle.Alignment=DataGridViewContentAlignment.MiddleCenter;
-            //col1.DefaultCellStyle.
-            this.dataGridOpp.Columns.Insert(1, col1);
-            this.dataGridOpp.Refresh();
-            this.dataGridOpp.Columns["RecentUpdated"].DisplayIndex=1;
-            this.dataGridOpp.Refresh();
+            //DataGridViewTextBoxColumn col1=new DataGridViewTextBoxColumn();
+            //col1.HeaderText="Updated";
+            //col1.Name="RecentUpdated";
+            //col1.Width=20;
+            //col1.DefaultCellStyle.ForeColor=Color.Black;
+            //col1.DefaultCellStyle.Font= new Font(FontFamily.GenericSansSerif, 50,FontStyle.Bold);
+            //col1.DefaultCellStyle.Alignment=DataGridViewContentAlignment.MiddleCenter;
+            ////col1.DefaultCellStyle.
+            //this.dataGridOpp.Columns.Insert(1, col1);
+            //this.dataGridOpp.Refresh();
+            //this.dataGridOpp.Columns["RecentUpdated"].DisplayIndex=1;
+           // this.dataGridOpp.Refresh();
 
-            this._referneceURL=this.dataGridOpp.Columns["ResponseUri"].Index;
+            this._referneceURL=this.dataGridOpp.Columns["Response Uri"].Index;
             this._oppid=this.dataGridOpp.Columns["oppid"].Index;
             this._selectedID=this.dataGridOpp.SelectedCells[this._oppid].Value.ToString();
 
@@ -467,17 +468,17 @@ namespace PipeLineDesktop
                 // delete
                 if(e.KeyValue!=46)
                     return;
-                try
-                {
-                    if(dataGridOpp["RecentUpdated", dataGridOpp.SelectedRows[0].Index].Value.ToString()=="\u221A")
-                    {
-                        if(MessageBox.Show("You updated data for this opportunity, If you delete now.. your data will lost", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.Cancel)
-                            return;
-                    }
-                }catch
-                {
-                    //
-                }
+                //try
+                //{
+                //    if(dataGridOpp["RecentUpdated", dataGridOpp.SelectedRows[0].Index].Value.ToString()=="\u221A")
+                //    {
+                //        if(MessageBox.Show("You updated data for this opportunity, If you delete now.. your data will lost", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.Cancel)
+                //            return;
+                //    }
+                //}catch
+                //{
+                //    //
+                //}
 
                 bool cont = true;
                 List<DataGridViewRow> rows=new List<DataGridViewRow>();
@@ -752,17 +753,17 @@ namespace PipeLineDesktop
             IHTMLTxtRange htmlTxtRange=selection.createRange() as IHTMLTxtRange;
             if(htmlTxtRange.text!=null)
             {
-                if(MessageBox.Show("Are you sure... Update: Old Value: "+this.dataGridOrg[Field,0].Value+"\n New Value: "+htmlTxtRange.text, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.OK)
-                {
+                //if(MessageBox.Show("Are you sure... Update: Old Value: "+this.dataGridOrg[Field,0].Value+"\n New Value: "+htmlTxtRange.text, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.OK)
+               // {
                     SQLiteCommand cmd=new SQLiteCommand(string.Format("UPDATE organization SET {2} = '{1}' WHERE ID={0};", this._selectedID, htmlTxtRange.text, Field));
                     cmd.Connection=_connection;
                     cmd.ExecuteNonQuery();
                     
-                }
-                else
-                {
+             //   }
+              //  else
+              //  {
                     //int num=(int)MessageBox.Show("Please select some text on webbrowser, then try to update..");
-                }
+              //  }
             }
             else
             {
@@ -788,16 +789,16 @@ namespace PipeLineDesktop
             IHTMLTxtRange htmlTxtRange=selection.createRange() as IHTMLTxtRange;
             if(htmlTxtRange.text!=null)
             {
-                if(MessageBox.Show("Are you sure... Update: Old Value: "+this.dataGridOrg[Field+"Url", 0].Value+" New Value: "+htmlTxtRange.text, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.OK)
-                {
-                    SQLiteCommand cmd=new SQLiteCommand(string.Format("UPDATE organization SET {2} = '{1}' WHERE ID={0};", this._selectedID, htmlTxtRange.text, Field));
-                    cmd.Connection=_connection;
-                    cmd.ExecuteNonQuery();
-                }
-                else
-                {
-                    //int num=(int)MessageBox.Show("Please select some text on webbrowser, then try to update..");
-                }
+                //if(MessageBox.Show("Are you sure... Update: Old Value: "+this.dataGridOrg[Field+"Url", 0].Value+" New Value: "+htmlTxtRange.text, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.OK)
+                //{
+                SQLiteCommand cmd = new SQLiteCommand(string.Format("UPDATE organization SET {2} = '{1}' WHERE ID={0};", this._selectedID, htmlTxtRange.text, Field));
+                cmd.Connection = _connection;
+                cmd.ExecuteNonQuery();
+                //}
+                //else
+                //{
+                //    //int num=(int)MessageBox.Show("Please select some text on webbrowser, then try to update..");
+                //}
             }
             else
             {
@@ -813,6 +814,7 @@ namespace PipeLineDesktop
         private void viewSourceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string html=webBrowser1.DocumentText;
+            NotepadHelper.ShowMessage(html, "View Source");
         }
 
         #region Block PopUp
@@ -844,8 +846,8 @@ namespace PipeLineDesktop
             string selectedText=this.getSelectedText();
             if(!string.IsNullOrEmpty(selectedText))
             {
-                if(MessageBox.Show("Are you sure... set Phone No. to: "+selectedText, "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)!=DialogResult.OK)
-                    return;
+                //if(MessageBox.Show("Are you sure... set Phone No. to: "+selectedText, "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)!=DialogResult.OK)
+                //    return;
 
                 int ii=this.CreatePhone(selectedText);
                 if(ii==0) MessageBox.Show("some exception occur");
@@ -940,17 +942,12 @@ namespace PipeLineDesktop
             {
                 MessageBox.Show("Please select some text and try again."); return;
             }
-           // if (MessageBox.Show("Are you sure... Update: Old Value: " + this.dataGridOpp.SelectedRows[0].Cells["snippet"].Value + " New Value: " + selectedText, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
-           // {
+         
                 SQLiteCommand cmd = new SQLiteCommand(string.Format("UPDATE opportunity SET Compensation = '{1}' WHERE ID={0};", this._selectedID, selectedText.Replace("'", "''")));
                 cmd.Connection = _connection;
                 cmd.ExecuteNonQuery();
-            RefreshGrid();
-          //  }
-           // else
-            //{
-            //
-           // }
+                RefreshGrid();
+          
         }
 
         private void RefreshGrid()
@@ -962,6 +959,30 @@ namespace PipeLineDesktop
         private void ciToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void dataGridOpp_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 11 || e.ColumnIndex == 12)
+            {
+                var url = dataGridOpp[e.ColumnIndex, e.RowIndex].Value.ToString();
+                this.webBrowser1.Url = new Uri(url);                
+                this.textBox1.Text = url.ToString();
+            }
+        }
+
+        private void jobTypeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string selectedText = this.getSelectedText();
+            if (string.IsNullOrEmpty(selectedText))
+            {
+                MessageBox.Show("Please select some text and try again."); return;
+            }
+
+            SQLiteCommand cmd = new SQLiteCommand(string.Format("UPDATE opportunity SET JobType = '{1}' WHERE ID={0};", this._selectedID, selectedText.Replace("'", "''")));
+            cmd.Connection = _connection;
+            cmd.ExecuteNonQuery();
+            RefreshGrid();
         }
     }
 }
