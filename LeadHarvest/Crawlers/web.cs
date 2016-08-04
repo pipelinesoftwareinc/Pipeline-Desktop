@@ -15,7 +15,7 @@ namespace LeadHarvest.Crawlers
         private string _HTML;
 
         private List<string> _lSkip = new List<string>(new string[] { 
-                "mailto:", "www.w3.org", "http://ssl", // standards
+                "www.w3.org", "http://ssl", // standards
                 "ajax.microsoft", "ajax.google.com", "schema.", // technology
                 "verisign", "indeed.com", "Addthis.com",  // companys
                 "//platform.", "twitter.com/widgets", "api.twitter.com", "twitter.com/share", "twitter.com/home?","twitter.com/intent/", "=http://twitter.com", "logo@2x.png", "2x.png"

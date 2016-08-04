@@ -15,19 +15,22 @@ namespace LeadHarvest.Database
             try 
             {  
                 string query = String.Format("INSERT IGNORE INTO opportunity" +
-                    "(ID, OrganizationID, SourceID, SearchID, Title, Snippet, DatePosted, City, State, ResponseUri, SourceKey, Created)" +
-                    "VALUES({0},{1},{2},'{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}');" +
-                    "SELECT ID FROM opportunity WHERE SourceKey='{9}';",
+                    "(ID, OrganizationID, SourceID, SearchID, Title, JobType, Compensation, Snippet, DatePosted, City, State, ResponseUri, SourceUri, SourceKey, Created)" +
+                    "VALUES({0},{1},{2},'{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}');" +
+                    "SELECT ID FROM opportunity WHERE SourceKey='{13}';",
                     oppertunity.ID,
                     oppertunity.OrganizationID,
                     oppertunity.SourceID,
                     oppertunity.SearchID,                    
                     MySqlHelper.EscapeString(oppertunity.Title),
+                    MySqlHelper.EscapeString(oppertunity.JobType),
+                    MySqlHelper.EscapeString(oppertunity.Compensation),
                     MySqlHelper.EscapeString(oppertunity.Snippet), 
                     oppertunity.DatePosted.ToString("yyyy-MM-dd HH:mm:ss"),
                     MySqlHelper.EscapeString(oppertunity.City), 
                     oppertunity.State, 
                     oppertunity.ResponseUri,
+                    oppertunity.SourceUri,
                     oppertunity.SourceKey,
                     DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                 MySqlCommand cmd = new MySqlCommand(query, dbConnection);

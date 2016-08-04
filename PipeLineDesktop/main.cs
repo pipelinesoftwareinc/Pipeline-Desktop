@@ -50,7 +50,7 @@ namespace PipeLineDesktop
         private void main_Load(object sender, EventArgs e)
         {
 
-            WindowState=FormWindowState.Maximized;
+            //WindowState=FormWindowState.Maximized;
             webBrowser1.ScriptErrorsSuppressed=true;
             webBrowser1.ContextMenuStrip=this.contextMenuStrip1;            
       
@@ -64,33 +64,33 @@ namespace PipeLineDesktop
         #endregion
         private void FillDG()
         {
-            SQLiteDataAdapter sqLiteDataAdapter = new SQLiteDataAdapter(string.Format("select * from leads order by modified desc;", new object[0]), this._connection);
-            DataSet dataSet=new DataSet();
-            sqLiteDataAdapter.Fill(dataSet);
 
-            this.dataGridOpp.DataSource=null;
-            this.dataGridOpp.Rows.Clear();
-            this.dataGridOpp.Columns.Clear();
-
-            this.dataGridOpp.DataSource=(object)dataSet.Tables[0];
             try
             {
-                this._referneceURL=this.dataGridOpp.Columns["ResponseUri"].Index;
+                SQLiteDataAdapter sqLiteDataAdapter = new SQLiteDataAdapter(string.Format("select * from leads order by modified desc;", new object[0]), this._connection);
+                DataSet dataSet=new DataSet();
+                sqLiteDataAdapter.Fill(dataSet);
+
+                this.dataGridOpp.Rows.Clear();
+                this.dataGridOpp.DataSource=(object)dataSet.Tables[0];
+
+                this._referneceURL=this.dataGridOpp.Columns["Response Uri"].Index;
                 this._oppid=this.dataGridOpp.Columns["oppid"].Index;
-                this._selectedID=this.dataGridOpp.SelectedCells[this._oppid].Value.ToString();
+
+                //this._selectedID=this.dataGridOpp.SelectedCells[this._oppid].Value.ToString();
+
+                this.dataGridOpp.Columns["oppid"].Visible = true;
                 this.dataGridOpp.Columns["searchid"].Visible=false;
-                this.dataGridOpp.Columns["oppid"].Visible=true;
                 this.dataGridOpp.Columns["orgid"].Visible=false;
-                this.dataGridOpp.Columns["Name"].HeaderText= "Organization";
-                this.dataGridOpp.Columns["SearchTerm"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                AddCheckboxColumn();
+
+                //AddCheckboxColumn();
                 //AddUpdateColumn();
-                AddColumn();
-                MarkUpdated();
+                //AddColumn();
+                //MarkUpdated();
+
                 InitializeDataGridView(dataGridOpp);
             }
-            catch
-            {
+            catch (Exception ex) { Console.Write(ex.Message);
             }
         }
 
@@ -102,7 +102,6 @@ namespace PipeLineDesktop
             col1.Name="Chkbx";
             col1.Width=20;
             this.dataGridOpp.Columns.Insert(0, col1);
-            this.dataGridOpp.Refresh();
             this.dataGridOpp.Columns["Chkbx"].DisplayIndex=0;
             this.dataGridOpp.Refresh();
 
@@ -127,7 +126,7 @@ namespace PipeLineDesktop
             dataGridOpp["RecentUpdated", dataGridOpp.SelectedRows[0].Index].Value="\u221A";
             dataGridOpp["RecentUpdated", dataGridOpp.SelectedRows[0].Index].Style.SelectionForeColor=Color.Black;
             dataGridOpp["RecentUpdated", dataGridOpp.SelectedRows[0].Index].Style.Font=new Font(FontFamily.GenericSansSerif, 10f, FontStyle.Bold);
-            dataGridOpp["Modified", dataGridOpp.SelectedRows[0].Index].Value=DateTime.Now.ToString();
+            dataGridOpp["Modified", dataGridOpp.SelectedRows[0].Index].Value= DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             this.dataGridOpp.Refresh();
         }
 
@@ -172,42 +171,9 @@ namespace PipeLineDesktop
         #region InitializeDataGridView()
         private void InitializeDataGridView(DataGridView dg)
         {
-            dg.ReadOnly=false;
+            dg.ReadOnly=true;
             dg.AllowUserToResizeColumns=true;
             dg.AutoSizeColumnsMode=DataGridViewAutoSizeColumnsMode.DisplayedCells;
-
-            int MaxWidth=150;
-            foreach(DataGridViewColumn c in dg.Columns)
-            {
-                if(c.Width>MaxWidth)
-                {
-                    //c.AutoSizeMode=DataGridViewAutoSizeColumnMode.None;
-                    c.Width=MaxWidth;
-                }
-                if(c.Name=="RecentUpdated")
-                {
-                    c.Width=50;
-                    c.DefaultCellStyle.ForeColor=Color.Black;
-                    c.DefaultCellStyle.Font=new Font(FontFamily.GenericSansSerif, 50, FontStyle.Bold);
-                    c.DefaultCellStyle.Alignment=DataGridViewContentAlignment.MiddleCenter;
-                    
-                }
-                if(c.Name=="OppId" || c.Name == "StateId")
-                {
-                    c.Width = 10;
-                }
-                c.AutoSizeMode=DataGridViewAutoSizeColumnMode.None;
-            }
-
-            for(int i=0; i<dg.Rows.Count; i++)
-            {
-                for(int j=1; j<dg.Columns.Count; j++)
-                {
-                    dg.Columns[j].ReadOnly=true;
-                }
-            }
-
-            //AutoResizeGridFillAllArea(dg);
         }
 
         private void InitializeDataGridView1(DataGridView dg)
@@ -556,7 +522,7 @@ namespace PipeLineDesktop
         #region Update
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(MessageBox.Show("Are you sure... you want to start update", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.OK)
+            //if(MessageBox.Show("Are you sure... you want to start update", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)==DialogResult.OK)
                 new Thread(new ThreadStart(Update)).Start();
         }
         bool Updating=false;
@@ -573,25 +539,11 @@ namespace PipeLineDesktop
 
             try
             {
-
-                DateTime dtStart=DateTime.Now;
                 LeadHarvesterExternal lhe=new LeadHarvesterExternal();
                 lhe.HarvestLead("pipeLine.db");
-
                 base.Invoke(new Action(() =>
                 {
-                    string query=String.Format("SELECT * FROM leads where created > datetime('"+dtStart.ToString("yyyy-MM-dd HH:mm:ss")+"');");                                        
-                    SQLiteDataAdapter dbAdapter=new SQLiteDataAdapter(query, _connection);
-                    DataSet ds=new DataSet();
-                    dbAdapter.Fill(ds);
-                    Updating=false;
-                    if (ds.Tables[0].Rows.Count > 0)
-                    {
-                        new New_Jobs(ds.Tables[0]).ShowDialog();
-                        FillDG();
-                    }
-                    else
-                        MessageBox.Show("DataBase Is Up to date. No New Records Found");
+                    FillDG();
                 }));
             }
             catch(Exception ex)
@@ -967,8 +919,8 @@ namespace PipeLineDesktop
 
         private void purgeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to purge all data from the system ?", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
-            {
+            //if (MessageBox.Show("Are you sure you want to purge all data from the system ?", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            //{
                 PergeTable("email");
                 PergeTable("email_opportunity");
                 PergeTable("email_organization");
@@ -977,8 +929,8 @@ namespace PipeLineDesktop
                 PergeTable("phone");
                 PergeTable("phone_opportunity");
                 PergeTable("phone_organization");
-                MessageBox.Show("Database data purged. Configurations not affected", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-            }
+                //MessageBox.Show("Database data purged. Configurations not affected", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            //}
         }
 
         private void compensationToolStripMenuItem_Click(object sender, EventArgs e)

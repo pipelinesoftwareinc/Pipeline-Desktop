@@ -22,7 +22,7 @@ namespace LeadHarvest.SqliteDal
         {
             try
             {
-                _connection.ConnectionString=_connection.ConnectionString=String.Format("Data Source={0};version=3;Compress=True;", Database);
+                _connection.ConnectionString=_connection.ConnectionString=String.Format("Data Source={0};version=3;Compress=True;datetimeformat=CurrentCulture", Database);
 
                 _connection.Open();
                 return _connection;

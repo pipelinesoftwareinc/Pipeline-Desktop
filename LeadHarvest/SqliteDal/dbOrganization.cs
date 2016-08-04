@@ -68,7 +68,7 @@ namespace LeadHarvest.SqliteDal
         {
             try
             {
-                string query = String.Format(@"INSERT OR IGNORE INTO organization(Name)VALUES('{0}');SELECT ID FROM organization WHERE Name='{0}';", name);
+                string query = String.Format(@"INSERT OR IGNORE INTO organization(Name, Modified)VALUES('{0}','{1}');SELECT ID FROM organization WHERE Name='{0}';", name, DateTime.Now);
                 SQLiteCommand cmd=new SQLiteCommand(query, dbConnection);
                 return Convert.ToInt32(cmd.ExecuteScalar());
             }
@@ -79,9 +79,9 @@ namespace LeadHarvest.SqliteDal
         {
             try            {
             string query = String.Format(@"UPDATE organization SET 
-                Name='{0}',EmailDomain='{1}',Description='{2}',LinkedIn='{3}',Facebook='{4}',Twitter='{5}',GooglePlus='{6}'
-                WHERE ID={7};",
-                org.Name, org.EmailDomain, org.Description.Replace("'","''"), org.LinkedIn, org.Facebook, org.Twitter, org.GooglePlus, org.ID);
+                Name='{1}',EmailDomain='{2}',Description='{3}',LinkedIn='{4}',Facebook='{5}',Twitter='{6}',GooglePlus='{7}', Modified={8}
+                WHERE ID={0};",
+                org.ID, org.Name, org.EmailDomain, org.Description.Replace("'","''"), org.LinkedIn, org.Facebook, org.Twitter, org.GooglePlus, DateTime.Now);
             SQLiteCommand cmd=new SQLiteCommand(query, dbConnection);
             cmd.ExecuteNonQuery();
             }
