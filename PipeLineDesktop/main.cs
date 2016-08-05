@@ -758,7 +758,7 @@ namespace PipeLineDesktop
                     SQLiteCommand cmd=new SQLiteCommand(string.Format("UPDATE organization SET {2} = '{1}' WHERE ID={0};", this._selectedID, htmlTxtRange.text, Field));
                     cmd.Connection=_connection;
                     cmd.ExecuteNonQuery();
-                    
+                RefreshGrid();
              //   }
               //  else
               //  {
