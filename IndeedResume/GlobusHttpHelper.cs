@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Text;
 
 public class GlobusHttpHelper
@@ -27,7 +28,26 @@ public class GlobusHttpHelper
     {
     }
 
-   
+    public void ChangeProxy(string proxyAddress, int port, string proxyUsername, string proxyPassword)
+    {
+        try
+        {
+            WebProxy webProxy = new WebProxy(proxyAddress, port)
+            {
+                BypassProxyOnLocal = false
+            };
+            if ((string.IsNullOrEmpty(proxyUsername) ? false : !string.IsNullOrEmpty(proxyPassword)))
+            {
+                webProxy.Credentials = new NetworkCredential(proxyUsername, proxyPassword);
+            }
+            this.gRequest.Proxy = webProxy;
+        }
+        catch (Exception exception)
+        {
+        }
+    }
+
+  
 
     public string getHtmlfromUrl(Uri url)
     {
